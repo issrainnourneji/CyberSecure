@@ -3,10 +3,14 @@ package com.example.CyberSecure.Services;
 import com.example.CyberSecure.Dto.LoginRequest;
 import com.example.CyberSecure.Dto.Response;
 import com.example.CyberSecure.Dto.UserDto;
+import com.example.CyberSecure.Entities.EmailVerif.EmailTemplateName;
+import com.example.CyberSecure.Entities.EmailVerif.Token;
 import com.example.CyberSecure.Entities.User;
 import com.example.CyberSecure.Enums.UserRole;
+import com.example.CyberSecure.Exceptions.InvalidCredentialsException;
 import com.example.CyberSecure.Exceptions.NotFoundException;
 import com.example.CyberSecure.Mapper.EntityDtoMapper;
+import com.example.CyberSecure.Repositories.TokenRepository;
 import com.example.CyberSecure.Repositories.UserRepository;
 import com.example.CyberSecure.Security.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ import jakarta.mail.MessagingException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,21 +33,28 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl {
 
+
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final EntityDtoMapper entityDtoMapper;
+    private final EmailServiceImpl emailService;
+    private final TokenRepository tokenRepository;
+
+
+    private String activationUrl = "http://localhost:4200/activate-account";
 
 
 
-
-
+    @Transactional
     public Response registerUser(UserDto registrationRequest) {
+        // Default user role is USER
         UserRole role = UserRole.USER;
         if (registrationRequest.getRole() != null && registrationRequest.getRole().equalsIgnoreCase("admin")) {
             role = UserRole.ADMIN;
         }
 
+        // Create user object
         User user = User.builder()
                 .name(registrationRequest.getName())
                 .email(registrationRequest.getEmail())
@@ -54,8 +66,11 @@ public class UserServiceImpl {
                 .role(role)
                 .build();
 
+        // Save the user temporarily
         User savedUser = userRepo.save(user);
 
+
+        // Send validation email
         try {
             sendValidationEmail(savedUser);
         } catch (MessagingException e) {
@@ -69,6 +84,7 @@ public class UserServiceImpl {
                 .user(userDto)
                 .build();
     }
+
 
     public Response loginUser(LoginRequest loginRequest) {
 
@@ -103,6 +119,7 @@ public class UserServiceImpl {
                 .userList(userDtos)
                 .build();
     }
+
 
     public User getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -178,6 +195,24 @@ public class UserServiceImpl {
         }
 
         return codeBuilder.toString();
+    }
+
+
+    public User findByEmail(String email) {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        return optionalUser.orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
+    public User getUserById(Long userId) {
+        return userRepo.findById(userId).orElse(null);
+    }
+
+    public void DeleteUser(Long id) {
+        userRepo.deleteById(id);
+    }
+
+    public void DeleteToken(Integer id) {
+        tokenRepository.deleteById(id);
     }
 
     public void requestPasswordReset(String email) throws MessagingException {

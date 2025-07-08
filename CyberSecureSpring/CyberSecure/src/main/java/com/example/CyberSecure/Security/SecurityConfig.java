@@ -29,7 +29,19 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**"
+                        .requestMatchers("/auth/**",
+                                "/simulation/**",
+                                "/user/**",
+                                "/Prestation/**",
+                                "/contrat/**",
+                                "/post/**",
+                                "/devis/**",
+                                "/facture/**",
+                                "/uploads/**",
+                                "/rendezvous/**",
+                                "/reclamation/**",
+                                "/payer/**",
+                                "/chat/**"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

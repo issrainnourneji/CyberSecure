@@ -8,19 +8,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private String id;
+    private Long id;
     private String email;
     private String name;
     private String phoneNumber;
     private String password;
     private String address;
     private String role;
+
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -29,6 +33,7 @@ public class UserDto {
         this.phoneNumber = user.getPhoneNumber();
         this.address = user.getAddress();
         this.password = user.getPassword();
-        this.role = user.getRole() != null ? user.getRole().toString() : null;
+        this.role = user.getRole().toString();
+
     }
 }

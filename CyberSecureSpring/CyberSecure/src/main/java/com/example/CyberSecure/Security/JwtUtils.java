@@ -32,13 +32,13 @@ public class JwtUtils {
     }
 
 
-    public String generateToken(User user) {
+    public String generateToken(User user){
         String username = user.getEmail();
-        String userId = user.getId();
+        Long userId = user.getId();
         return generateToken(username, userId);
     }
 
-    public String generateToken(String username, String userId){
+    public String generateToken(String username, Long userId){
         return Jwts.builder()
                 .subject(username)
                 .claim("userId", userId)
@@ -49,7 +49,7 @@ public class JwtUtils {
     }
 
     public String extractEmail(String token) {
-        return extractClaims(token, claims -> claims.getSubject());
+        return extractClaims(token, claims -> claims.getSubject());  // Le sujet est généralement l'email
     }
 
     public Long getUserIdFromToken(String token) {

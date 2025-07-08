@@ -20,7 +20,6 @@ public class Response {
     private String  expirationTime;
     private UserDto user;
     private List<UserDto> userList;
-    private List<UserDto> users;
+    private List<UserDto> users;  // Ajout d'un attribut pour les utilisateurs
 
 }
-
