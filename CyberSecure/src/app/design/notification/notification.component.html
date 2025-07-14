@@ -1,0 +1,12 @@
+<div class="messages-argus">
+  <div
+    *ngFor="let notification of notifications"
+    class="{{ cssClass(notification) }}"
+    (click)="removeAlert(notification)"
+  >
+    <span class="icon">
+      <i [ngClass]="iconClass(notification)"></i>
+    </span>
+    <p [innerHtml]="notification?.message"></p>
+  </div>
+</div>

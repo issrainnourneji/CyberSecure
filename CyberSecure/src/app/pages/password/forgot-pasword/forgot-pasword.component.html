@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow p-4 rounded bg-light border-black">
+        <h2 class="text-center text-black">Réinitialisation de mot de passe</h2>
+        <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="email">Adresse e-mail :</label>
+            <input id="email" type="email" formControlName="email" class="form-control" placeholder="Email" id="coupon_code" value=""/>
+            <div *ngIf="resetForm.get('email')?.invalid && resetForm.get('email')?.touched" class="text-danger">
+              Une adresse e-mail valide est requise.
+            </div>
+          </div>
+          <button type="submit" [disabled]="resetForm.invalid" class=" w-100">
+            Envoyer
+          </button>
+        </form>
+        <p *ngIf="message" class="text-success text-center mt-3">{{ message }}</p>
+        <p *ngIf="error" class="text-danger text-center mt-3">{{ error }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+                                    

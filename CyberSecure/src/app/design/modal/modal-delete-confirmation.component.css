@@ -1,0 +1,33 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "modal.css";
+
+
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+
+
+.modal {
+  .modal-header {
+    padding: 0;
+  }
+  .modal-dialog {
+    margin: 15.75rem auto;
+
+    .modal-body {
+      .form-delete {
+        padding-top: 15px;
+
+        .form-delete-content {
+          position: relative;
+          margin-bottom: 15px;
+          font-size: 13px;
+          color: #34404b;
+        }
+      }
+    }
+  }
+}

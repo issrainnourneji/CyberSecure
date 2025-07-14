@@ -37,8 +37,10 @@ export class HomeAdminComponent implements OnInit, OnDestroy {
 
   confirmLogout() {
   this.apiService.logout();
-  this.router.navigate(['/home']);
+  this.router.navigate(['home']);
   this.apiService.authStatuschanged.emit();
+  window.location.reload();
+
 }
 
 

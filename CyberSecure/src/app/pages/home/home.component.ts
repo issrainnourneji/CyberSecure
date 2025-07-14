@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from '../../services/services/token.service';
 import { Subscription } from 'rxjs';
+import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -16,8 +15,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   isClient: boolean = false;
   isAuthenticated: boolean = false;
   private authStatusSub: Subscription | null = null;
+  formations: any[] = [];
 
-  constructor(private router: Router, private readonly apiService: TokenService){}
+
+  constructor(private router: Router, private readonly apiService: TokenService , private formationService: FormationServiceService){}
 
     ngOnInit(): void {
     this.isAuthenticated = this.apiService.isAuthenticated();
@@ -32,6 +33,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.isClient = this.apiService.isClient();
 
     })
+
+ this.formationService.getAllFormations().subscribe(
+      (response) => {
+        this.formations = response;
+      },
+      (error) => {
+        console.error('Error fetching formations:', error);
+      }
+    );
   }
 
   login(){

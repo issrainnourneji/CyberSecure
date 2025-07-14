@@ -1,0 +1,92 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+.messages-argus {
+  & {
+    z-index: 9999;
+    position: fixed;
+    top: 10px; /* Pour laisser un peu d'espace en haut */
+    right: 10px; /* Aligner les notifications à droite */
+    width: 30%; /* Limiter la largeur pour un meilleur affichage */
+  }
+
+  .message {
+    display: flex; /* Utiliser flex pour aligner les icônes et le texte */
+    align-items: center; /* Centrer verticalement les éléments */
+    position: relative;
+    padding: 15px;
+    margin-bottom: 10px; /* Espacement entre les notifications */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre pour un effet visuel */
+    font-size: 14px; /* Ajustement de la taille du texte */
+    font-weight: 600;
+    color: white;
+    background-color: #feecea; /* Couleur par défaut */
+    opacity: 0.999;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition pour disparition */
+    cursor: pointer;
+  }
+
+  .message:hover {
+    transform: scale(1.02); /* Zoom léger au survol */
+  }
+
+  .message strong {
+    color: inherit; /* Garder la couleur du texte principale */
+  }
+
+  .icon {
+    flex-shrink: 0; /* Empêcher la réduction des icônes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    border-radius: 50%;
+    color: white; /* Couleur de l'icône */
+    font-size: 18px;
+  }
+
+  .message--success {
+    background-color: #e9fcf6;
+    color: #28a745;
+  }
+
+  .message--success .icon {
+    background-color: #28a745;
+  }
+
+  .message--error {
+    background-color: #f8d7da;
+    color: #dc3545;
+  }
+
+  .message--error .icon {
+    background-color: #dc3545;
+  }
+
+  .message--info {
+    background-color: #d1ecf1;
+    color: #17a2b8;
+  }
+
+  .message--info .icon {
+    background-color: #17a2b8;
+  }
+
+  .message--warning {
+    background-color: #fff3cd;
+    color: #ffc107;
+  }
+
+  .message--warning .icon {
+    background-color: #ffc107;
+  }
+
+  /* Disparition des notifications */
+  .message.fade-out {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

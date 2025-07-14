@@ -1,0 +1,86 @@
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 6;
+  .modal-content {
+    display: block;
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      cursor: pointer;
+      &.icn-close {
+        height: 20px;
+        width: 20px;
+        /* background-image: url(../../../favicon.ico); */
+        background-size: 20px;
+        z-index: 1;
+      }
+    }
+    .modal-header {
+      border-bottom: 1px solid gray;
+      .modal-title {
+        margin: 0;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 55px;
+        text-align: left;
+        color:black
+      }
+    }
+    .modal-body {
+      font-size: 13px;
+      font-weight: 400;
+    }
+    .modal-footer {
+      border-top: 1px solid gray;
+      justify-content: center;
+      padding: 10px;
+    }
+    .exported-file-title-input {
+      box-sizing: border-box;
+      display: inline-block;
+      z-index: 1;
+      position: relative;
+      height: 30px;
+      border: 1px solid #9b9b9b;
+      border-radius: 3px;
+      line-height: 26px;
+      vertical-align: middle;
+      background-color: #fff;
+      color: #34404b;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: Montserrat, sans-serif;
+      width: 100%;
+    }
+  }
+}
+button,
+.btn {
+  padding: 0 24px;
+  color: #34404b;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 34px;
+  border-radius: 20px;
+  font-family: "Montserrat", sans-serif;
+  &.btn-default {
+    background-color: white;
+    border: 1px solid blue;
+    &:hover {
+      background-color:red;
+    }
+  }
+  &.btn-valid {
+    background-color: green;
+    color: #fff;
+    &:disabled {
+      background-color: rgb(103, 65, 65)
+    }
+    &:hover:not(:disabled) {
+      background-color: greenyellow;
+    }
+  }
+}

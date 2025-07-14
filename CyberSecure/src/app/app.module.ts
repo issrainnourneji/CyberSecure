@@ -12,6 +12,18 @@ import { LoginComponent } from './pages/login/login.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { HomeUserComponent } from './clients/home-user/home-user.component';
+import { UsersListComponent } from './admin/users-list/users-list.component';
+import { NotificationService } from './design/notification/notification.service';
+import { NotificationComponent } from './design/notification/notification.component';
+import { ModalDeleteConfirmationComponent } from './design/modal/modal-delete-confirmation.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ForgotPaswordComponent } from './pages/password/forgot-pasword/forgot-pasword.component';
+import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
+import { AddFormationComponent } from './admin/formation/add-formation/add-formation.component';
+import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
+import { HeaderAdminComponent } from './Components/header-admin/header-admin.component';
+import { FooterAdminComponent } from './Components/footer-admin/footer-admin.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +32,19 @@ import { HomeUserComponent } from './clients/home-user/home-user.component';
     LoginComponent,
     ActivateAccountComponent ,
     HomeAdminComponent,
-    HomeUserComponent
+    HomeUserComponent,
+    UsersListComponent,
+    NotificationComponent,
+    ModalDeleteConfirmationComponent,
+    ProfileComponent,
+    ForgotPaswordComponent,
+    ResetPasswordComponent,
+    AddFormationComponent,
+    FormationListComponent,
+    HeaderAdminComponent,
+    FooterAdminComponent,
+    HomeComponent
+
   ],
   imports: [
     BrowserModule,
@@ -31,7 +55,9 @@ import { HomeUserComponent } from './clients/home-user/home-user.component';
     CodeInputModule,
     HttpClientModule,
   ],
-  providers: [HttpClient],
+  providers: [HttpClient,
+    NotificationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

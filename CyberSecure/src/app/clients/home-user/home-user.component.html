@@ -115,9 +115,30 @@
                 <div class="header-btn border-left-0 ms-3 d-none d-lg-block">
                     <a href="login.html" class="btn btn-grey-outline btn-sm-2 rounded"><i class="fal fa-user me-2"></i>Account</a>
                 </div>
+                <div class="header-btn border-left-0 ms-3 d-none d-lg-block">
+                    <a href="" class="btn btn-grey-outline btn-sm-2 rounded" *ngIf="isAuthenticated" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fal fa-sign-out-alt me-2"></i>Logout</a>
+                </div>
             </div>
         </div>
     </div>
+            <!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="logoutModalLabel"><i class="fa fa-sign-out-alt me-2"></i>Confirm Logout</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to log out?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirmLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
 </header>
 <!--====== Header End ======-->
 <!-- Banner Section Start -->
