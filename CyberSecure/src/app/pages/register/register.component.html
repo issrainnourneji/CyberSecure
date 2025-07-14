@@ -157,47 +157,63 @@
                         </p>
                     </div>
 
-                    <form method="post" class="woocommerce-form woocommerce-form-register register">
+                    <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()" method="post" class="woocommerce-form woocommerce-form-register register">
 
                         <div class="row">
                             <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>First Name&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="first-name" placeholder="First Name">
+                                    <label>Name&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="form-control"formControlName="name" name="name" placeholder="Name">
+                                            <small class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+                                                Name is required
+                                            </small>
                                 </p>
                             </div>
                             <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Last Name&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="last-name"  placeholder="Last Name">
+                                    <label>PhoneNumber&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber"  placeholder="PhoneNumber">
+                                            <small class="error" *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
+                                                Phone number entre 8 et 10 chiffres
+                                            </small>
                                 </p>
                             </div>
                             <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>User Name&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="user-name"  value="" placeholder="Username">
+                                    <label>Addresse&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="form-control"formControlName="address" name="address"  value="" placeholder="Addresse">
+                                            <small class="error" *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched">
+                                                Adresse requise
+                                            </small>
                                 </p>
                             </div>
 
                             <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                     <label>Email&nbsp;<span class="required">*</span></label>
-                                    <input type="email" class="form-control" name="email" value="" placeholder="Your Email">
+                                    <input type="email" class="form-control"formControlName="email" name="email" value="" placeholder="Your Email">
+                                    <small class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                                        Email invalide
+                                    </small>
                                 </p>
                             </div>
 
                             <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                     <label>Password&nbsp;<span class="required">*</span></label>
-                                    <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                                    <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                                    <input [type]="showPassword ? 'text' : 'password'" class="form-control"formControlName="password" name="password"value="" placeholder="Password">
+                                              <small class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                                                Mot de passe de 8 caractères minimum
+                                              </small>
                                 </p>
                             </div>
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                     <label>Re-Enter Password&nbsp;<span class="required">*</span></label>
                                     <input type="password" class="form-control" name="re-password" value="" placeholder="Re-Enter Password">
                                 </p>
-                            </div>
+                            </div> -->
 
                             <div class="col-xl-12">
                                 <div class="d-flex align-items-center justify-content-between py-2">
@@ -208,14 +224,14 @@
                                     </p>
 
                                     <p class="woocommerce-LostPassword lost_password">
-                                        <a href="#">Forgot password?</a>
+                                        <a href="forgot-password">Forgot password?</a>
                                     </p>
                                </div>
                             </div>
                         </div>
 
                         <p class="woocommerce-FormRow form-row">
-                            <button type="submit" class="woocommerce-button button" name="register" value="Register">Register</button>
+                            <button type="submit" [disabled]="registerForm.invalid" class="woocommerce-button button" name="register" value="Register">Register</button>
                         </p>
                     </form>
                 </div>

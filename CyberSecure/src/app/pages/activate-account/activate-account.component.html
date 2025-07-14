@@ -1,0 +1,41 @@
+<!-- Activation Section -->
+<section class="section-padding bg-gray">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-8">
+
+        <!-- Success Message -->
+        <div *ngIf="submitted else codeForm" class="text-center p-4 bg-white rounded shadow-sm">
+          <div *ngIf="isOkay; else activationError">
+            <h2 class="mb-3 text-success">Activation Successful!</h2>
+            <p class="mb-4">Your account has been successfully activated.</p>
+            <button class="btn btn-primary" (click)="redirectToLogin()">Go to Login</button>
+          </div>
+
+          <!-- Error Message -->
+          <ng-template #activationError>
+            <div class="text-center">
+              <h2 class="mb-3 text-danger">Activation Failed!</h2>
+              <p class="mb-4">{{ message }}</p>
+              <button class="btn btn-outline-primary" (click)="submitted = false">Try Again</button>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- Code Form -->
+        <ng-template #codeForm>
+          <div class="text-center p-4 bg-white rounded shadow-sm">
+            <h2 class="mb-4">Type your activation code</h2>
+            <code-input [isCodeHidden]="false"
+                        [codeLength]="6"
+                        [code]="'number'"
+                        (codeCompleted)="onCodeCompleted($event)">
+            </code-input>
+            <button class="btn btn-primary mt-4" (click)="redirectToLogin()">Go to Login</button>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</section>

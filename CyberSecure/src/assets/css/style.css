@@ -1568,7 +1568,7 @@ Banner-3
 
 .banner-style-3 {
   position: relative;
-  background: url("../images/banner/banner-3.jpg") no-repeat center center;
+  background: url("../images/banner/téléchargement.jpg") no-repeat center center;
   background-size: cover;
   -webkit-clip-path: polygon(0 0, 100% 0%, 100% 92%, 0% 100%);
   clip-path: polygon(0 0, 100% 0%, 100% 92%, 0% 100%);

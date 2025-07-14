@@ -39,15 +39,16 @@
 "scripts": [
   "node_modules/jquery/dist/jquery.min.js",
   "src/assets/vendors/jquery/jquery.js",
+  "src/assets/vendors/counterup/jquery.counterup.min.js",
+  "src/assets/vendors/isotope/jquery.isotope.js",
+  "src/assets/vendors/magnific-popup/jquery.magnific-popup.min.js",
+  "src/assets/vendors/owl/owl.carousel.min.js",
+  "src/assets/js/script.js",
   "src/assets/vendors/bootstrap/popper.min.js",
   "src/assets/vendors/bootstrap/bootstrap.js",
   "src/assets/vendors/counterup/waypoint.js",
-  "src/assets/vendors/counterup/jquery.counterup.min.js",
-  "src/assets/vendors/isotope/jquery.isotope.js",
   "src/assets/vendors/isotope/imagelaoded.min.js",
-  "src/assets/vendors/animated-headline/animated-headline.js",
-  "src/assets/vendors/magnific-popup/jquery.magnific-popup.min.js",
-  "src/assets/js/script.js"
+  "src/assets/vendors/animated-headline/animated-headline.js"
 ]
 
 
@@ -122,15 +123,16 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/vendors/jquery/jquery.js",
+              "src/assets/vendors/counterup/jquery.counterup.min.js",
+              "src/assets/vendors/isotope/jquery.isotope.js",
+              "src/assets/vendors/magnific-popup/jquery.magnific-popup.min.js",
+              "src/assets/vendors/owl/owl.carousel.min.js",
+              "src/assets/js/script.js",
               "src/assets/vendors/bootstrap/popper.min.js",
               "src/assets/vendors/bootstrap/bootstrap.js",
               "src/assets/vendors/counterup/waypoint.js",
-              "src/assets/vendors/counterup/jquery.counterup.min.js",
-              "src/assets/vendors/isotope/jquery.isotope.js",
               "src/assets/vendors/isotope/imagelaoded.min.js",
-              "src/assets/vendors/animated-headline/animated-headline.js",
-              "src/assets/vendors/magnific-popup/jquery.magnific-popup.min.js",
-              "src/assets/js/script.js"
+              "src/assets/vendors/animated-headline/animated-headline.js"
             ]
 
 

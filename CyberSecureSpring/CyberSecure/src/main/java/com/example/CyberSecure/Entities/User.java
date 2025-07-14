@@ -50,10 +50,6 @@ public class User implements UserDetails, Principal {
     private LocalDateTime resetPasswordTokenExpiry;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "agent_id")
-    private User agent;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(this.role.name()));

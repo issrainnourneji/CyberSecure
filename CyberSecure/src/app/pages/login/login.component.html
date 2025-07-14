@@ -159,14 +159,21 @@
                             Don't have an account yet? <a href="register" class="text-decoration-underline">Sign Up for Free</a>
                         </p>
                     </div>
-                    <form class="woocommerce-form woocommerce-form-login login" method="post">
+                    <form (ngSubmit)="handleSubmit()" class="woocommerce-form woocommerce-form-login login" method="post">
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                            <label for="username">Username or email address&nbsp;<span class="required">*</span></label>
-                            <input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="username" id="username" autocomplete="username" value="" placeholder="Username or Email">
+                            <label for="email">Email address&nbsp;<span class="required">*</span></label>
+                            <input type="email" class="woocommerce-Input woocommerce-Input--text input-text form-control" [(ngModel)]="formData.email" #email="ngModel" email name="email" id="email" autocomplete="email" value="" placeholder="Email">
+                                <small class="error" *ngIf="email.invalid && email.touched">
+                                  Email is required and must be a valid email
+                                </small>
                         </p>
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="password">Password&nbsp;<span class="required">*</span></label>
-                            <input class="woocommerce-Input woocommerce-Input--text input-text form-control" type="password" name="password" id="password" autocomplete="current-password" placeholder="Password">
+                                <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                            <input class="woocommerce-Input woocommerce-Input--text input-text form-control" type="password" [type]="showPassword ? 'text' : 'password'" name="password" [(ngModel)]="formData.password" minlength="8" #password="ngModel"id="password" autocomplete="current-password" placeholder="Password">
+                            <small class="error" *ngIf="password.invalid && password.touched">
+                              Password is required and must be at least 8 characters long
+                            </small>
                         </p>
 
                        <div class="d-flex align-items-center justify-content-between py-2">
@@ -177,13 +184,13 @@
                             </p>
 
                             <p class="woocommerce-LostPassword lost_password">
-                                <a href="#">Forgot password?</a>
+                                <a href="forgot-password">Forgot password?</a>
                             </p>
                        </div>
 
                        <p class="form-row">
                             <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="a414dce984"><input type="hidden" name="_wp_http_referer" value="/my-account/">
-                            <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
+                            <button type="submit" [disabled]="email.invalid || password.invalid" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
                         </p>
                     </form>
                 </div>
