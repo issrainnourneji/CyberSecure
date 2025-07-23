@@ -13,6 +13,8 @@ import { ForgotPaswordComponent } from './pages/password/forgot-pasword/forgot-p
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { AddFormationComponent } from './admin/formation/add-formation/add-formation.component';
 import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
+import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
+import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -28,6 +30,10 @@ const routes: Routes = [
     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
     {path: 'formationAdminList', component: FormationListComponent,canActivate: [adminGuard]},
     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]},
+    {path: "formationDetails/:id" , component:DetailsFormationComponent},
+    {path: "chapterList/:id" , component:ListChapitreComponent},
+
+
 
 
 

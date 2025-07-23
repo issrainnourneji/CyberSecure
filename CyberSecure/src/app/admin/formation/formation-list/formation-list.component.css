@@ -1,0 +1,35 @@
+.compact-table {
+  font-size: 0.85rem;
+}
+
+.edit-btn {
+  background-color: #4c8ec4;
+  color: white;
+  border: none;
+}
+
+.add-btn {
+  background-color: #193152;
+  color: white;
+  border: none;
+}
+
+.delete-btn {
+  background-color: #efefef;
+  color: #193152;
+  border: 1px solid #193152;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+.edit-btn {
+  background-color: #4c8ec4;
+  color: white;
+  border: none;
+}
+
+.edit-btn:hover {
+  background-color: #366fa3;
+  color: white;
+}

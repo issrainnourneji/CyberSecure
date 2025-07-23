@@ -14,11 +14,13 @@
                      <div class="header-contact text-center text-lg-start d-none d-sm-block">
                           <ul class="list-inline">
                               <li class="list-inline-item">
-                                  <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a href="tel:+(354) 6800 37849"> +(354) 6800 37849</a>
+                                  <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a href="tel:+33 (0) 2 53 35 22 78">F : +33 (0) 2 53 35 22 78</a>
                               </li>
-
                               <li class="list-inline-item">
-                                  <span class="text-color me-2"><i class="fa fa-envelope"></i></span><a href="malito:helloedumel.com"> helloedumel.com</a>
+                                  <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a href="tel:+33 (0) 7 84 70 06 28">M : +33 (0) 7 84 70 06 28</a>
+                              </li>
+                              <li class="list-inline-item">
+                                  <span class="text-color me-2"><i class="fa fa-envelope"></i></span><a href="malito:helloedumel.com">contact&#64;muntucybersecure.com</a>
                               </li>
                           </ul>
                      </div>
@@ -50,7 +52,7 @@
               <div class="d-flex align-items-center justify-content-between">
                   <div class="site-logo">
                       <a href="index.html">
-                          <img src="assets/images/logo.png" alt="" class="img-fluid" />
+                          <p class="img-fluid">Muntu CyberSecure</p>
                       </a>
                   </div>
 
@@ -91,12 +93,6 @@
                       <ul class="primary-menu">
                           <li class="current">
                               <a href="index.html">Home</a>
-                              <ul class="submenu">
-                                  <li><a href="index.html">Home One</a></li>
-                                  <li><a href="index-2.html">Home Two</a></li>
-                                  <li><a href="index-3.html">Home Three</a></li>
-                                  <li><a href="index-4.html">Home Four</a></li>
-                              </ul>
                           </li>
                           <li><a href="about.html">About</a></li>
 
@@ -163,8 +159,8 @@
                           quam ipsa blanditiis, facilis velit eaque illo?</p>
 
                       <div class="btn-container">
-                          <a href="#" class="btn btn-main rounded">Find Courses</a>
-                          <a href="#" class="btn btn-white rounded ms-2">Get started </a>
+                          <button href="#" class=" btn-main rounded">Find Courses</button>
+                          <button href="#" class=" btn-white rounded ms-2">Get started </button>
                       </div>
                   </div>
               </div>
@@ -188,7 +184,7 @@
                       <div class="col-lg-3 col-md-6">
                           <div class="counter-item mb-5 mb-lg-0">
                               <div class="count">
-                                  <span class="counter h2">2000</span><span>+</span>
+                                  <span class="counter h2">{{users.length}}</span><span>+</span>
                               </div>
                               <p>Students</p>
                           </div>
@@ -197,7 +193,7 @@
                       <div class="col-lg-3 col-md-6">
                           <div class="counter-item mb-5 mb-lg-0">
                               <div class="count">
-                                  <span class="counter h2">1200</span>
+                                  <span class="counter h2">{{formations.length}}</span>
                               </div>
                               <p>Online Courses</p>
                           </div>
@@ -246,7 +242,7 @@
                   <div class="course-grid bg-shadow tooltip-style">
                       <div class="course-header">
                           <div class="course-thumb">
-                              <img src="../../../assets/images/banner/téléchargement.jpg" alt="" class="img-fluid">
+<img [src]="'http://localhost:8080/files/' + formation.imageUrl" alt="Post Image" class="img-fluid">
                               <div class="course-price">{{formation.price}} $</div>
                           </div>
                       </div>
@@ -267,7 +263,7 @@
                           <div class="course-footer mt-20 d-flex align-items-center justify-content-between ">
                               <span class="duration"><i class="far fa-clock me-2"></i>{{formation.duration}} hr</span>
                               <span class="students"><i class="far fa-user-alt me-2"></i>{{formation.numberOfStudents}} Students</span>
-                              <span class="lessons"><i class="far fa-play-circle me-2"></i>26 Lessons</span>
+                              <span class="lessons"><i class="far fa-play-circle me-2"></i>{{formation.chapitres?.length}} Lessons</span>
                           </div>
                       </div>
 
@@ -275,14 +271,10 @@
                           <div class="price">{{formation.price}} $</div>
                           <h3 class="course-title mb-20 mt-30"> <a href="#">{{formation.title}}</a> </h3>
                           <div class="course-meta d-flex align-items-center mb-20">
-                              <div class="author me-4">
-                                  <img src="../../../assets/images/banner/téléchargement.jpg" alt="" class="img-fluid">
-                                  <a href="#">Josephin</a>
-                              </div>
                               <span class="lesson"> <i class="far fa-file-alt"></i>{{formation.numberOfStudents}} Students</span>
                           </div>
                           <p class="mb-20">{{formation.description}}</p>
-                          <a href="#" class="btn btn-grey btn-sm rounded">Join Now <i class="fal fa-angle-right"></i></a>
+                          <button [routerLink]="['/formationDetails', formation.id]" class=" btn-grey btn-sm rounded">Buy Now  <i class="fal fa-angle-right"></i></button>
                       </div>
                   </div>
                </div>
@@ -384,7 +376,6 @@
               <div class="col-xl-8">
                   <div class="section-heading ">
                       <h2 class="font-lg">Start your journey With us</h2>
-                      <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam</p>
                   </div>
               </div>
           </div>
@@ -397,7 +388,6 @@
                               <div class="step-number bg-1">01</div>
                               <div class="step-text">
                                   <h5>Signup with all info</h5>
-                                  <p>Lorem ipsum dolor seat ameat dui too consecteture elite adipaising.</p>
                               </div>
                           </div>
                       </div>
@@ -407,7 +397,6 @@
                               <div class="step-number bg-2">02</div>
                               <div class="step-text">
                                   <h5>Take your Admission</h5>
-                                  <p>Lorem ipsum dolor seat ameat dui too consecteture elite adipaising.</p>
                               </div>
                           </div>
                       </div>
@@ -417,7 +406,6 @@
                               <div class="step-number bg-3">03</div>
                               <div class="step-text">
                                   <h5>Learn from online </h5>
-                                  <p>Lorem ipsum dolor seat ameat dui too consecteture elite adipaising.</p>
                               </div>
                           </div>
                       </div>
@@ -427,7 +415,6 @@
                               <div class="step-number bg-1">04</div>
                               <div class="step-text">
                                   <h5>Get certificate</h5>
-                                  <p>Lorem ipsum dolor seat ameat dui too consecteture elite adipaising.</p>
                               </div>
                           </div>
                       </div>
@@ -902,7 +889,7 @@
                               <div class="cta-content ps-lg-4">
                                   <span class="subheading mb-10">Not sure where to start?</span>
                                   <h2 class="mb-20"> Want to know Special Offers & Updates of new courses?</h2>
-                                  <a href="#" class="btn btn-main rounded"> Join NOw</a>
+                                  <button href="#" class=" btn-main rounded"> Join NOw</button>
                               </div>
                           </div>
                       </div>
@@ -920,7 +907,7 @@
           <div class="col-xl-3 col-sm-8 me-auto">
             <div class="widget footer-widget mb-5 mb-lg-0">
               <div class="footer-logo">
-                <img src="assets/images/logo-white.png" alt="" class="img-fluid">
+                <p class="img-fluid">Muntu CyberSecure</p>
               </div>
 
               <p class="mt-4">Edumel is a Bootstrap Template for online courses
@@ -976,9 +963,9 @@
             <div class="footer-widget mb-5 mb-lg-0">
               <h5 class="widget-title">Address</h5>
               <ul class="list-unstyled footer-links">
-                <li><a href="#">+0800 327 8534</a></li>
-                <li><a href="#">supportedumel.com</a></li>
-                <li><a href="#">123 Fifth Floor East 26th Street,New York, NY 10011</a></li>
+                <li><a href="#">+33 (0) 2 53 35 22 78</a></li>
+                <li><a href="#">contact&#64;muntucybersecure.com</a></li>
+                <li><a href="#">26 allée Semper Virens, 44470, Carquefou - France</a></li>
               </ul>
             </div>
           </div>

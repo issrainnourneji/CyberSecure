@@ -24,6 +24,9 @@ import { FormationListComponent } from './admin/formation/formation-list/formati
 import { HeaderAdminComponent } from './Components/header-admin/header-admin.component';
 import { FooterAdminComponent } from './Components/footer-admin/footer-admin.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
+import { SafeUrlPipe } from './safe-url.pipe';
+import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { HomeComponent } from './pages/home/home.component';
     FormationListComponent,
     HeaderAdminComponent,
     FooterAdminComponent,
-    HomeComponent
+    HomeComponent,
+    DetailsFormationComponent,
+    SafeUrlPipe,
+    ListChapitreComponent
 
   ],
   imports: [

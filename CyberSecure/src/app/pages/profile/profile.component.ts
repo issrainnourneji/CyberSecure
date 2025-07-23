@@ -87,6 +87,7 @@ fetchUserInfo(): void {
   this.apiService.logout();
   this.router.navigate(['home']);
   this.apiService.authStatuschanged.emit();
+    window.location.reload();
 }
 
 

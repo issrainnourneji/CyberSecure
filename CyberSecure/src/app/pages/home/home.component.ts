@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { TokenService } from '../../services/services/token.service';
 import { Subscription } from 'rxjs';
 import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
+import { User } from '../../services/models/user';
+import { Role } from '../../services/models/role';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,8 @@ import { FormationServiceService } from '../../services/services/Formation/forma
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  users: any[] = [];
+  error:any = null;
   isAdmin: boolean = false;
   isClient: boolean = false;
   isAuthenticated: boolean = false;
@@ -42,6 +46,20 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Error fetching formations:', error);
       }
     );
+            this.loadUsers();
+
+  }
+
+
+  loadUsers(): void {
+    this.apiService.getAllUsers().subscribe({
+      next: (response) => {
+      this.users = (response.userList || []).filter((user: User) => user.role === Role.USER);
+      },
+      error: (err) =>{
+        this.error = err?.error?.message || 'unable to get users'
+      }
+    });
   }
 
   login(){

@@ -1,11 +1,14 @@
 package com.example.CyberSecure.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +27,11 @@ public class Formation {
     private double price;
     private double duration;
     private int numberOfStudents;
+
+    @OneToMany(mappedBy = "formation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
+    @JsonManagedReference
+    private List<Chapitre> chapitres;
 
 
     public Formation(String title, String description, String imageUrl, double price, double duration, int numberOfStudents) {

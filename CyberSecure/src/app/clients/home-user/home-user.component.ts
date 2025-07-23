@@ -31,6 +31,8 @@ export class HomeUserComponent implements OnInit, OnDestroy {
   this.apiService.logout();
   this.router.navigate(['/home']);
   this.apiService.authStatuschanged.emit();
+  window.location.reload();
+
 }
 
   ngOnDestroy(): void {
