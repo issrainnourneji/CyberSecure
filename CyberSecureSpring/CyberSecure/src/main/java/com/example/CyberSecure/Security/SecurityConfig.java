@@ -34,7 +34,8 @@ public class SecurityConfig {
                                 "/formation/**",
                                 "/files/**",
                                 "/chapitre/**",
-                                "/slide/**").permitAll()
+                                "/slide/**",
+                                "/rdv/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

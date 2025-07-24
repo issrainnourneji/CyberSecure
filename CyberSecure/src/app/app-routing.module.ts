@@ -15,6 +15,7 @@ import { AddFormationComponent } from './admin/formation/add-formation/add-forma
 import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
 import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
 import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
+import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -32,6 +33,8 @@ const routes: Routes = [
     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]},
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
     {path: "chapterList/:id" , component:ListChapitreComponent},
+    {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
+
 
 
 

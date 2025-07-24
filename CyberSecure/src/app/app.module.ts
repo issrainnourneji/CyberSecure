@@ -27,6 +27,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
 import { SafeUrlPipe } from './safe-url.pipe';
 import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
+import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-cha
     HomeComponent,
     DetailsFormationComponent,
     SafeUrlPipe,
-    ListChapitreComponent
+    ListChapitreComponent,
+    AddRdvComponent
 
   ],
   imports: [
