@@ -51,9 +51,9 @@ export class LoginComponent {
         this.apiService.authStatuschanged.emit();
 
         if (response.role === 'USER') {
-          this.router.navigate(['/homeUser']);
+          this.router.navigate(['/mainUser/home']);
         } else if (response.role === 'ADMIN') {
-          this.router.navigate(['/homeAdmin']);
+          this.router.navigate(['/mainAdmin/home']);
         }
       }
     } catch (error: any) {

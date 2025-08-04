@@ -175,18 +175,23 @@ onSubmitAddFormation(): void {
   }
 
   onSubmitAddChapitre(): void {
-    if (!this.newChapitreTitre.trim() || !this.formationIdForNewChapitre) return;
-    this.chapitreService.addChapitre(this.formationIdForNewChapitre, this.newChapitreTitre).subscribe({
-      next: (newChapitre) => {
-        const formation = this.formations.find(f => f.id === this.formationIdForNewChapitre);
-        if (formation) {
-          formation.chapitres.push(newChapitre);
+  if (!this.newChapitreTitre.trim() || !this.formationIdForNewChapitre) return;
+
+  this.chapitreService.addChapitre(this.formationIdForNewChapitre, this.newChapitreTitre).subscribe({
+    next: (newChapitre) => {
+      const formation = this.formations.find(f => f.id === this.formationIdForNewChapitre);
+      if (formation) {
+        if (!formation.chapitres) {
+          formation.chapitres = [];
         }
-        this.addChapitreModal.hide();
-      },
-      error: (err) => console.error('Erreur lors de l’ajout du chapitre:', err)
-    });
-  }
+        formation.chapitres.push(newChapitre);
+      }
+      this.addChapitreModal.hide();
+    },
+    error: (err) => console.error('Erreur lors de l’ajout du chapitre:', err)
+  });
+}
+
 
   deleteChapitre(chapitreId: number): void {
   if (confirm('Voulez-vous vraiment supprimer ce chapitre ?')) {

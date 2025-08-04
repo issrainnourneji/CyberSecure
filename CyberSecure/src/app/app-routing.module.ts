@@ -16,6 +16,8 @@ import { FormationListComponent } from './admin/formation/formation-list/formati
 import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
 import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
 import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
+import { MainAdminComponent } from './admin/main-admin/main-admin.component';
+import { MainUserComponent } from './clients/main-user/main-user.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -25,15 +27,23 @@ const routes: Routes = [
     {path: "activate-account" , component:ActivateAccountComponent},
     {path: 'forgot-password', component: ForgotPaswordComponent},
     {path: 'reset-password', component: ResetPasswordComponent},
-    {path: "homeUser" , component:HomeUserComponent ,canActivate: [clientGuard]},
-    {path: "homeAdmin" , component:HomeAdminComponent ,canActivate: [adminGuard]},
-    {path: 'usersList', component: UsersListComponent,canActivate: [adminGuard]},
+// User paths
+    {path: "mainUser" , component:MainUserComponent ,canActivate: [clientGuard], children: [
+    {path: "home" , component:HomeUserComponent ,canActivate: [clientGuard]},
     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
-    {path: 'formationAdminList', component: FormationListComponent,canActivate: [adminGuard]},
-    {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]},
+    {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
+    ]},
+//  Admin paths
+     {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
+     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
+     {path: "home" , component:HomeAdminComponent ,canActivate: [adminGuard]},
+     {path: 'usersList', component: UsersListComponent,canActivate: [adminGuard]},
+     {path: 'formationList', component: FormationListComponent,canActivate: [adminGuard]},
+     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]}
+    ]},
+// Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
     {path: "chapterList/:id" , component:ListChapitreComponent},
-    {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
 
 
 

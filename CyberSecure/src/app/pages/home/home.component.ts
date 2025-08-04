@@ -65,9 +65,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   login(){
     if (this.isAuthenticated) {
       if (this.isAdmin) {
-        this.router.navigate(['/homeAdmin']);
+        this.router.navigate(['/mainAdmin/home']);
       } else if (this.isClient) {
-        this.router.navigate(['/homeUser']);
+        this.router.navigate(['/mainUser/home']);
       }
     } else {
       this.router.navigate(['/login']);

@@ -5,6 +5,7 @@ import { TokenService } from '../../../services/services/token.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../design/notification/notification.service';
+import { CalendarOptions } from '@fullcalendar/core';
 declare var bootstrap: any;
 
 
@@ -24,7 +25,6 @@ export class AddRdvComponent implements OnInit, OnDestroy {
     status: '',
   };
   minDateTime: string = '';
-
 
   constructor(private readonly apiService: TokenService, private router: Router ,private notifService: NotificationService, private rdvService: RdvService)
    { }

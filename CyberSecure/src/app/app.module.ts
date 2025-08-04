@@ -22,12 +22,17 @@ import { ResetPasswordComponent } from './pages/password/reset-password/reset-pa
 import { AddFormationComponent } from './admin/formation/add-formation/add-formation.component';
 import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
 import { HeaderAdminComponent } from './Components/header-admin/header-admin.component';
-import { FooterAdminComponent } from './Components/footer-admin/footer-admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
 import { SafeUrlPipe } from './safe-url.pipe';
 import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
 import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { FooterComponent } from "./Components/footer/footer.component";
+import { HeaderUserComponent } from './Components/header-user/header-user.component';
+import { MainAdminComponent } from './admin/main-admin/main-admin.component';
+import { MainUserComponent } from './clients/main-user/main-user.component';
+
 
 @NgModule({
   declarations: [
@@ -46,12 +51,15 @@ import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
     AddFormationComponent,
     FormationListComponent,
     HeaderAdminComponent,
-    FooterAdminComponent,
     HomeComponent,
     DetailsFormationComponent,
     SafeUrlPipe,
     ListChapitreComponent,
-    AddRdvComponent
+    AddRdvComponent,
+    FooterComponent,
+    HeaderUserComponent,
+    MainAdminComponent,
+    MainUserComponent
 
   ],
   imports: [
@@ -62,7 +70,9 @@ import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
     AppRoutingModule,
     CodeInputModule,
     HttpClientModule,
-  ],
+    FullCalendarModule,
+
+],
   providers: [HttpClient,
     NotificationService
   ],

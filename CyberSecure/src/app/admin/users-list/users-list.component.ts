@@ -10,34 +10,17 @@ import { ModalDeleteConfirmationComponent } from '../../design/modal/modal-delet
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
-export class UsersListComponent implements OnInit, OnDestroy {
-  constructor(private readonly apiService: TokenService, private router: Router, private notifService : NotificationService) { }
+export class UsersListComponent implements OnInit{
+  constructor(private readonly apiService: TokenService, private notifService : NotificationService) { }
   users: any[] = [];
   error:any = null;
-  isAdmin: boolean = false;
-  isClient: boolean = false;
-  isAuthenticated: boolean = false;
   idUserToDelete : number = 0
   @ViewChild(ModalDeleteConfirmationComponent) modalDelete? : ModalDeleteConfirmationComponent ;
   params : any = {title : "Delete User", content : "voulez vous vraiment supprimer le user!"}
 
-  private authStatusSub: Subscription | null = null;
-
 
 
   ngOnInit(): void {
-
-    this.isAuthenticated = this.apiService.isAuthenticated();
-    this.isAdmin = this.apiService.isAdmin();
-    this.isClient = this.apiService.isClient();
-
-
-    this.authStatusSub = this.apiService.authStatuschanged.subscribe(() => {
-      this.isAuthenticated = this.apiService.isAuthenticated();
-      this.isAdmin = this.apiService.isAdmin();
-      this.isClient = this.apiService.isClient();
-
-    })
         this.loadUsers();
   }
 
@@ -75,18 +58,4 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.modalDelete?.open();
       }
 
-  confirmLogout() {
-  this.apiService.logout();
-  this.router.navigate(['home']);
-  this.apiService.authStatuschanged.emit();
-  window.location.reload();
-
-}
-
-
-  ngOnDestroy(): void {
-    if (this.authStatusSub) {
-      this.authStatusSub.unsubscribe();
-    }
-  }
 }
