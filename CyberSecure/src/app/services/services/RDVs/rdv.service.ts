@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RDVDto } from '../../models/rdv';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,17 @@ export class RdvService {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
     });
+  }
+
+  getMyAppointments(): Observable<RDVDto[]> {
+    return this.http.get<RDVDto[]>(`${this.apiUrl}/my`,  {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
+  }
+
+  getAllAppointments(): Observable<RDVDto[]> {
+    return this.http.get<RDVDto[]>(`${this.apiUrl}/all`);
   }
 }

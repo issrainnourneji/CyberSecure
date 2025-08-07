@@ -85,21 +85,42 @@ public class EmailServiceImpl {
         mailSender.send(mimeMessage);
         log.info("Password reset email sent to: {}", to);
     }
-    public void sendEmailWithTemplate(String to, String subject, String templateName, Context context) {
+
+    @Async
+    public void sendRDVEmail(
+            String to,
+            String subject,
+            String username,
+            String rdvDateTime,
+            String messageContent
+    ) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED);
+            MimeMessageHelper helper = new MimeMessageHelper(
+                    mimeMessage,
+                    MULTIPART_MODE_MIXED,
+                    UTF_8.name()
+            );
+
+            Context context = new Context();
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("username", username);
+            properties.put("rdvDateTime", rdvDateTime);
+            properties.put("messageContent", messageContent);
+            context.setVariables(properties);
+
+            String htmlContent = templateEngine.process("rdv-confirmation", context); // Template HTML
+
+            helper.setFrom("israa.neji8@gmail.com");
             helper.setTo(to);
             helper.setSubject(subject);
-
-            // Générer le contenu HTML à partir de la template
-            String htmlContent = templateEngine.process(templateName, context);
-            helper.setText(htmlContent, true); // 'true' pour HTML
+            helper.setText(htmlContent, true);
 
             mailSender.send(mimeMessage);
-            System.out.println("Email envoyé à : " + to);
         } catch (Exception e) {
-            throw new RuntimeException("Échec de l'envoi de l'email", e);
+            log.error("Erreur lors de l'envoi de l'email de RDV : {}", e.getMessage());
         }
     }
+
+
 }

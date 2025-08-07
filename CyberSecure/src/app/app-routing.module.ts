@@ -18,6 +18,7 @@ import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-cha
 import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
 import { MainAdminComponent } from './admin/main-admin/main-admin.component';
 import { MainUserComponent } from './clients/main-user/main-user.component';
+import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -39,7 +40,8 @@ const routes: Routes = [
      {path: "home" , component:HomeAdminComponent ,canActivate: [adminGuard]},
      {path: 'usersList', component: UsersListComponent,canActivate: [adminGuard]},
      {path: 'formationList', component: FormationListComponent,canActivate: [adminGuard]},
-     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]}
+     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]},
+     { path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] }
     ]},
 // Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},

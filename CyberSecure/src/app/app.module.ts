@@ -32,6 +32,7 @@ import { FooterComponent } from "./Components/footer/footer.component";
 import { HeaderUserComponent } from './Components/header-user/header-user.component';
 import { MainAdminComponent } from './admin/main-admin/main-admin.component';
 import { MainUserComponent } from './clients/main-user/main-user.component';
+import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { MainUserComponent } from './clients/main-user/main-user.component';
     FooterComponent,
     HeaderUserComponent,
     MainAdminComponent,
-    MainUserComponent
+    MainUserComponent,
+    RdvListComponent
 
   ],
   imports: [

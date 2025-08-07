@@ -1,0 +1,30 @@
+<h2>Tous les Rendez-vous (Admin)</h2>
+
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<table class="table table-striped" *ngIf="appointments.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Notes</th>
+      <th>Status</th>
+      <th>Utilisateur</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rdv of appointments">
+      <td>{{ rdv.rdvdate| date:'medium' }}</td>
+      <td>{{ rdv.rdvtype }}</td>
+      <td>{{ rdv.notes }}</td>
+      <td>{{ rdv.status }}</td>
+      <td>{{ rdv.userName }}</td>
+      <td>{{ rdv.userEmail }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noData>
+  <p>Aucun rendez-vous trouvé.</p>
+</ng-template>

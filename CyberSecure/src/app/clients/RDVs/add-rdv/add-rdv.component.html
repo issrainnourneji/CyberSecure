@@ -32,6 +32,36 @@
     </div>
 </section>
 
+<h2>Mes Rendez-vous</h2>
+
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<table class="table table-striped" *ngIf="appointments.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Notes</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rdv of appointments">
+      <td>{{ rdv.id }}</td>
+      <td>{{ rdv.rdvdate| date:'medium' }}</td>
+      <td>{{ rdv.rdvtype }}</td>
+      <td>{{ rdv.notes }}</td>
+      <td>{{ rdv.status }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noData>
+  <p>Aucun rendez-vous trouvé.</p>
+</ng-template>
+
+
 <div class="container my-5">
   <h2 class="text-center mb-4">Ajouter un Rendez-vous</h2>
   <form class="form-container" #rdvForm="ngForm">

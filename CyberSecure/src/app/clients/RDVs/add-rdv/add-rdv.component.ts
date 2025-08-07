@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../design/notification/notification.service';
 import { CalendarOptions } from '@fullcalendar/core';
+import { RDVDto } from '../../../services/models/rdv';
 declare var bootstrap: any;
 
 
@@ -15,7 +16,7 @@ declare var bootstrap: any;
   templateUrl: './add-rdv.component.html',
   styleUrl: './add-rdv.component.css'
 })
-export class AddRdvComponent implements OnInit, OnDestroy {
+export class AddRdvComponent implements OnInit{
 
   rendezv = {
     id: 0,
@@ -26,37 +27,17 @@ export class AddRdvComponent implements OnInit, OnDestroy {
   };
   minDateTime: string = '';
 
-  constructor(private readonly apiService: TokenService, private router: Router ,private notifService: NotificationService, private rdvService: RdvService)
+  appointments: RDVDto[] = [];
+  errorMessage: string = '';
+
+  constructor(private notifService: NotificationService, private rdvService: RdvService)
    { }
 
-  isAdmin: boolean = false;
-  isAuthenticated: boolean = false;
-  private authStatusSub: Subscription | null = null;
-
-
-
   ngOnInit(): void {
-    this.isAuthenticated = this.apiService.isAuthenticated();
-    this.isAdmin = this.apiService.isAdmin();
-
-    this.authStatusSub = this.apiService.authStatuschanged.subscribe(() => {
-      this.isAuthenticated = this.apiService.isAuthenticated();
-      this.isAdmin = this.apiService.isAdmin();
-    })
-  }
-
-  confirmLogout() {
-  this.apiService.logout();
-  this.router.navigate(['/home']);
-  this.apiService.authStatuschanged.emit();
-  window.location.reload();
-
-}
-
-  ngOnDestroy(): void {
-    if (this.authStatusSub) {
-      this.authStatusSub.unsubscribe();
-    }
+ this.rdvService.getMyAppointments().subscribe({
+      next: data => this.appointments = data,
+      error: err => this.errorMessage = 'Erreur lors du chargement des rendez-vous'
+    });
   }
 
 validateForm(): boolean {
