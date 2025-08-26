@@ -1,0 +1,121 @@
+<app-header-home></app-header-home>
+<!--====== Header End ======-->
+<section class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Chapter Details</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a href="home">Home</a></li>
+              <li class="active" aria-current="page">Slides</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="section-padding page" >
+<div class="container mt-4">
+  <div class="card shadow-lg p-4">
+    <!-- Image locale ou externe avec style dynamique -->
+<!-- Image en haut -->
+<div *ngIf="slides[currentIndex]?.imagePositionY === 'top' && slides[currentIndex]?.imageUrl"
+     class="d-flex my-3"
+     [ngClass]="{
+       'justify-content-start': slides[currentIndex]?.imagePosition === 'left',
+       'justify-content-center': slides[currentIndex]?.imagePosition === 'center',
+       'justify-content-end': slides[currentIndex]?.imagePosition === 'right'
+     }">
+  <img [src]="slides[currentIndex]?.imageUrl.startsWith('http') ? slides[currentIndex]?.imageUrl : 'http://localhost:8080/files/' + slides[currentIndex]?.imageUrl"
+       class="rounded"
+       [ngStyle]="{
+         'width': slides[currentIndex]?.imageWidth || '100%',
+         'height': slides[currentIndex]?.imageHeight || 'auto'
+       }"/>
+</div>
+
+<h3>{{ slides[currentIndex]?.titre }}</h3>
+<h5 *ngIf="slides[currentIndex]?.sousTitre">{{ slides[currentIndex]?.sousTitre }}</h5>
+
+<p *ngIf="slides[currentIndex]?.paragraphe" style="white-space: pre-line;">
+  {{ slides[currentIndex]?.paragraphe }}
+</p>
+
+<!-- Image au centre -->
+<div *ngIf="slides[currentIndex]?.imagePositionY === 'center' && slides[currentIndex]?.imageUrl"
+     class="d-flex my-3"
+     [ngClass]="{
+       'justify-content-start': slides[currentIndex]?.imagePosition === 'left',
+       'justify-content-center': slides[currentIndex]?.imagePosition === 'center',
+       'justify-content-end': slides[currentIndex]?.imagePosition === 'right'
+     }">
+  <img [src]="slides[currentIndex]?.imageUrl.startsWith('http') ? slides[currentIndex]?.imageUrl : 'http://localhost:8080/files/' + slides[currentIndex]?.imageUrl"
+       class="rounded"
+       [ngStyle]="{
+         'width': slides[currentIndex]?.imageWidth || '100%',
+         'height': slides[currentIndex]?.imageHeight || 'auto'
+       }"/>
+</div>
+
+<!-- Vidéo locale / YouTube ici si nécessaire -->
+
+<!-- Image en bas -->
+<div *ngIf="slides[currentIndex]?.imagePositionY === 'bottom' && slides[currentIndex]?.imageUrl"
+     class="d-flex my-3"
+     [ngClass]="{
+       'justify-content-start': slides[currentIndex]?.imagePosition === 'left',
+       'justify-content-center': slides[currentIndex]?.imagePosition === 'center',
+       'justify-content-end': slides[currentIndex]?.imagePosition === 'right'
+     }">
+  <img [src]="slides[currentIndex]?.imageUrl.startsWith('http') ? slides[currentIndex]?.imageUrl : 'http://localhost:8080/files/' + slides[currentIndex]?.imageUrl"
+       class="rounded"
+       [ngStyle]="{
+         'width': slides[currentIndex]?.imageWidth || '100%',
+         'height': slides[currentIndex]?.imageHeight || 'auto'
+       }"/>
+</div>
+
+
+
+    <!-- Vidéo locale -->
+    <video *ngIf="slides[currentIndex]?.videoUrl && !slides[currentIndex]?.videoUrl.includes('youtube.com')"
+           [src]="'http://localhost:8080/files/' + slides[currentIndex]?.videoUrl"
+           controls
+           class="w-100 my-3 rounded"></video>
+
+    <!-- Vidéo YouTube -->
+    <iframe *ngIf="slides[currentIndex]?.videoUrl && slides[currentIndex]?.videoUrl.includes('youtube.com')"
+            [src]="slides[currentIndex]?.videoUrl | safeUrl"
+            width="100%"
+            height="400"
+            frameborder="0"
+            allowfullscreen
+            class="rounded my-3"></iframe>
+
+    <!-- Navigation -->
+    <div class="d-flex justify-content-between mt-4">
+      <button class="btn btn-outline-primary"
+              (click)="prevSlide()"
+              [disabled]="currentIndex === 0">
+        ◀ Précédent
+      </button>
+
+      <button *ngIf="currentIndex < slides.length - 1"
+              class="btn btn-primary"
+              (click)="nextSlide()">
+        Suivant ▶
+      </button>
+
+      <button *ngIf="currentIndex === slides.length - 1"
+              class="btn btn-success"
+              (click)="goToQuiz()">
+        Passer le Quiz
+      </button>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Footer section start -->
+<app-footer></app-footer>
+<!-- Footer section End -->

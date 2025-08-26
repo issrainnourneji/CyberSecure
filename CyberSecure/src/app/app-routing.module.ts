@@ -11,7 +11,6 @@ import { UsersListComponent } from './admin/users-list/users-list.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ForgotPaswordComponent } from './pages/password/forgot-pasword/forgot-pasword.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
-import { AddFormationComponent } from './admin/formation/add-formation/add-formation.component';
 import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
 import { DetailsFormationComponent } from './clients/formation/details-formation/details-formation.component';
 import { ListChapitreComponent } from './clients/chapitre/list-chapitre/list-chapitre.component';
@@ -19,6 +18,10 @@ import { AddRdvComponent } from './clients/RDVs/add-rdv/add-rdv.component';
 import { MainAdminComponent } from './admin/main-admin/main-admin.component';
 import { MainUserComponent } from './clients/main-user/main-user.component';
 import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
+import { FormationClientListComponent } from './clients/formation/formation-client-list/formation-client-list.component';
+import { ChapterDetailsComponent } from './clients/chapitre/chapter-details/chapter-details.component';
+import { ListSlidesComponent } from './admin/slide/list-slides/list-slides.component';
+import { CartComponent } from './clients/panier/cart/cart.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -33,6 +36,7 @@ const routes: Routes = [
     {path: "home" , component:HomeUserComponent ,canActivate: [clientGuard]},
     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
     {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
+    {path: "formations" , component:FormationClientListComponent, canActivate : [clientGuard]},
     ]},
 //  Admin paths
      {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
@@ -40,12 +44,19 @@ const routes: Routes = [
      {path: "home" , component:HomeAdminComponent ,canActivate: [adminGuard]},
      {path: 'usersList', component: UsersListComponent,canActivate: [adminGuard]},
      {path: 'formationList', component: FormationListComponent,canActivate: [adminGuard]},
-     {path: 'addFormation', component: AddFormationComponent,canActivate: [adminGuard]},
-     { path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] }
+     {path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] },
+     {path: "slideList", component: ListSlidesComponent , canActivate:[adminGuard] }
+
     ]},
 // Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
     {path: "chapterList/:id" , component:ListChapitreComponent},
+    {path: "chapitre/:id/slides", component: ChapterDetailsComponent },
+    {path: "panier", component: CartComponent },
+
+
+
+
 
 
 

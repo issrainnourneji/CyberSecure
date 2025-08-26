@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription | null = null;
   formations: any[] = [];
 
+studentsCount: { [formationId: number]: number } = {};
 
   constructor(private router: Router, private readonly apiService: TokenService , private formationService: FormationServiceService){}
 
@@ -46,6 +47,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Error fetching formations:', error);
       }
     );
+    this.formationService.getNumberOfStudentsForAllFormations().subscribe({
+  next: (counts) => {
+    this.studentsCount = counts;
+  },
+  error: (err) => console.error('Impossible de récupérer le nombre de students', err)
+});
             this.loadUsers();
 
   }

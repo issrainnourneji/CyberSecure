@@ -1,3 +1,18 @@
+<section class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Formations List</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a href="mainAdmin/home">Home</a></li>
+              <li class="active" aria-current="page">Formations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
 <section class="woocommerce single page-wrapper">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
@@ -43,7 +58,7 @@
                 <td class="text-truncate" style="max-width: 150px;" [attr.title]="formation.description">
                   {{ formation.description }}
                 </td>
-                <td>{{ formation.price | number: '1.2-2' }}</td>
+                <td>{{ formation.price }}</td>
                 <td>{{ formation.duration }}</td>
                 <td>{{ formation.numberOfStudents }}</td>
                 <td>

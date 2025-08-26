@@ -5,6 +5,7 @@ import { TokenService } from '../../../services/services/token.service';
 import { User } from '../../../services/models/user';
 import { Role } from '../../../services/models/role';
 import { Subscription } from 'rxjs';
+import { CartService } from '../../../services/services/cart/cart.service';
 
 @Component({
   selector: 'app-details-formation',
@@ -17,12 +18,16 @@ users: any[] = [];
 error:any = null;
 formations: any[] = [];
 
+formationId!: number;
+
+numberOfStudents: number = 0;
+
   isAdmin: boolean = false;
   isClient: boolean = false;
   isAuthenticated: boolean = false;
   private authStatusSub: Subscription | null = null;
 
-constructor(private router: Router, private route: ActivatedRoute,private readonly apiService: TokenService, private formationService: FormationServiceService) {}
+constructor(private cartService: CartService,private router: Router, private route: ActivatedRoute,private readonly apiService: TokenService, private formationService: FormationServiceService) {}
 
 ngOnInit(): void {
 
@@ -39,34 +44,61 @@ ngOnInit(): void {
 
     })
 
-  const id = this.route.snapshot.paramMap.get('id');
+    const id = Number(this.route.snapshot.paramMap.get('id'));
   if (id) {
-    this.formationService.getFormationById(+id).subscribe(
+    this.formationId = id;
+
+    this.formationService.getFormationById(id).subscribe(
       data => this.formation = data,
       error => console.error('Erreur de récupération formation', error)
     );
+
+    this.loadUsers();
+    this.loadNumberOfStudents();
   }
-  this.loadUsers();
+
   this.formationService.getAllFormations().subscribe(
       (response) => {
         this.formations = response;
+
       },
       (error) => {
         console.error('Error fetching formations:', error);
       }
     );
 }
+loadNumberOfStudents() {
+  this.cartService.getNumberOfStudents(this.formationId).subscribe({
+    next: (count) => this.numberOfStudents = count,
+    error: (err) => console.error('Impossible de récupérer le nombre de students', err)
+  });
+}
 loadUsers(): void {
-  this.apiService.getAllUsers().subscribe({
+  if (!this.formationId) return;
+
+  this.formationService.getUsersByFormation(this.formationId).subscribe({
     next: (response) => {
-      this.users = (response.userList || []).filter((user: User) => user.role === Role.USER);
+      this.users = response;
     },
     error: (err) => {
-      this.error = err?.error?.message || 'unable to get users';
+      console.error('Impossible de récupérer les users', err);
     }
   });
 }
 
+enrollCourse(formationId: number) {
+  this.cartService.addToCart(formationId).subscribe({
+    next: (res: any) => {
+      alert(res.message);
+      // Optionnel : rediriger vers le panier
+      this.router.navigate(['/panier']);
+    },
+    error: err => {
+      console.error(err);
+      alert(err.error?.message || 'Impossible d’ajouter la formation au panier.');
+    }
+  });
+}
 login(){
     if (this.isAuthenticated) {
       if (this.isAdmin) {

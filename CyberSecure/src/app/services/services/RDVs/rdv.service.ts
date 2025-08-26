@@ -30,4 +30,34 @@ export class RdvService {
   getAllAppointments(): Observable<RDVDto[]> {
     return this.http.get<RDVDto[]>(`${this.apiUrl}/all`);
   }
+
+  confirmRDV(id: number): Observable<any> {
+  return this.http.put(
+    `${this.apiUrl}/confirm/${id}`,
+    {},
+    {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    }
+  );
+}
+
+updateRDV(id: number, payload: any) {
+  return this.http.put<any>(`${this.apiUrl}/update/${id}`, payload ,  {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
+}
+
+
+  deleteRDV(id: number) {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`,  {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }),
+    });
+  }
+
 }

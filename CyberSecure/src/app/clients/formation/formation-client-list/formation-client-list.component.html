@@ -1,0 +1,64 @@
+<section class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Formations</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a href="mainUser/home">Home</a></li>
+              <li class="active" aria-current="page">Formation List</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="course-wrapper section-padding ">
+      <div class="container">
+
+          <div class="row justify-content-lg-center">
+              <div class="col-xl-4 col-lg-4 col-md-6"  *ngFor="let formation of formations">
+                  <div class="course-grid bg-shadow tooltip-style">
+                      <div class="course-header">
+                          <div class="course-thumb">
+<img [src]="'http://localhost:8080/files/' + formation.imageUrl" alt="Post Image" class="img-fluid">
+                              <div class="course-price">{{formation.price}} $</div>
+                          </div>
+                      </div>
+
+                      <div class="course-content">
+                          <div class="rating mb-10">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+
+                              <span>3.9 (30 reviews)</span>
+                          </div>
+
+                          <h3 class="course-title mb-20"> <a href="#">{{formation.title}}</a> </h3>
+
+                          <div class="course-footer mt-20 d-flex align-items-center justify-content-between ">
+                              <span class="duration"><i class="far fa-clock me-2"></i>{{formation.duration}} hr</span>
+                              <span class="students"><i class="far fa-user-alt me-2"></i>{{formation.numberOfStudents}} Students</span>
+                              <span class="lessons"><i class="far fa-play-circle me-2"></i>{{formation.chapitres?.length}} Lessons</span>
+                          </div>
+                      </div>
+
+                      <div class="course-hover-content">
+                          <div class="price">{{formation.price}} $</div>
+                          <h3 class="course-title mb-20 mt-30"> <a href="#">{{formation.title}}</a> </h3>
+                          <div class="course-meta d-flex align-items-center mb-20">
+                              <span class="lesson"> <i class="far fa-file-alt"></i>{{formation.numberOfStudents}} Students</span>
+                          </div>
+                          <p class="mb-20">{{formation.description}}</p>
+                          <button [routerLink]="['/chapterList', formation.id]" class=" btn-grey btn-sm rounded">Voir Details  <i class="fal fa-angle-right"></i></button>
+                      </div>
+                  </div>
+               </div>
+              <!-- COURSE END -->
+          </div>
+      </div>
+  </section>

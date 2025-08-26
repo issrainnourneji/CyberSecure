@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -64,5 +64,22 @@ export class FormationServiceService {
   return this.http.put(`${this.apiUrl}/update/${id}`, formData);
 }
 
+
+getMyFormations(): Observable<any[]> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  });
+  return this.http.get<any[]>('http://localhost:8080/formation/my-formations', { headers });
+}
+getUsersByFormation(formationId: number): Observable<any[]> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  });
+  return this.http.get<any[]>(`http://localhost:8080/formation/${formationId}/users`, { headers });
+}
+
+getNumberOfStudentsForAllFormations(): Observable<{[key: number]: number}> {
+  return this.http.get<{[key: number]: number}>('http://localhost:8080/formation/formations/students/count');
+}
 
 }

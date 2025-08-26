@@ -1,0 +1,8 @@
+.card {
+  max-width: 800px;
+  margin: auto;
+}
+img, video {
+  max-height: 400px;
+  object-fit: contain;
+}

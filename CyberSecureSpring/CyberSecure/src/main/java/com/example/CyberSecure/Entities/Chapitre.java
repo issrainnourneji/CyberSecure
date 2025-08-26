@@ -1,6 +1,7 @@
 package com.example.CyberSecure.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
@@ -24,6 +25,9 @@ public class Chapitre {
 
     private String titre;
 
+    private String imageUrl;
+
+
     @ManyToOne
     @JoinColumn(name = "formation_id")
     @JsonBackReference
@@ -31,6 +35,6 @@ public class Chapitre {
 
     @OneToMany(mappedBy = "chapitre", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("id ASC")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Slide> slides;
 }

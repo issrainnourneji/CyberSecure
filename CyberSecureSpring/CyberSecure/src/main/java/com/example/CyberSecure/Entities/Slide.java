@@ -26,8 +26,12 @@ public class Slide {
     private String imageUrl;
     private String videoUrl;
 
-    @ManyToOne
-    @JsonBackReference
+    private String imageWidth;     // ex: 50%, 300px
+    private String imageHeight;    // ex: auto, 200px
+    private String imagePosition;
+    private String imagePositionY;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chapitre_id")
     private Chapitre chapitre;
 }

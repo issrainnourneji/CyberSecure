@@ -30,6 +30,9 @@ export class AddRdvComponent implements OnInit{
   appointments: RDVDto[] = [];
   errorMessage: string = '';
 
+  editRdv: any = {};
+  selectedRdvId: number | null = null;
+
   constructor(private notifService: NotificationService, private rdvService: RdvService)
    { }
 
@@ -90,6 +93,68 @@ validateForm(): boolean {
         alert('Une erreur est survenue.');
       },
     });
+  }
+
+openEditModal(rdv: any) {
+  this.selectedRdvId = rdv.id;
+  // Convertir en 'yyyy-MM-ddTHH:mm' (sans secondes) pour input datetime-local
+  this.editRdv = {
+    rdvdate: new Date(rdv.rdvdate).toISOString().slice(0,16),
+    rdvtype: rdv.rdvtype,
+    notes: rdv.notes
+  };
+
+  const modal = new bootstrap.Modal(document.getElementById('editAppointmentModal')!);
+  modal.show();
+}
+
+
+  // Format ISO string en format datetime-local (ex: '2025-08-12T14:30')
+  formatDateForInput(dateStr: string) {
+    const date = new Date(dateStr);
+    return date.toISOString().slice(0,16);
+  }
+
+ submitEdit() {
+  if (!this.selectedRdvId) return;
+
+  // Construire le payload avec clés sensibles à la casse et valeurs valides
+  const payload = {
+    RDVDate: new Date(this.editRdv.rdvdate).toISOString().slice(0,19),  // ex: '2025-08-12T14:30:00'
+    notes: this.editRdv.notes || '',
+    RDVType: this.editRdv.rdvtype
+  };
+
+  console.log('Payload envoyé:', payload);
+
+  this.rdvService.updateRDV(this.selectedRdvId, payload).subscribe({
+    next: updatedRdv => {
+      // Mise à jour locale
+      const index = this.appointments.findIndex(a => a.id === this.selectedRdvId);
+      if (index > -1) this.appointments[index] = updatedRdv;
+
+      // Fermer modal Bootstrap
+      const modalEl = document.getElementById('editAppointmentModal')!;
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      modal?.hide();
+    },
+    error: err => {
+      alert('Erreur lors de la modification : ' + err.error?.error || err.message);
+    }
+  });
+}
+
+  confirmDelete(id: number) {
+    if (confirm('Voulez-vous vraiment supprimer ce rendez-vous ?')) {
+      this.rdvService.deleteRDV(id).subscribe({
+        next: () => {
+          this.appointments = this.appointments.filter(r => r.id !== id);
+        },
+        error: err => {
+          alert('Erreur lors de la suppression : ' + err.error?.error || err.message);
+        }
+      });
+    }
   }
 
 }

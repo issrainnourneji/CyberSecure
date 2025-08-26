@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h3>Mon Panier</h3>
+  <div *ngIf="cartItems.length === 0">Votre panier est vide</div>
+
+  <div class="row" *ngFor="let item of cartItems">
+    <div class="col-md-3">
+      <img [src]="item.formation.imageUrl" class="img-fluid rounded">
+    </div>
+    <div class="col-md-6">
+      <h5>{{ item.formation.title }}</h5>
+      <p>{{ item.formation.description }}</p>
+      <p>Prix : {{ item.formation.price | currency }}</p>
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <button class="btn btn-danger" (click)="removeItem(item.formation.id)">Supprimer</button>
+    </div>
+  </div>
+</div>

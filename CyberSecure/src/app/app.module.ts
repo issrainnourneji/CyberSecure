@@ -19,7 +19,6 @@ import { ModalDeleteConfirmationComponent } from './design/modal/modal-delete-co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ForgotPaswordComponent } from './pages/password/forgot-pasword/forgot-pasword.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
-import { AddFormationComponent } from './admin/formation/add-formation/add-formation.component';
 import { FormationListComponent } from './admin/formation/formation-list/formation-list.component';
 import { HeaderAdminComponent } from './Components/header-admin/header-admin.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -33,6 +32,11 @@ import { HeaderUserComponent } from './Components/header-user/header-user.compon
 import { MainAdminComponent } from './admin/main-admin/main-admin.component';
 import { MainUserComponent } from './clients/main-user/main-user.component';
 import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
+import { FormationClientListComponent } from './clients/formation/formation-client-list/formation-client-list.component';
+import { HeaderHomeComponent } from './Components/header-home/header-home.component';
+import { ChapterDetailsComponent } from './clients/chapitre/chapter-details/chapter-details.component';
+import { ListSlidesComponent } from './admin/slide/list-slides/list-slides.component';
+import { CartComponent } from './clients/panier/cart/cart.component';
 
 
 @NgModule({
@@ -49,7 +53,6 @@ import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
     ProfileComponent,
     ForgotPaswordComponent,
     ResetPasswordComponent,
-    AddFormationComponent,
     FormationListComponent,
     HeaderAdminComponent,
     HomeComponent,
@@ -61,7 +64,13 @@ import { RdvListComponent } from './admin/rdv/rdv-list/rdv-list.component';
     HeaderUserComponent,
     MainAdminComponent,
     MainUserComponent,
-    RdvListComponent
+    RdvListComponent,
+    FormationClientListComponent,
+    HeaderHomeComponent,
+    ChapterDetailsComponent,
+    SafeUrlPipe,
+    ListSlidesComponent,
+    CartComponent
 
   ],
   imports: [

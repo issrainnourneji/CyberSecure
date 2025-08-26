@@ -1,15 +1,25 @@
 package com.example.CyberSecure.Controllers;
 
+import com.example.CyberSecure.Entities.CartItem;
 import com.example.CyberSecure.Entities.Formation;
+import com.example.CyberSecure.Entities.User;
+import com.example.CyberSecure.Repositories.CartItemRepository;
 import com.example.CyberSecure.Repositories.FormationRepository;
+import com.example.CyberSecure.Repositories.UserRepository;
+import com.example.CyberSecure.Services.CartServiceImpl;
 import com.example.CyberSecure.Services.FormationServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/formation")
@@ -19,6 +29,10 @@ public class FormationController {
 
     private final FormationServiceImpl formationService;
     private final FormationRepository formationRepository;
+    private final UserRepository userRepository;
+    private final CartServiceImpl cartService;
+    private final CartItemRepository cartItemRepository;
+
 
 
 
@@ -66,5 +80,53 @@ public class FormationController {
         return ResponseEntity.ok(updated);
     }
 
+    @GetMapping("/my-formations")
+    public ResponseEntity<List<Formation>> getMyFormations(Authentication authentication) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Récupérer les formations depuis le panier
+        List<CartItem> cartItems = cartService.getUserCart(user.getId());
+
+        List<Formation> formations = cartItems.stream()
+                .map(CartItem::getFormation)
+                .toList();
+
+        return ResponseEntity.ok(formations);
+    }
+
+    @GetMapping("/{formationId}/users")
+    public ResponseEntity<List<User>> getUsersByFormation(@PathVariable Long formationId) {
+
+        Formation formation = formationRepository.findById(formationId)
+                .orElseThrow(() -> new RuntimeException("Formation introuvable"));
+
+        // Récupérer les CartItems associés à cette formation
+        List<CartItem> cartItems = cartItemRepository.findByFormationId(formationId);
+
+        // Extraire les users
+        List<User> users = cartItems.stream()
+                .map(CartItem::getUser)
+                .distinct()  // éviter les doublons
+                .toList();
+
+        return ResponseEntity.ok(users);
+    }
+    @GetMapping("/formations/students/count")
+    public ResponseEntity<Map<Long, Long>> getNumberOfStudentsForAllFormations() {
+        List<CartItem> cartItems = cartItemRepository.findAll();
+
+        Map<Long, Long> countMap = cartItems.stream()
+                .collect(Collectors.groupingBy(ci -> ci.getFormation().getId(), Collectors.counting()));
+
+        return ResponseEntity.ok(countMap);
+    }
 
 }
