@@ -37,7 +37,12 @@ const routes: Routes = [
     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
     {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
     {path: "formations" , component:FormationClientListComponent, canActivate : [clientGuard]},
-    ]},
+
+    ]
+  },
+  {path: "chapterList/:id" , component:ListChapitreComponent ,  canActivate : [clientGuard]},
+  {path: "chapitre/:id/slides", component: ChapterDetailsComponent ,  canActivate : [clientGuard]},
+  {path: "panier", component: CartComponent,  canActivate : [clientGuard] },
 //  Admin paths
      {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
      {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
@@ -50,9 +55,6 @@ const routes: Routes = [
     ]},
 // Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
-    {path: "chapterList/:id" , component:ListChapitreComponent},
-    {path: "chapitre/:id/slides", component: ChapterDetailsComponent },
-    {path: "panier", component: CartComponent },
 
 
 

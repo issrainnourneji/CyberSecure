@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -102,23 +104,17 @@ public class FormationController {
         return ResponseEntity.ok(formations);
     }
 
+
     @GetMapping("/{formationId}/users")
     public ResponseEntity<List<User>> getUsersByFormation(@PathVariable Long formationId) {
-
-        Formation formation = formationRepository.findById(formationId)
-                .orElseThrow(() -> new RuntimeException("Formation introuvable"));
-
-        // Récupérer les CartItems associés à cette formation
         List<CartItem> cartItems = cartItemRepository.findByFormationId(formationId);
-
-        // Extraire les users
         List<User> users = cartItems.stream()
                 .map(CartItem::getUser)
-                .distinct()  // éviter les doublons
+                .distinct()
                 .toList();
-
         return ResponseEntity.ok(users);
     }
+
     @GetMapping("/formations/students/count")
     public ResponseEntity<Map<Long, Long>> getNumberOfStudentsForAllFormations() {
         List<CartItem> cartItems = cartItemRepository.findAll();
@@ -127,6 +123,20 @@ public class FormationController {
                 .collect(Collectors.groupingBy(ci -> ci.getFormation().getId(), Collectors.counting()));
 
         return ResponseEntity.ok(countMap);
+    }
+    @DeleteMapping("/{formationId}/user/{userId}")
+    public ResponseEntity<Map<String, String>> removeUserFromFormation(
+            @PathVariable Long formationId,
+            @PathVariable Long userId) {
+
+        // Code pour retirer l’utilisateur de la formation
+        formationService.removeUserFromFormation(formationId, userId);
+
+        // Retourner un objet JSON
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Utilisateur retiré de la formation avec succès");
+
+        return ResponseEntity.ok(response);
     }
 
 }

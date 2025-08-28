@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping ("/slide")
@@ -60,6 +61,33 @@ public class SlideController {
     @GetMapping("/all")
     public ResponseEntity<List<Slide>> getAllSlides() {
         return ResponseEntity.ok(slideService.getAllSlides());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Slide> updateSlide(
+            @PathVariable Long id,
+            @RequestParam(required = false) String titre,
+            @RequestParam(required = false) String sousTitre,
+            @RequestParam(required = false) String paragraphe,
+            @RequestParam(required = false) String videoUrl,
+            @RequestParam(required = false) String imageWidth,
+            @RequestParam(required = false) String imageHeight,
+            @RequestParam(required = false) String imagePosition,
+            @RequestParam(required = false) String imagePositionY,
+            @RequestParam(required = false) MultipartFile image
+    ) throws IOException {
+
+        Slide updatedSlide = slideService.updateSlide(id, titre, sousTitre, paragraphe, videoUrl,
+                imageWidth, imageHeight, imagePosition, imagePositionY, image);
+
+        return ResponseEntity.ok(updatedSlide);
+    }
+
+    // --- DELETE SLIDE ---
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteSlide(@PathVariable Long id) {
+        slideService.deleteSlide(id);
+        return ResponseEntity.ok(Map.of("message", "Slide supprimé avec succès"));
     }
 
 }

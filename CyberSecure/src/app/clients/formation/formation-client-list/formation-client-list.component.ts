@@ -14,11 +14,13 @@ import { CartService } from '../../../services/services/cart/cart.service';
 export class FormationClientListComponent implements OnInit {
   formations: any[] = [];
   error: any = null;
+studentsCount: { [formationId: number]: number } = {};
 
-  constructor(private formationService: FormationServiceService) {}
+  constructor(private formationService: FormationServiceService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.loadMyFormations();
+
   }
 
   loadMyFormations(): void {
@@ -31,6 +33,13 @@ export class FormationClientListComponent implements OnInit {
         this.error = err?.error?.message || 'Impossible de récupérer les formations';
       }
     });
+    this.formationService.getNumberOfStudentsForAllFormations().subscribe({
+  next: (counts) => {
+    this.studentsCount = counts;
+  },
+  error: (err) => console.error('Impossible de récupérer le nombre de students', err)
+});
   }
+
 }
 

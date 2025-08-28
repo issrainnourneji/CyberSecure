@@ -16,6 +16,9 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SlideServiceImpl {
+
+    private static final String uploadDir = "C:/Users/starinfo/Desktop/CyberSecure/CyberSecureSpring/CyberSecure/uploads/";
+
     private final ChapitreRepository chapitreRepository;
     private final SlideRepository slideRepository;
 
@@ -56,5 +59,39 @@ public class SlideServiceImpl {
 
     public List<Slide> getAllSlides() {
         return slideRepository.findAll();
+    }
+
+    public Slide updateSlide(Long id, String titre, String sousTitre, String paragraphe, String videoUrl,
+                             String imageWidth, String imageHeight, String imagePosition, String imagePositionY,
+                             MultipartFile image) throws IOException {
+
+        Slide slide = slideRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Slide non trouvé"));
+
+        if (titre != null) slide.setTitre(titre);
+        if (sousTitre != null) slide.setSousTitre(sousTitre);
+        if (paragraphe != null) slide.setParagraphe(paragraphe);
+        if (videoUrl != null) slide.setVideoUrl(videoUrl);
+        if (imageWidth != null) slide.setImageWidth(imageWidth);
+        if (imageHeight != null) slide.setImageHeight(imageHeight);
+        if (imagePosition != null) slide.setImagePosition(imagePosition);
+        if (imagePositionY != null) slide.setImagePositionY(imagePositionY);
+
+
+        if (image != null && !image.isEmpty()) {
+            String imageFileName = image.getOriginalFilename();
+            String imagePath = uploadDir + imageFileName;
+            image.transferTo(new File(imagePath));
+            slide.setImageUrl(imageFileName);
+        }
+
+        return slideRepository.save(slide);
+    }
+
+    // --- DELETE ---
+    public void deleteSlide(Long id) {
+        Slide slide = slideRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Slide non trouvé"));
+        slideRepository.delete(slide);
     }
 }

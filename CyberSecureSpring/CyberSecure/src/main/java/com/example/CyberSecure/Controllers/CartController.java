@@ -41,10 +41,18 @@ public class CartController {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        cartService.addToCart(user.getId(), formationId);
-
-        return ResponseEntity.ok(Map.of("message", "Formation added to cart successfully!"));
+        try {
+            cartService.addToCart(user.getId(), formationId);
+            return ResponseEntity.ok(Map.of("message", "Formation added to cart successfully!"));
+        } catch (RuntimeException e) {
+            if ("Formation déjà dans le panier".equals(e.getMessage())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT) // 409
+                        .body(Map.of("message", e.getMessage()));
+            }
+            throw e; // autres erreurs
+        }
     }
+
 
 
     @GetMapping("/me")

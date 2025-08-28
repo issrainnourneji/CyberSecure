@@ -46,4 +46,17 @@ export class ChapterDetailsComponent implements OnInit {
   goToQuiz() {
     this.router.navigate(['/quiz', this.chapitreId]);
   }
+
+  getEmbedUrl(url: string): string {
+    if (!url) return '';
+    let videoId = '';
+
+    const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
+    const match = url.match(regExp);
+    if (match && match[1]) {
+      videoId = match[1];
+    }
+
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  }
 }

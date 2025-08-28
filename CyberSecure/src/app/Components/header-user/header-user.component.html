@@ -12,57 +12,83 @@
     </div>
 
     <div class="header-navbar menu-2 navbar-sticky">
-        <div class="container-fluid container-padding">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="site-logo">
-                    <a href="index.html">
-                                <img src="../../../assets/images/Muntucyber.png" alt="" class="img-fluid" />
-                    </a>
-                </div>
+  <div class="container-fluid container-padding">
+    <div class="d-flex align-items-center justify-content-between">
 
-                <div class="header-search-bar d-none d-xl-block">
-                   <form action="#">
-                        <input type="text" class="form-control" placeholder="Search for anything" >
-                        <a href="#" class="search-submit"><i class="far fa-search"></i></a>
-                   </form>
-                </div>
+      <!-- Logo -->
+      <div class="site-logo">
+        <a routerLink="/home">
+          <img src="../../../assets/images/Muntucyber.png" alt="" class="img-fluid" />
+        </a>
+      </div>
 
-                <div class="offcanvas-icon d-block d-lg-none">
-                    <a href="#" class="nav-toggler"><i class="fal fa-bars"></i></a>
-                </div>
+      <!-- Search Bar -->
+      <div class="header-search-bar d-none d-xl-block">
+        <form action="#">
+          <input type="text" class="form-control" placeholder="Search">
+          <a href="#" class="search-submit"><i class="far fa-search"></i></a>
+        </form>
+      </div>
 
-                <nav class="site-navbar ms-auto">
-                    <ul class="primary-menu">
-                        <li class="current">
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                          <a href="mainUser/formations">Formations</a>
-                        </li>
-                        <li>
-                            <a href="mainUser/addRdv">RDV</a>
-                        </li>
-                        <li>
-                            <a href="#">Certificats</a>
-                        </li>
+      <!-- Menu Burger (mobile) -->
+      <div class="offcanvas-icon d-block d-lg-none">
+        <a href="#" class="nav-toggler"><i class="fal fa-bars"></i></a>
+      </div>
 
-                        <li>
-                            <a href="#">Quizs</a>
-                        </li>
-                    </ul>
+      <!-- Navigation -->
+      <nav class="site-navbar ms-auto">
+        <ul class="primary-menu">
+          <li class="current">
+            <a routerLink="/home">Home</a>
+          </li>
+          <li>
+            <a routerLink="/mainUser/formations">Formations</a>
+          </li>
+          <li>
+            <a routerLink="/mainUser/addRdv">RDV</a>
+          </li>
+          <li>
+            <a href="#">Certificats</a>
+          </li>
+          <li>
+            <a href="#">Quizs</a>
+          </li>
+        </ul>
+        <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
+      </nav>
 
-                    <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
-                </nav>
+      <!-- Boutons -->
+      <div class="d-flex align-items-center">
 
-                <div class="header-btn border-left-0 ms-3 d-none d-lg-block">
-                    <a href="mainUser/profile" class="btn btn-sm-2 rounded"><i class="fal fa-user me-2"></i>Account</a>
-                </div>
-                <div class="header-btn border-left-0 ms-3 d-none d-lg-block">
-                    <a href="" class="btn btn-grey-outline btn-sm-2 rounded" *ngIf="isAuthenticated" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fal fa-sign-out-alt me-2"></i>Logout</a>
-                </div>
-            </div>
+        <!-- Panier -->
+        <div class="header-btn ms-3 d-none d-lg-block position-relative">
+          <a routerLink="/panier" class="btn btn-sm-2 rounded">
+            <i class="fal fa-shopping-cart"></i>
+            Panier
+          </a>
         </div>
+
+        <!-- Account -->
+        <div class="header-btn ms-3 d-none d-lg-block">
+          <a routerLink="/mainUser/profile" class="btn btn-sm-2 rounded">
+            <i class="fal fa-user me-2"></i>Account
+          </a>
+        </div>
+
+        <!-- Logout -->
+        <div class="header-btn ms-3 d-none d-lg-block">
+          <a href="" class="btn btn-grey-outline btn-sm-2 rounded"
+             *ngIf="isAuthenticated"
+             data-bs-toggle="modal"
+             data-bs-target="#logoutModal">
+            <i class="fal fa-sign-out-alt me-2"></i>Logout
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
             <!-- Logout Confirmation Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

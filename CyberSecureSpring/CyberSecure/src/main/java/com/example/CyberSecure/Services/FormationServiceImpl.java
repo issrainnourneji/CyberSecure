@@ -1,19 +1,25 @@
 package com.example.CyberSecure.Services;
 
+import com.example.CyberSecure.Entities.CartItem;
 import com.example.CyberSecure.Entities.Formation;
-import com.example.CyberSecure.Repositories.FormationRepository;
+import com.example.CyberSecure.Entities.User;
+import com.example.CyberSecure.Repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class FormationServiceImpl {
     private final FormationRepository formationRepository;
+    private  final CartItemRepository cartItemRepository;
+    private final UserRepository userRepository;
 
 
     private static final String uploadDir = "C:/Users/starinfo/Desktop/CyberSecure/CyberSecureSpring/CyberSecure/uploads/";
@@ -46,8 +52,14 @@ public class FormationServiceImpl {
         return formationRepository.findAll();
     }
 
-    public void DeleteFormation(Long id) {
-        formationRepository.deleteById(id);
+
+
+    @Transactional
+    public void DeleteFormation(Long formationId) {
+        cartItemRepository.deleteByFormationId(formationId);
+
+        formationRepository.deleteById(formationId);
+
     }
 
     public Formation updateFormation(Long id, String title, String description, MultipartFile image,
@@ -70,6 +82,22 @@ public class FormationServiceImpl {
 
         return formationRepository.save(formation);
     }
+    public void removeUserFromFormation(Long formationId, Long userId) {
+        // Récupérer la formation
+        Formation formation = formationRepository.findById(formationId)
+                .orElseThrow(() -> new RuntimeException("Formation introuvable"));
 
+        // Récupérer l'utilisateur
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        // Chercher le CartItem correspondant
+        Optional<CartItem> cartItemOpt = cartItemRepository.findByFormationIdAndUserId(formationId, userId);
+        if (cartItemOpt.isPresent()) {
+            cartItemRepository.delete(cartItemOpt.get());
+        } else {
+            throw new RuntimeException("L'utilisateur n'est pas inscrit à cette formation");
+        }
+    }
 
 }

@@ -81,5 +81,11 @@ getUsersByFormation(formationId: number): Observable<any[]> {
 getNumberOfStudentsForAllFormations(): Observable<{[key: number]: number}> {
   return this.http.get<{[key: number]: number}>('http://localhost:8080/formation/formations/students/count');
 }
+ removeUserFromFormation(userId: number, formationId: number): Observable<any> {
+  return this.http.delete(
+    `http://localhost:8080/formation/${formationId}/user/${userId}`,
+    { responseType: 'text' }  // <-- important
+  );
+}
 
 }

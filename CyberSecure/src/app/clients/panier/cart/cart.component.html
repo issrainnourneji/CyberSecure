@@ -1,18 +1,84 @@
-<div class="container mt-4">
-  <h3>Mon Panier</h3>
-  <div *ngIf="cartItems.length === 0">Votre panier est vide</div>
+<app-header-user></app-header-user><!--====== Header End ======-->
 
-  <div class="row" *ngFor="let item of cartItems">
-    <div class="col-md-3">
-      <img [src]="item.formation.imageUrl" class="img-fluid rounded">
-    </div>
-    <div class="col-md-6">
-      <h5>{{ item.formation.title }}</h5>
-      <p>{{ item.formation.description }}</p>
-      <p>Prix : {{ item.formation.price | currency }}</p>
-    </div>
-    <div class="col-md-3 d-flex align-items-center">
-      <button class="btn btn-danger" (click)="removeItem(item.formation.id)">Supprimer</button>
+<!-- Section Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-8 text-center">
+        <div class="title-block">
+          <h1 class="fw-bold">Mon Panier</h1>
+          <ul class="header-bradcrumb justify-content-center">
+            <li><a routerLink="/home">Accueil</a></li>
+            <li class="active" aria-current="page">Mes Formations</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+</section>
+
+<!-- Section Panier -->
+<section class="section-padding page">
+  <div class="container">
+
+    <!-- Panier vide -->
+    <div *ngIf="cartItems.length === 0"
+         class="alert alert-light text-center p-4 rounded shadow-sm border"
+         style="border-color:#FF5369 !important;">
+      <i class="fa fa-info-circle me-2" style="color:#FF5369;"></i>
+      Votre panier est vide
+    </div>
+
+    <!-- Liste du panier -->
+    <div *ngFor="let item of cartItems" class="card shadow-sm mb-3 border-0 rounded-3">
+      <div class="row g-0">
+        <!-- Image -->
+        <div class="col-md-3">
+          <img [src]="'http://localhost:8080/files/' + item.formation.imageUrl"
+               alt="{{ item.formation.title }}"
+               class="img-fluid rounded-start"
+               style="height: 180px; object-fit: cover; width:100%;">
+        </div>
+
+        <!-- Détails -->
+        <div class="col-md-6 d-flex flex-column justify-content-center p-3">
+          <h5 class="fw-bold mb-1" >{{ item.formation.title }}</h5>
+          <p class="text-muted small mb-2">{{ item.formation.description }}</p>
+          <p class="fw-bold mb-0" style="color:#FF5369;"> {{ item.formation.price | currency:'EUR' }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-md-3 d-flex align-items-center justify-content-center">
+          <button class="btn text-white px-3"
+                  style="background-color:#FF5369;"
+                  (click)="removeItem(item.formation.id)">
+            <i class="fa fa-trash me-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Panier -->
+    <!-- Total Panier -->
+<div *ngIf="cartItems.length > 0" class="text-end mt-4">
+  <h5>Sous-total (HT) :
+    <span>{{ getTotalHT() | currency:'EUR':'symbol':'1.0-2' }}</span>
+  </h5>
+  <h5>TVA (5%) :
+    <span>{{ getTVA() | currency:'EUR':'symbol':'1.0-2' }}</span>
+  </h5>
+  <h4 class="fw-bold mt-2">Total TTC :
+    <span>
+      {{ getTotalTTC() | currency:'EUR':'symbol':'1.0-2' }}
+    </span>
+  </h4>
+
+  <button class="btn btn-success btn-lg mt-3">
+    <i class="fa fa-credit-card me-2"></i> Passer la commande
+  </button>
 </div>
+
+  </div>
+</section>
+
+<app-footer></app-footer>

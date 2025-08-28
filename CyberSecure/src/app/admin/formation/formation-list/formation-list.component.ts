@@ -24,6 +24,7 @@ export class FormationListComponent implements OnInit, AfterViewInit {
 
   selectedChapitre: any = null;
   editChapitreModal: any;
+selectedUser: any = null;
 
   constructor(
     private formationService: FormationServiceService,
@@ -42,16 +43,23 @@ export class FormationListComponent implements OnInit, AfterViewInit {
     this.addFormationModal = new bootstrap.Modal(document.getElementById('addFormationModal'));
   }
 
-  loadFormations(): void {
-    this.formationService.getAllFormations().subscribe({
-      next: (response) => {
-        this.formations = response;
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des formations:', error);
-      }
-    });
-  }
+loadFormations(): void {
+  this.formationService.getAllFormations().subscribe({
+    next: (formations) => {
+      this.formations = formations;
+
+      // Pour chaque formation, récupérer les users
+      this.formations.forEach(f => {
+  this.formationService.getUsersByFormation(f.id).subscribe({
+    next: (users) => f.users = users,  // <-- stocke les users dans la formation
+    error: (err) => console.error('Impossible de récupérer les users pour formation', f.id, err)
+  });
+});
+    },
+    error: (err) => console.error('Erreur chargement formations', err)
+  });
+}
+
 
   // Ajout de formation
   openAddFormationModal(): void {
@@ -210,5 +218,34 @@ onSubmitAddFormation(): void {
     });
   }
 }
+
+// Voir le détail d'un utilisateur (par exemple ouvrir un modal ou rediriger)
+viewUser(user: any) {
+  this.selectedUser = user;
+
+  // Afficher le modal via Bootstrap JS
+  const modal = new bootstrap.Modal(
+    document.getElementById('viewUserModal') as HTMLElement
+  );
+  modal.show();
+}
+
+// Retirer un utilisateur de la formation
+removeUserFromFormation(userId: number, formationId: number) {
+  if (confirm('Voulez-vous vraiment retirer cet utilisateur de la formation ?')) {
+    this.formationService.removeUserFromFormation(userId, formationId).subscribe({
+      next: () => {
+        alert('Utilisateur retiré avec succès');
+        // Recharger la liste des formations ou des utilisateurs
+        this.loadFormations();  // si tu as une fonction pour recharger la liste
+      },
+      error: (err) => {
+        console.error('Erreur lors du retrait de l’utilisateur', err);
+        alert('Impossible de retirer l’utilisateur.');
+      }
+    });
+  }
+}
+
 
 }

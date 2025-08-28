@@ -60,8 +60,45 @@
                 </td>
                 <td>{{ formation.price }}</td>
                 <td>{{ formation.duration }}</td>
-                <td>{{ formation.numberOfStudents }}</td>
-                <td>
+<td>
+  <div style="background-color: #f8f9fa; padding: 8px; border-radius: 6px;">
+    <table class="table table-sm table-borderless mb-1">
+      <tbody>
+        <tr *ngFor="let user of formation.users" style="vertical-align: middle;">
+          <td style="width: 30px;">{{ user.id }}</td>
+          <td class="text-truncate" style="max-width: 150px;" [attr.title]="user.firstName + ' ' + user.lastName">
+            {{ user.firstName }} {{ user.lastName }}
+          </td>
+          <td class="text-truncate" style="max-width: 200px;" [attr.title]="user.email">
+            {{ user.email }}
+          </td>
+          <td style="width: 80px; white-space: nowrap;">
+            <button
+  type="button"
+  class="btn btn-sm btn-outline me-1"
+  style="background-color: #c4c5c7; border: none;"
+  (click)="viewUser(user)"
+  title="Voir utilisateur"
+>
+  <i class="fa fa-eye"></i>
+</button>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="removeUserFromFormation(user.id, formation.id)"
+              title="Retirer utilisateur"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</td>
+
+           <td>
   <div style="background-color: #f8f9fa; padding: 8px; border-radius: 6px;">
     <table class="table table-sm table-borderless mb-1">
       <tbody>
@@ -133,6 +170,27 @@
   </div>
 </section>
 
+<!-- Modal Voir Utilisateur -->
+<div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background-color: #FF5369;">
+        <h5 class="modal-title" id="viewUserModalLabel">
+          <i class="fa fa-user me-2"></i>Détails de l'utilisateur
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nom :</strong> {{ selectedUser?.name }}</p>
+        <p><strong>Email :</strong> {{ selectedUser?.email }}</p>
+        <p><strong>Téléphone :</strong> {{ selectedUser?.phoneNumber || 'Non renseigné' }}</p>
+      </div>
+      <div class="modal-footer px-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Modal Ajouter Chapitre -->

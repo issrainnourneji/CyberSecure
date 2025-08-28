@@ -34,18 +34,23 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Formation</th>
+                <th>Chapitre</th>
                 <th>Titre</th>
                 <th>Sous-titre</th>
                 <th>Paragraphe</th>
                 <th>Image</th>
                 <th>Vidéo</th>
-                <th>Chapitre</th>
                 <th class="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let slide of slides">
                 <td>{{ slide.id }}</td>
+                <td>{{ slide.chapitre?.formation?.title }}</td>
+                <td>
+                  {{ slide.chapitre?.titre }}
+                </td>
                 <td class="fw-bold">{{ slide.titre }}</td>
                 <td>{{ slide.sousTitre }}</td>
                 <td class="text-truncate" style="max-width: 150px;" [attr.title]="slide.paragraphe">
@@ -62,9 +67,6 @@
                 </td>
                 <td>
                   <a *ngIf="slide.videoUrl" [href]="slide.videoUrl" target="_blank">Voir Vidéo</a>
-                </td>
-                <td>
-                  {{ slide.chapitre?.titre }}
                 </td>
                 <td class="text-center">
                   <button

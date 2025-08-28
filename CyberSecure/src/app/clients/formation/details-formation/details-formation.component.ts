@@ -87,18 +87,37 @@ loadUsers(): void {
 }
 
 enrollCourse(formationId: number) {
+  const userToken = localStorage.getItem('token'); // ou utiliser ton authService
+  if (!userToken) {
+    alert("Vous devez être connecté pour vous inscrire à une formation !");
+    this.router.navigate(['/login']);
+    return;
+  }
   this.cartService.addToCart(formationId).subscribe({
     next: (res: any) => {
-      alert(res.message);
-      // Optionnel : rediriger vers le panier
-      this.router.navigate(['/panier']);
+       alert(res.message);
+              this.router.navigate(['/panier']);
+
+
+      // Rediriger seulement si déjà dans le panier
+      if (res.message === "Formation déjà dans le panier") {
+        this.router.navigate(['/panier']);
+      }
     },
     error: err => {
       console.error(err);
-      alert(err.error?.message || 'Impossible d’ajouter la formation au panier.');
+
+      // En cas de 409 => déjà dans le panier
+      if (err.status === 409) {
+         alert(err.error?.message);
+        this.router.navigate(['/panier']);
+      } else {
+         alert(err.error?.message || 'Impossible d’ajouter la formation au panier.');
+      }
     }
   });
 }
+
 login(){
     if (this.isAuthenticated) {
       if (this.isAdmin) {
@@ -110,6 +129,5 @@ login(){
       this.router.navigate(['/login']);
     }
   }
-
 
 }

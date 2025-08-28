@@ -36,4 +36,17 @@ removeItem(formationId: number) {
   });
 }
 
+getTotalHT(): number {
+  return this.cartItems.reduce((sum, item) => sum + item.formation.price, 0);
+}
+
+getTVA(): number {
+  return this.getTotalHT() * 0.05; // 5% TVA
+}
+
+getTotalTTC(): number {
+  return this.getTotalHT() + this.getTVA();
+}
+
+
 }

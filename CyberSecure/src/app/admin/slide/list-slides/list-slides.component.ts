@@ -25,6 +25,7 @@ export class ListSlidesComponent implements OnInit {
   selectedChapitreId: number | null = null;
 
   addSlideModal : any;
+  editSlideModal: any;
 
   constructor(private formationService: FormationServiceService, private slideService: SlideService, private http: HttpClient, private chapitreService: ChapterService,) {}
 
@@ -118,54 +119,56 @@ this.addSlideModal.show();
 }
 
   // --- MODIFIER SLIDE ---
-  editSlide(slide: any): void {
-    this.selectedSlide = { ...slide };
-    this.selectedImage = null;
-    const modal = document.getElementById('editSlideModal');
-    if (modal) {
-this.addSlideModal = new bootstrap.Modal(modal);
-this.addSlideModal.show();    }
+ editSlide(slide: any): void {
+  this.selectedSlide = { ...slide }; // clone pour ne pas modifier directement
+  this.selectedImage = null;
+
+  const modal = document.getElementById('editSlideModal');
+  if (modal) {
+    this.editSlideModal = new bootstrap.Modal(modal);
+    this.editSlideModal.show();
   }
+}
 
   onImageSelected(event: any): void {
-    this.selectedImage = event.target.files[0];
+  this.selectedImage = event.target.files[0];
+}
+
+onSubmitEditSlide(): void {
+  if (!this.selectedSlide) return;
+
+  const formData = new FormData();
+
+  // Champs texte
+  const fields = ['titre','sousTitre','paragraphe','videoUrl','imageWidth','imageHeight','imagePosition','imagePositionY'];
+  fields.forEach(f => formData.append(f, this.selectedSlide[f] || ''));
+
+  // Image si nouvelle sélection
+  if (this.selectedImage) {
+    formData.append('image', this.selectedImage);
   }
 
-  onSubmitEditSlide(): void {
-    if (!this.selectedSlide) return;
+  this.http.put(`http://localhost:8080/slide/${this.selectedSlide.id}`, formData).subscribe({
+    next: () => {
+      this.loadSlides();
+      this.editSlideModal?.hide();
+    },
+    error: err => console.error('Erreur update slide', err)
+  });
+}
 
-    const formData = new FormData();
-    Object.keys(this.selectedSlide).forEach(key => {
-      if (this.selectedSlide[key] !== undefined && this.selectedSlide[key] !== null) {
-        formData.append(key, this.selectedSlide[key]);
-      }
-    });
 
-    if (this.selectedImage) {
-      formData.append('image', this.selectedImage);
-    }
-
-    this.http.put(`http://localhost:8080/slide/${this.selectedSlide.id}`, formData).subscribe({
-      next: () => {
-        this.loadSlides();
-        const modal = document.getElementById('editSlideModal');
-        if (modal) {
-this.addSlideModal = new bootstrap.Modal(modal);
-this.addSlideModal.show();        }
-      },
-      error: (err) => console.error('Erreur update slide', err)
-    });
-  }
 
   // --- SUPPRIMER SLIDE ---
-  deleteSlide(id: number): void {
-    if (!confirm('Voulez-vous vraiment supprimer ce slide ?')) return;
+ deleteSlide(id: number): void {
+  if (!confirm('Voulez-vous vraiment supprimer ce slide ?')) return;
 
-    this.http.delete(`http://localhost:8080/slide/${id}`).subscribe({
-      next: () => {
-        this.loadSlides();
-      },
-      error: (err) => console.error('Erreur suppression slide', err)
-    });
-  }
+  this.http.delete(`http://localhost:8080/slide/${id}`).subscribe({
+    next: () => {
+      this.loadSlides();
+    },
+    error: err => console.error('Erreur suppression slide', err)
+  });
+}
+
 }
