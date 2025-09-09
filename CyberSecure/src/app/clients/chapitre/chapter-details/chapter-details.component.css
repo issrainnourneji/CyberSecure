@@ -6,3 +6,65 @@ img, video {
   max-height: 400px;
   object-fit: contain;
 }
+
+/* Header formation et chapitre */
+.slide-header {
+  background: linear-gradient(90deg, #193152, #4c8ec4);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+/* Chapitre aligné à droite */
+.chapitre-title {
+  text-align: right;
+  margin: 0;
+}
+
+/* Card du slide */
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 25px;
+}
+
+/* Titre principal */
+h2 {
+  font-weight: 700;
+  color: #193152;
+  margin-bottom: 10px;
+}
+
+/* Sous-titre */
+h5 {
+  margin-left: 30px;
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #4c8ec4;
+}
+
+/* Paragraphe */
+p {
+  white-space: pre-line;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Boutons */
+.btn-main, .btn-success, .btn-outline {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-main:hover, .btn-success:hover, .btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}

@@ -21,48 +21,108 @@
     </div>
 </section>
     <!--course section start-->
-    <section class="section-padding page" >
-        <div class="course-top-wrap">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <p>Showing 1-6 of 8 results</p>
-                    </div>
+   <section class="section-padding page">
+   <div class="container mb-4">
+    <div class="slide-header d-flex justify-content-between align-items-center mb-3">
+      <h4 class="formation-title mb-0 text-primary">
+       {{ formation?.title }}
+      </h4>
+    </div>
+  </div>
+  <!-- Top bar -->
+  <div class="course-top-wrap py-4 mb-4 bg-light shadow-sm rounded">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <p class="mb-0 text-muted">
+             Showing 1-6 of {{ filteredChapitres.length }} results
+          </p>
+        </div>
 
-                    <div class="col-lg-4">
-                        <div class="topbar-search">
-                            <form method="get" action="#">
-                                <input type="text"  placeholder="Search our courses" class="form-control">
-                                <label><i class="fa fa-search"></i></label>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-4">
+          <div class="topbar-search position-relative">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              placeholder="Search by chapter title..."
+              class="form-control rounded-pill ps-4 shadow-sm"
+            />
+            <i
+              class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+            ></i>
+          </div>
         </div>
-        <div class="container">
-            <div class="row ">
-                <div class="course-item col-lg-12 col-md-12" *ngFor="let chapitre of formation?.chapitres">
-                    <div class="single-course style-2 bg-shade border-0">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-xl-2">
-                                <img class="course-thumb " [src]="'http://localhost:8080/files/' + formation?.imageUrl" >
-                            </div>
-                            <div class="col-xl-7">
-                                <div class="course-content py-9 pt-xl-0">
-                                    <h3 class="course-title">   <a [routerLink]="['/chapitre', chapitre.id, 'slides']">{{ chapitre.titre }}</a> </h3>
-                                    <div class="course-meta d-flex align-items-center">
-                                        <span class="students"><i class="far fa-user-alt"></i>{{formation.numberOfStudents}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course list -->
+  <div class="container">
+    <div class="row gy-4">
+      <div
+        class="course-item col-lg-12"
+        *ngFor="let chapitre of filteredChapitres | paginate: { itemsPerPage: 6, currentPage: p }"
+      >
+        <div
+          class="single-course d-flex align-items-center p-3 shadow-sm rounded bg-white hover-card"
+        >
+          <!-- image -->
+          <div class="me-4 flex-shrink-0">
+            <img
+              class="course-thumb rounded shadow-sm"
+              [src]="'http://localhost:8080/files/' + formation?.imageUrl"
+              width="100"
+              height="80"
+              alt="Chapitre image"
+            />
+          </div>
+
+          <!-- content -->
+          <div class="flex-grow-1">
+            <h5 class="mb-1 fw-bold text-primary">
+              <a
+                [routerLink]="['/chapitre', chapitre.id, 'slides']"
+                class="text-decoration-none"
+                >{{ chapitre.titre }}</a
+              >
+            </h5>
+            <div class="course-meta text-muted small d-flex align-items-center gap-3">
+ <span class="students-count" *ngIf="studentsCount[formation.id] !== undefined">
+    <i class="far fa-user-alt me-1"></i>
+    {{ studentsCount[formation.id] }} étudiants
+  </span>
+
+  <span class="slides-count" *ngIf="slideCounts[chapitre.id] !== undefined">
+    <i class="far fa-file-alt me-1 text-primary"></i>
+    {{ slideCounts[chapitre.id] }} slides
+  </span>
+</div>
+
+          </div>
         </div>
-        <!--course-->
-    </section>
+      </div>
+
+      <!-- Aucun résultat trouvé -->
+      <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
+        <i class="fa fa-search fa-2x text-muted mb-2"></i>
+        <p class="text-muted">Aucun chapitre trouvé.</p>
+      </div>
+    </div>
+  </div>
+<div class="d-flex justify-content-center mt-4">
+  <pagination-controls
+    (pageChange)="p = $event"
+    previousLabel="‹"
+    nextLabel="›"
+    [maxSize]="5"
+    class="custom-pagination"
+  >
+  </pagination-controls>
+</div>
+
+
+</section>
+
     <!--course section end-->
 
 
@@ -70,34 +130,6 @@
 <app-footer></app-footer>
 <!-- Footer section End -->
 
-
-
-
-
-
-    <!--
-    Essential Scripts
-    =====================================-->
-
-    <!-- Main jQuery -->
-    <script src="assets/vendors/jquery/jquery.js"></script>
-    <!-- Bootstrap 5:0 -->
-    <script src="assets/vendors/bootstrap/popper.min.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.js"></script>
-    <!-- Counterup -->
-    <script src="assets/vendors/counterup/waypoint.js"></script>
-    <script src="assets/vendors/counterup/jquery.counterup.min.js"></script>
-    <!--  Owl Carousel -->
-    <script src="assets/vendors/owl/owl.carousel.min.js"></script>
-    <!-- Isotope -->
-    <script src="assets/vendors/isotope/jquery.isotope.js"></script>
-    <script src="assets/vendors/isotope/imagelaoded.min.js"></script>
-    <!-- Animated Headline -->
-    <script src="assets/vendors/animated-headline/animated-headline.js"></script>
-    <!-- Magnific Popup -->
-    <script src="assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <script src="assets/js/script.js"></script>
 
 
   </body>

@@ -25,6 +25,8 @@ export class FormationListComponent implements OnInit, AfterViewInit {
   selectedChapitre: any = null;
   editChapitreModal: any;
 selectedUser: any = null;
+p: number = 1;
+
 
   constructor(
     private formationService: FormationServiceService,

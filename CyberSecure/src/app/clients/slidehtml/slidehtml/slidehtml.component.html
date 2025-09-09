@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Ajouter un Slide HTML</h2>
+  <textarea [(ngModel)]="newHtmlContent" rows="5" class="form-control"
+    placeholder="Écris ton code HTML ici (ex: <h1>Titre</h1><p>Sous-titre</p>)">
+  </textarea>
+  <button (click)="addSlide()" class="btn btn-primary mt-2">Ajouter</button>
+
+  <hr>
+
+  <h2>Liste des Slides</h2>
+  <div *ngFor="let slide of slides" class="border p-3 mb-3">
+    <div [innerHTML]="slide.html"></div>
+  </div>
+</div>

@@ -59,4 +59,6 @@ public class ChapitreController {
     public List<Chapitre> getChapitresByFormation(@PathVariable Long formationId) {
         return chapitreService.getChapitresByFormation(formationId);
     }
+
+
 }

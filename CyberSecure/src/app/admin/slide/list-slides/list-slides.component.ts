@@ -26,6 +26,8 @@ export class ListSlidesComponent implements OnInit {
 
   addSlideModal : any;
   editSlideModal: any;
+  p: number = 1;
+filteredSlides: any[] = [];
 
   constructor(private formationService: FormationServiceService, private slideService: SlideService, private http: HttpClient, private chapitreService: ChapterService,) {}
 
@@ -39,6 +41,7 @@ export class ListSlidesComponent implements OnInit {
     this.slideService.getAllSlides().subscribe({
       next: (data) => {
         this.slides = data;
+        this.filteredSlides = data;
       },
       error: (err) => {
         console.error('Erreur chargement slides', err);
@@ -66,12 +69,32 @@ export class ListSlidesComponent implements OnInit {
 onFormationChange() {
   if (this.selectedFormationId) {
     this.chapitreService.getChapitresByFormation(this.selectedFormationId).subscribe({
-      next: data => this.chapitres = data,
+      next: data => {
+        this.chapitres = data;
+        this.selectedChapitreId = null; // reset chapitre
+        this.applyFilter();
+      },
       error: err => console.error('Erreur chargement chapitres', err)
     });
   } else {
     this.chapitres = [];
+    this.selectedChapitreId = null;
+    this.applyFilter();
   }
+}
+
+// Filtrage par chapitre
+onChapitreChange() {
+  this.applyFilter();
+}
+
+// Appliquer le filtre combiné
+applyFilter() {
+  this.filteredSlides = this.slides.filter(slide => {
+    return (!this.selectedFormationId || slide.chapitre?.formation?.id === this.selectedFormationId)
+        && (!this.selectedChapitreId || slide.chapitre?.id === this.selectedChapitreId);
+  });
+  this.p = 1; // reset pagination
 }
 
   // --- AJOUTER SLIDE ---
@@ -170,5 +193,7 @@ onSubmitEditSlide(): void {
     error: err => console.error('Erreur suppression slide', err)
   });
 }
+
+
 
 }

@@ -44,7 +44,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let formation of formations">
+              <tr *ngFor="let formation of formations | paginate: { itemsPerPage: 4, currentPage: p }">
                 <td>{{ formation.id }}</td>
                 <td>
                   <img
@@ -168,6 +168,16 @@
       </div>
     </div>
   </div>
+  <div class="d-flex justify-content-center mt-4">
+  <pagination-controls
+    (pageChange)="p = $event"
+    previousLabel="‹"
+    nextLabel="›"
+    [maxSize]="5"
+    class="custom-pagination"
+  >
+  </pagination-controls>
+</div>
 </section>
 
 <!-- Modal Voir Utilisateur -->

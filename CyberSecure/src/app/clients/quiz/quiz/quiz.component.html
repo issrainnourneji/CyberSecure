@@ -1,0 +1,86 @@
+<app-header-user></app-header-user>
+
+<section class="page-header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-8">
+        <div class="title-block">
+          <h1>Quiz</h1>
+          <ul class="header-bradcrumb justify-content-center">
+            <li><a href="mainUser/home">Home</a></li>
+            <li class="active" aria-current="page">Chapter Quiz</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="course-wrapper section-padding ">
+
+  <!-- Loader -->
+  <div *ngIf="!quiz && !submitted" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Chargement du quiz...</p>
+  </div>
+
+  <!-- Résultat déjà réussi -->
+  <div *ngIf="submitted && result" class="text-center result-card p-5 rounded shadow-lg">
+  <h3>Votre Résultat</h3>
+  <h2 class="my-3">{{ result.score }}%</h2>
+  <p class="fs-5" [ngClass]="{'text-success': result.success, 'text-danger': !result.success}">
+    {{ result.success ? '✅ Réussi' : '❌ Échec' }}
+  </p>
+     <p class="fs-5 text-success">
+      Félicitations ! Vous avez déjà réussi ce quiz.
+    </p>
+
+  <p class="text-muted">
+    Passé le : {{ result.datePassed | date:'dd/MM/yyyy HH:mm:ss' }}
+  </p>
+
+  <button *ngIf="!result.success" class="btn btn-outline-primary mt-3" (click)="restartQuiz()">
+    🔄 Recommencer le quiz
+  </button>
+   <app-quiz-result></app-quiz-result>
+</div>
+
+
+  <!-- Résultat après échec -->
+  <div *ngIf="submitted && result && !result.success" class="text-center result-card p-5 rounded shadow-lg">
+    <h3>Votre Résultat</h3>
+    <h2 class="my-3">{{ result.score }}%</h2>
+    <p class="fs-5 text-danger">
+      ❌ Vous devez refaire le quiz.
+    </p>
+    <button class="btn btn-outline-primary mt-3" (click)="restartQuiz()">
+      🔄 Recommencer le quiz
+    </button>
+  </div>
+
+  <!-- Quiz en cours -->
+  <div *ngIf="quiz && !submitted" class="card shadow-lg p-4 question-step">
+    <div class="text-center mb-4">
+      <h2 class="quiz-title">{{ quiz.titre }}</h2>
+      <div class="timer badge bg-warning text-dark fs-5">
+        ⏱ Temps restant : {{ getFormattedTime() }}
+      </div>
+    </div>
+
+    <!-- Question actuelle -->
+    <h5 class="card-title">{{ quiz.questions[currentQuestionIndex].texte }}</h5>
+    <div class="list-group mt-3">
+      <label *ngFor="let rep of quiz.questions[currentQuestionIndex].reponses"
+             class="list-group-item list-group-item-action quiz-option"
+             (click)="nextQuestion(rep.id)">
+        {{ rep.texte }}
+      </label>
+    </div>
+    <div class="mt-3 text-end">
+      <small>Question {{ currentQuestionIndex + 1 }} / {{ quiz.questions.length }}</small>
+    </div>
+  </div>
+
+</section>
+
+<app-footer></app-footer>

@@ -22,6 +22,9 @@ import { FormationClientListComponent } from './clients/formation/formation-clie
 import { ChapterDetailsComponent } from './clients/chapitre/chapter-details/chapter-details.component';
 import { ListSlidesComponent } from './admin/slide/list-slides/list-slides.component';
 import { CartComponent } from './clients/panier/cart/cart.component';
+import { SlidehtmlComponent } from './clients/slidehtml/slidehtml/slidehtml.component';
+import { QuizComponent } from './clients/quiz/quiz/quiz.component';
+import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -43,6 +46,7 @@ const routes: Routes = [
   {path: "chapterList/:id" , component:ListChapitreComponent ,  canActivate : [clientGuard]},
   {path: "chapitre/:id/slides", component: ChapterDetailsComponent ,  canActivate : [clientGuard]},
   {path: "panier", component: CartComponent,  canActivate : [clientGuard] },
+  {path: "quiz/:chapitreId" , component:QuizComponent},
 //  Admin paths
      {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
      {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
@@ -50,11 +54,17 @@ const routes: Routes = [
      {path: 'usersList', component: UsersListComponent,canActivate: [adminGuard]},
      {path: 'formationList', component: FormationListComponent,canActivate: [adminGuard]},
      {path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] },
-     {path: "slideList", component: ListSlidesComponent , canActivate:[adminGuard] }
+     {path: "slideList", component: ListSlidesComponent , canActivate:[adminGuard] },
+     {path: "quizList", component: QuizListComponent , canActivate:[adminGuard] }
+
 
     ]},
 // Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
+    {path: "slidehtml" , component:SlidehtmlComponent},
+
+
+
 
 
 

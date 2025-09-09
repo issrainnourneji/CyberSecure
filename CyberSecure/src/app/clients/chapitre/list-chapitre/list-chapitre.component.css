@@ -1,0 +1,52 @@
+/* Effet hover sur les cards */
+.hover-card {
+  transition: all 0.3s ease-in-out;
+}
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Input search arrondi et plus moderne */
+.topbar-search input {
+  border: 1px solid #ddd;
+  padding: 10px 40px 10px 15px;
+  font-size: 14px;
+}
+
+.topbar-search input:focus {
+  border-color: #4c8ec4;
+  box-shadow: 0 0 0 0.2rem rgba(76, 142, 196, 0.25);
+}
+.slides-count {
+  font-weight: 500;
+  color: #193152;
+}
+
+.slides-count i {
+  color: #4c8ec4;
+}
+.students-count {
+  font-weight: 500;
+  color: #193152;
+}
+
+.students-count i {
+  color: #4c8ec4;
+}
+.slide-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.formation-title {
+  font-size: 24px;
+  color: #193152;
+  font-weight: 600;
+}
+
+.chapitre-title {
+  font-size: 16px;
+  color: #4c8ec4;
+  font-weight: 500;
+}

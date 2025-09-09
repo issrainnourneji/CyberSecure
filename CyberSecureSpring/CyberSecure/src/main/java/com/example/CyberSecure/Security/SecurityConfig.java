@@ -36,7 +36,9 @@ public class SecurityConfig {
                                 "/chapitre/**",
                                 "/slide/**",
                                 "/rdv/**",
-                                "/cart/**").permitAll()
+                                "/cart/**",
+                                "/slidehtml/**",
+                                "/quiz/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

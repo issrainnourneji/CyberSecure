@@ -17,7 +17,29 @@
 <section class="woocommerce single page-wrapper">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-      <h3 class="fw-bold mb-2"></h3>
+      <div class="d-flex gap-3 mb-3 flex-wrap">
+<div class="filter-bar d-flex flex-wrap align-items-center gap-3 mb-4">
+    <span class="filter-label fw-semibold text-secondary">Filtrer par :</span>
+  <!-- Filtre Formation -->
+  <div class="filter-item">
+    <select class="form-select modern-select" [(ngModel)]="selectedFormationId" (change)="onFormationChange()">
+      <option [ngValue]="null">Toutes les formations</option>
+      <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
+    </select>
+  </div>
+
+  <!-- Filtre Chapitre -->
+  <div class="filter-item">
+    <select class="form-select modern-select" [(ngModel)]="selectedChapitreId" (change)="onChapitreChange()" [disabled]="chapitres.length === 0">
+      <option [ngValue]="null">Tous les chapitres</option>
+      <option *ngFor="let c of chapitres" [ngValue]="c.id">{{ c.titre }}</option>
+    </select>
+  </div>
+</div>
+
+
+</div>
+
       <button
         class="btn btn-sm text-white"
         style="background-color: #FF5369; border: none;"
@@ -45,7 +67,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let slide of slides">
+              <tr *ngFor="let slide of filteredSlides  | paginate: { itemsPerPage: 6, currentPage: p }">
                 <td>{{ slide.id }}</td>
                 <td>{{ slide.chapitre?.formation?.title }}</td>
                 <td>
@@ -93,6 +115,16 @@
       </div>
     </div>
   </div>
+  <div class="d-flex justify-content-center mt-3">
+          <pagination-controls
+            (pageChange)="p = $event"
+            previousLabel="‹"
+            nextLabel="›"
+            [maxSize]="5"
+            class="custom-pagination"
+          >
+          </pagination-controls>
+        </div>
 </section>
 
 <!-- Modal Ajouter Slide -->

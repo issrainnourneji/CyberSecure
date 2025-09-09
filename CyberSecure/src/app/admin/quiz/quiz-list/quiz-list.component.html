@@ -1,0 +1,120 @@
+<section class="page-header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-8">
+        <div class="title-block">
+          <h1>Quiz List</h1>
+          <ul class="header-bradcrumb justify-content-center">
+            <li><a href="mainAdmin/home">Home</a></li>
+            <li class="active" aria-current="page">Quiz</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container mt-4">
+  <h2>Créer un Quiz</h2>
+
+  <!-- Formulaire -->
+  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+
+  <!-- Sélection Formation -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Formation</label>
+    <select class="form-select" formControlName="formationId" (change)="onFormationChange()">
+      <option [ngValue]="null">-- Choisir une formation --</option>
+      <option *ngFor="let formation of formations" [ngValue]="formation.id">
+        {{ formation.title }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Sélection Chapitre -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Chapitre</label>
+    <select class="form-select" formControlName="chapitreId" (change)="onChapitreChange()">
+      <option [ngValue]="null">-- Choisir un chapitre --</option>
+      <option *ngFor="let chapitre of chapitres" [ngValue]="chapitre.id">
+        {{ chapitre.titre }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Titre du quiz</label>
+    <input formControlName="titre" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label>Durée (minutes)</label>
+    <input type="number" formControlName="timeLimit" class="form-control">
+  </div>
+
+  <div formArrayName="questions">
+    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="card mb-3 p-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5>Question #{{ i + 1 }}</h5>
+        <button type="button" class="btn btn-danger btn-sm" (click)="removeQuestion(i)">Supprimer</button>
+      </div>
+
+      <input formControlName="texte" placeholder="Texte de la question" class="form-control mb-2">
+
+      <div formArrayName="reponses">
+        <div *ngFor="let reponse of getReponses(i).controls; let j = index" [formGroupName]="j" class="d-flex mb-1">
+          <input formControlName="texte" placeholder="Texte de la réponse" class="form-control me-2">
+          <label class="form-check-label me-2">
+            <input type="checkbox" formControlName="correct" class="form-check-input">
+            Correct
+          </label>
+          <button type="button" class="btn btn-sm btn-danger" (click)="removeReponse(i, j)">Supprimer</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-sm btn-primary mt-2" (click)="addReponse(i)">Ajouter une réponse</button>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-success mb-3" (click)="addQuestion()">Ajouter une question</button>
+  <button type="submit" class="btn btn-primary">Créer le Quiz</button>
+</form>
+
+
+  <hr>
+
+  <!-- Liste des Quiz filtrés -->
+  <div class="mt-4">
+    <h3>Liste des Quiz</h3>
+    <div *ngFor="let quiz of filteredQuizzes">
+      <div class="card mb-3 p-3 shadow">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>{{ quiz.titre }} (⏱ {{ quiz.timeLimit }} min)</h4>
+          <div>
+            <button class="btn btn-sm btn-secondary me-1" (click)="editQuiz(quiz)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteQuiz(quiz.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Questions & Réponses -->
+        <div *ngIf="quiz.questions?.length">
+          <ul class="mt-2">
+            <li *ngFor="let q of quiz.questions">
+              <strong>{{ q.texte }}</strong>
+              <ul>
+                <li *ngFor="let r of q.reponses">
+                  {{ r.texte }}
+                  <span *ngIf="r.correct" class="badge bg-success ms-2">✔</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,6 +37,11 @@ import { HeaderHomeComponent } from './Components/header-home/header-home.compon
 import { ChapterDetailsComponent } from './clients/chapitre/chapter-details/chapter-details.component';
 import { ListSlidesComponent } from './admin/slide/list-slides/list-slides.component';
 import { CartComponent } from './clients/panier/cart/cart.component';
+import { SlidehtmlComponent } from './clients/slidehtml/slidehtml/slidehtml.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { QuizComponent } from './clients/quiz/quiz/quiz.component';
+import { QuizResultComponent } from './clients/quiz/quiz-result/quiz-result.component';
+import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
 
 
 @NgModule({
@@ -70,7 +75,11 @@ import { CartComponent } from './clients/panier/cart/cart.component';
     ChapterDetailsComponent,
     SafeUrlPipe,
     ListSlidesComponent,
-    CartComponent
+    CartComponent,
+    SlidehtmlComponent,
+    QuizComponent,
+    QuizResultComponent,
+    QuizListComponent
 
   ],
   imports: [
@@ -82,6 +91,7 @@ import { CartComponent } from './clients/panier/cart/cart.component';
     CodeInputModule,
     HttpClientModule,
     FullCalendarModule,
+    NgxPaginationModule
 
 ],
   providers: [HttpClient,

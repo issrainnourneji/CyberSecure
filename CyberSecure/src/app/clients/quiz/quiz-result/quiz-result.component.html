@@ -1,0 +1,42 @@
+<div class="text-end mb-3">
+  <button class="btn btn-outline-success" (click)="downloadPdf()">
+    📄 Télécharger les résultats
+  </button>
+</div>
+
+<!-- conteneur à exporter en PDF -->
+<div id="quiz-results">
+  <div *ngFor="let result of history; let i = index" class="card mb-4 shadow-sm p-3">
+    <!-- Numéro de tentative -->
+    <h5>Tentative #{{ i + 1 }}</h5>
+
+    <h4>{{ result.quiz.titre }}</h4>
+
+    <p>
+      Score : {{ result.score }}%
+      <span [ngClass]="{'text-success': result.success, 'text-danger': !result.success}">
+        {{ result.success ? '✅ Réussi' : '❌ Échec' }}
+      </span>
+    </p>
+
+    <p class="text-muted">
+      Passé le : {{ result.datePassed | date:'dd/MM/yyyy HH:mm:ss' }}
+    </p>
+
+    <div *ngFor="let question of result.quiz.questions" class="ms-3 mb-3">
+      <strong>{{ question.texte }}</strong>
+      <ul>
+        <li *ngFor="let answer of question.reponses"
+            [ngClass]="{
+              'text-success fw-bold': answer.correct,
+              'text-danger fw-bold': isUserWrongAnswer(result.userAnswers, question.id, answer),
+              'text-muted': !answer.correct && !isUserWrongAnswer(result.userAnswers, question.id, answer)
+            }">
+          {{ answer.texte }}
+          <span *ngIf="isUserWrongAnswer(result.userAnswers, question.id, answer)"> (Votre choix ❌) </span>
+          <span *ngIf="answer.correct"> ✅</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
