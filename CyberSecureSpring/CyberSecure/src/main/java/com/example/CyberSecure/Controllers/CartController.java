@@ -49,7 +49,7 @@ public class CartController {
                 return ResponseEntity.status(HttpStatus.CONFLICT) // 409
                         .body(Map.of("message", e.getMessage()));
             }
-            throw e; // autres erreurs
+            throw e;
         }
     }
 
@@ -64,7 +64,6 @@ public class CartController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        // Retrouver l’utilisateur dans la base
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -72,7 +71,6 @@ public class CartController {
         return ResponseEntity.ok(cartItems);
     }
 
-    // Supprimer un item
     @DeleteMapping("/remove/{formationId}")
     public ResponseEntity<Void> removeFromCart(
             @PathVariable Long formationId,

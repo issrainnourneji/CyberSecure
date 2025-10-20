@@ -24,9 +24,9 @@ Version      : 1.0
 :root {
   --theme-heading-font: 'Gilroy', sans-serif;
   --theme-secondary-font:'Jost', sans-serif;
-  --theme-primary-color: #F14D5D;
-  --theme-secondary-color: #015ABD;
-  --theme-heading-color: #14133b;
+  --theme-primary-color: #be323d;
+  --theme-secondary-color: #b93b4a;
+  --theme-heading-color: #912943;
   --theme-text-color: #77838F;
   --theme-white-color: #fff;
   --theme-border-color: #ddd;
@@ -498,10 +498,13 @@ Page Banner Area
   top: 0px;
   width: 100%;
   height: 100%;
-  background: rgba(3, 31, 66, 0.9);
+  background: linear-gradient(135deg, rgba(190, 50, 61, 0.5) 0%,rgba(67, 14, 43, 0.5) 100%);
+
   z-index: -1;
 }
-
+.headerlien {
+  color: #681b37 !important;
+}
 .page-header .title-block {
   text-align: center;
 }
@@ -1502,10 +1505,12 @@ Banner style 2
 -------------------*/
 .banner-style-2 {
   padding: 140px 0px 160px;
-  /* background: url("../images/banner/banner-2.jpg") no-repeat center center; */
+  background: url("../images/news/k.jpg") no-repeat center center;
   background-size: cover;
   position: relative;
   z-index: 1;
+    padding-bottom: 70px;
+
 }
 
 .banner-style-2:after {
@@ -1516,7 +1521,7 @@ Banner style 2
   width: 100%;
   height: 100%;
   background-color: transparent;
-  background: #120F2D;
+  background-color:rgba(215, 55, 82, 0.5) !important; /* couleur #a02e41 avec transparence */
   opacity: .6;
   z-index: -1;
 }
@@ -1567,12 +1572,13 @@ Banner-3
 
 .banner-style-3 {
   position: relative;
-  background: url("../images/banner/téléchargement.jpg") no-repeat center center;
+  background: url("../images/news/e-learning-education-online-digital-technology-with-icon-blue-background-internet-lessons_252172-1281.jpg") no-repeat center center;
   background-size: cover;
   -webkit-clip-path: polygon(0 0, 100% 0%, 100% 92%, 0% 100%);
   clip-path: polygon(0 0, 100% 0%, 100% 92%, 0% 100%);
   position: relative;
   z-index: 1;
+
 }
 
 .banner-style-3:after {
@@ -1583,7 +1589,7 @@ Banner-3
   width: 100%;
   height: 100%;
   background-color: transparent;
-  background: #120F2D;
+  background:  rgba(160, 46, 65, 0.5) !important;
   opacity: .7;
   z-index: -1;
 }
@@ -1606,23 +1612,22 @@ Banner-3
 .banner-style-4 {
   position: relative;
   z-index: 1;
-  background: #2F2D51;
+  background: url("../images/news/What-is-Cyber-Security.jpg") no-repeat center center;
   padding-bottom: 220px;
 }
 
 .banner-style-4:after {
   position: absolute;
   content: "";
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent;
-  /* background: url("../images/banner/shape_bg.png") no-repeat center center; */
+  background-color: rgba(160, 46, 65, 0.5) !important; /* couleur #a02e41 avec transparence */
   background-size: cover;
-  opacity: .1;
-  z-index: -1;
+  z-index: 1; /* au-dessus de l'image mais en dessous du texte */
 }
+
 
 .banner-style-4 .banner-content .subheading {
   color: #fff;
@@ -1642,6 +1647,11 @@ Banner-3
   color: #fff;
   opacity: .7;
 }
+.banner-style-4 .banner-content {
+  position: relative;
+  z-index: 2;
+}
+
 
 /*--------------------------
 Counter
@@ -2268,7 +2278,7 @@ Counter 4
 }
 
 .counter-inner {
-  background: #2A3E61;
+  background: #be323d;
   border-radius: 10px;
   padding: 50px 30px;
   position: relative;
@@ -3961,7 +3971,21 @@ Course header layout 3
   top: 0px;
   width: 25%;
   height: 100%;
-  background: #120F2D;
+  background: #561d2e;
+}
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #511435) !important;
+  color: white !important;
+  border: none !important;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 /*==================
@@ -3988,7 +4012,16 @@ Course page search
   right: 20px;
   top: 11px;
 }
-
+.popular-courses-title {
+    color: #430e2b;             /* couleur demandée */
+    font-size: 37px;            /* même taille que .team h4 */
+    font-weight: 700;           /* gras */
+    padding-bottom: 15px;       /* espace sous le titre */
+    text-align: center;          /* centré */
+    text-transform: capitalize; /* première lettre de chaque mot en majuscule */
+    margin-top: 10px;           /* comme h4 */
+    margin-bottom: 10px;        /* comme h4 */
+}
 /*==================
 Course page Header
 =====================*/
@@ -3996,7 +4029,6 @@ Course page Header
   padding: 90px 0px;
   background: #F4F5F8;
   position: relative;
-  background: url("../images/bg/page-title.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;
@@ -4009,7 +4041,7 @@ Course page Header
   top: 0px;
   width: 100%;
   height: 100%;
-  background: rgba(3, 31, 66, 0.9);
+  background: rgba(148, 41, 50, 0.5);
   z-index: -1;
 }
 

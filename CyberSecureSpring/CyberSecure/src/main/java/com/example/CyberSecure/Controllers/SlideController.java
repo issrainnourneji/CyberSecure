@@ -1,6 +1,5 @@
 package com.example.CyberSecure.Controllers;
 
-import com.example.CyberSecure.Entities.Formation;
 import com.example.CyberSecure.Entities.Slide;
 import com.example.CyberSecure.Services.SlideServiceImpl;
 import lombok.AllArgsConstructor;
@@ -74,16 +73,16 @@ public class SlideController {
             @RequestParam(required = false) String imageHeight,
             @RequestParam(required = false) String imagePosition,
             @RequestParam(required = false) String imagePositionY,
-            @RequestParam(required = false) MultipartFile image
+            @RequestParam(required = false) MultipartFile image,
+            @RequestParam(required = false) Boolean removeImage
     ) throws IOException {
 
         Slide updatedSlide = slideService.updateSlide(id, titre, sousTitre, paragraphe, videoUrl,
-                imageWidth, imageHeight, imagePosition, imagePositionY, image);
+                imageWidth, imageHeight, imagePosition, imagePositionY, image, removeImage);
 
         return ResponseEntity.ok(updatedSlide);
     }
 
-    // --- DELETE SLIDE ---
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteSlide(@PathVariable Long id) {
         slideService.deleteSlide(id);

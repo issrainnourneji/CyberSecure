@@ -1,0 +1,126 @@
+.certification-container {
+  max-width: 1000px;
+  margin: 30px auto;      /* au lieu de 50px */
+  padding: 30px 25px;     /* réduit l’espace interne */
+  border: 3px solid #4c8ec4;
+  border-radius: 25px;
+  background: #fff;
+  position: relative;
+  font-family: 'Times New Roman', Times, serif;
+  color: #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  width: 70%;
+  pointer-events: none;
+}
+
+.watermark img {
+  width: 100%;
+}
+
+.cert-header {
+  margin-bottom: 20px;   /* au lieu de 40px */
+}
+
+.cert-logo {
+  height: 60px;          /* réduit la hauteur du logo */
+  margin-bottom: 10px;
+}
+
+
+.cert-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #193152;
+  margin-bottom: 5px;
+}
+
+.cert-subtitle {
+  font-size: 18px;
+  color: #4c8ec4;
+}
+
+.cert-body {
+  margin: 15px 0;        /* au lieu de 30px */
+}
+.user-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #193152;
+  margin: 10px 0;
+}
+
+.user-phone, .cert-text, .cert-date {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.formation-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #3f739d;
+}
+
+.cert-footer {
+  margin-top: 20px;      /* au lieu de 50px */
+}
+
+.signature p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.signature-img {
+  height: 60px;
+}
+
+.cert-logo-footer {
+  height: 80px;
+}
+.btn-primary {
+  background-color: #4c8ec4;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.btn-primary:hover {
+  background-color: #193152;
+  color: #fff;
+}
+.badge-img {
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.signature-container img {
+  height: 100px;   /* augmente la taille */
+}
+.user-phone {
+  color: #23313f; /* gris foncé lisible */
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.cert-text {
+  color: #333;
+  font-size: 16px;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.cert-date {
+  color: #333;
+  font-size: 14px;
+  margin-top: 10px;
+}

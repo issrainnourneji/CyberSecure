@@ -9,7 +9,7 @@ img, video {
 
 /* Header formation et chapitre */
 .slide-header {
-  background: linear-gradient(90deg, #193152, #4c8ec4);
+  background: linear-gradient(90deg, #c85865 , #4f1524);
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
@@ -36,7 +36,7 @@ img, video {
 /* Titre principal */
 h2 {
   font-weight: 700;
-  color: #193152;
+  color: #430e2b;
   margin-bottom: 10px;
 }
 
@@ -68,3 +68,4 @@ p {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+

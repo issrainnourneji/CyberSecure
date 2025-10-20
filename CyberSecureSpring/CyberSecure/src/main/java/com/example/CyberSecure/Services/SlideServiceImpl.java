@@ -63,7 +63,7 @@ public class SlideServiceImpl {
 
     public Slide updateSlide(Long id, String titre, String sousTitre, String paragraphe, String videoUrl,
                              String imageWidth, String imageHeight, String imagePosition, String imagePositionY,
-                             MultipartFile image) throws IOException {
+                             MultipartFile image, Boolean removeImage) throws IOException {
 
         Slide slide = slideRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Slide non trouvé"));
@@ -77,18 +77,24 @@ public class SlideServiceImpl {
         if (imagePosition != null) slide.setImagePosition(imagePosition);
         if (imagePositionY != null) slide.setImagePositionY(imagePositionY);
 
-
         if (image != null && !image.isEmpty()) {
-            String imageFileName = image.getOriginalFilename();
+            String imageFileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
             String imagePath = uploadDir + imageFileName;
             image.transferTo(new File(imagePath));
             slide.setImageUrl(imageFileName);
+        }
+        else if (Boolean.TRUE.equals(removeImage)) {
+            if (slide.getImageUrl() != null) {
+                File oldFile = new File(uploadDir + slide.getImageUrl());
+                if (oldFile.exists()) oldFile.delete();
+            }
+            slide.setImageUrl(null);
         }
 
         return slideRepository.save(slide);
     }
 
-    // --- DELETE ---
+
     public void deleteSlide(Long id) {
         Slide slide = slideRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Slide non trouvé"));

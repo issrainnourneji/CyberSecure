@@ -22,7 +22,7 @@ public class RDVDto {
     private LocalDateTime RDVDate;
     private RDVType RDVType;
     private String userName;
-    private String userEmail; // ou userEmail, etc.
+    private String userEmail;
 
     public RDVDto(RDV rdv) {
         this.id = rdv.getId();
@@ -30,8 +30,8 @@ public class RDVDto {
         this.status = rdv.getStatus();
         this.RDVDate = rdv.getRDVDate();
         this.RDVType = rdv.getRDVType();
-        this.userName = rdv.getUser().getName(); // ou getEmail()
-        this.userEmail = rdv.getUser().getEmail(); // ou getEmail()
+        this.userName = rdv.getUser().getName();
+        this.userEmail = rdv.getUser().getEmail();
 
     }
 }

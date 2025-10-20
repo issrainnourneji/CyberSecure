@@ -24,7 +24,7 @@
           <div class="title-block">
             <h1>Profile</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="home">Home</a></li>
+              <li><a class="headerlien" href="home">Home</a></li>
               <li class="active" aria-current="page">Profile</li>
             </ul>
           </div>
@@ -34,86 +34,85 @@
 </section>
 
     <!--shop category start-->
-   <section class="woocommerce single page-wrapper">
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
-        <div class="cart-collaterals mt-5">
-          <div class="cart_totals p-4 rounded" style="background-color: #f7f6f7; border: 1px solid #e0dede;">
-            <h2 class="woocommerce-title text-center mb-4">Welcome {{ userInfo?.name }}</h2>
+<section class="user-profile container mt-5 mb-5">
+  <div class="profile-header position-relative">
+    <!-- 🖼️ Couverture -->
+    <div class="cover-photo"></div>
 
-            <ng-container *ngIf="error; else profileContent">
-              <div class="alert alert-danger text-center">{{ error }}</div>
-            </ng-container>
-
-            <ng-template #profileContent>
-              <div *ngIf="!isEditing">
-                <p><strong>Name:</strong> {{ userInfo?.name }}</p>
-                <p><strong>Email:</strong> {{ userInfo?.email }}</p>
-                <p><strong>Phone Number:</strong> {{ userInfo?.phoneNumber }}</p>
-                <p><strong>Address:</strong> {{ userInfo?.address }}</p>
-                <p><strong>Role:</strong> {{ userInfo?.role }}</p>
-
-                <div class="text-center mt-3">
-                  <button class="button alt wc-forward" (click)="editProfile()">Edit Profile</button>
-                </div>
-              </div>
-
-              <form *ngIf="isEditing" (ngSubmit)="updateProfile()" #profileForm="ngForm" class="mt-4">
-                <div class="form-row mb-3">
-                  <label for="name">Name:</label>
-                  <input
-                    id="name"
-                    [(ngModel)]="editForm.name"
-                    name="name"
-                    required
-                    minlength="3"
-                    class="form-control"
-                    placeholder="Enter your name"
-                    #name="ngModel"
-                  />
-                  <small *ngIf="name.invalid && name.touched" class="text-danger">Name is required (min 3 characters)</small>
-                </div>
-
-                <div class="form-row mb-3">
-                  <label for="phoneNumber">Phone Number:</label>
-                  <input
-                    id="phoneNumber"
-                    [(ngModel)]="editForm.phoneNumber"
-                    name="phoneNumber"
-                    class="form-control"
-                    placeholder="Enter your phone number"
-                    pattern="^[0-9]{8,10}$"
-                    required
-                    #phone="ngModel"
-                  />
-                  <small *ngIf="phone.invalid && phone.touched" class="text-danger">Phone number must be 8 to 10 digits</small>
-                </div>
-
-                <div class="form-row mb-3">
-                  <label for="address">Address:</label>
-                  <input
-                    id="address"
-                    [(ngModel)]="editForm.address"
-                    name="address"
-                    class="form-control"
-                    placeholder="Enter your address"
-                    required
-                    #address="ngModel"
-                  />
-                  <small *ngIf="address.invalid && address.touched" class="text-danger">Address is required</small>
-                </div>
-
-                <div class="d-flex justify-content-center gap-2">
-                  <button type="submit" class="button alt wc-forward" [disabled]="profileForm.invalid">Save</button>
-                  <button type="button" class="button wc-backward" (click)="cancelEdit()">Cancel</button>
-                </div>
-              </form>
-            </ng-template>
-          </div>
-        </div>
-      </div>
+    <!-- 👤 Photo de profil -->
+    <div class="profile-photo-wrapper">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+        alt="User photo"
+        class="profile-photo"
+      />
     </div>
+  </div>
+
+  <div class="profile-body text-center mt-5">
+    <h2 class="user-name fw-bold">Welcome {{ userInfo?.name }}</h2>
+    <p class="user-role text-muted">{{ userInfo?.role }}</p>
+
+    <div *ngIf="!isEditing; else editFormSection" class="profile-info mt-4">
+      <div class="info-item"><strong>Email:</strong> {{ userInfo?.email }}</div>
+      <div class="info-item"><strong>Phone:</strong> {{ userInfo?.phoneNumber }}</div>
+      <div class="info-item"><strong>Address:</strong> {{ userInfo?.address }}</div>
+
+      <button class="btn-edit mt-4" (click)="editProfile()">
+        <i class="fas fa-user-edit me-2"></i> Edit Profile
+      </button>
+    </div>
+
+    <!-- ✏️ Mode édition -->
+    <ng-template #editFormSection>
+      <form (ngSubmit)="updateProfile()" #profileForm="ngForm" class="edit-form mt-4 text-start mx-auto">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            id="name"
+            [(ngModel)]="editForm.name"
+            name="name"
+            class="form-control"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input
+            id="phoneNumber"
+            [(ngModel)]="editForm.phoneNumber"
+            name="phoneNumber"
+            class="form-control"
+            placeholder="Enter your phone number"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input
+            id="address"
+            [(ngModel)]="editForm.address"
+            name="address"
+            class="form-control"
+            placeholder="Enter your address"
+          />
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 mt-3">
+          <button type="submit" class="btn-save " style="background: linear-gradient(to right, #912943, #912943) " [disabled]="profileForm.invalid">
+            <i class="fas fa-save me-2"></i> Save
+          </button>
+          <button type="button" class="btn-cancel" (click)="cancelEdit()">
+            <i class="fas fa-times me-2"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </ng-template>
+  </div>
 </section>
+
 
 <!-- Success Modal Compatible WooCommerce -->
 <div

@@ -1,0 +1,8 @@
+ .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(25, 49, 82, 0.2);
+  }
+
+  select.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 83, 105, 0.25);
+  }

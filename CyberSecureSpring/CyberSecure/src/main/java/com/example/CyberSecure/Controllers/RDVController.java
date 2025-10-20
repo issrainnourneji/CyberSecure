@@ -22,11 +22,9 @@ public class RDVController {
     @PostMapping("/add")
     public ResponseEntity<?> addAppointment(@RequestBody Map<String, Object> request, Principal principal) {
         try {
-            // Appel du service pour créer le rendez-vous
             RDV appointment = rdvService.createRDV(request, principal.getName());
             return ResponseEntity.ok(appointment);
         } catch (RuntimeException e) {
-            // Gestion des erreurs personnalisées
             return ResponseEntity.badRequest().body(Map.of(
                     "error", e.getMessage()
             ));

@@ -26,7 +26,10 @@ export class FormationListComponent implements OnInit, AfterViewInit {
   editChapitreModal: any;
 selectedUser: any = null;
 p: number = 1;
+selectedUsers: any[] = [];
+selectedChapitres: any[] = [];
 
+itemsPerPage: number = 9;
 
   constructor(
     private formationService: FormationServiceService,
@@ -45,15 +48,28 @@ p: number = 1;
     this.addFormationModal = new bootstrap.Modal(document.getElementById('addFormationModal'));
   }
 
+  openUsersModal(formation: any) {
+  this.selectedUsers = formation.users || [];
+  this.selectedFormation = formation;
+  const modal = new bootstrap.Modal(document.getElementById('usersModal') as HTMLElement);
+  modal.show();
+}
+
+openChapitresModal(formation: any) {
+  this.selectedChapitres = formation.chapitres || [];
+  this.selectedFormation = formation;
+  const modal = new bootstrap.Modal(document.getElementById('chapitresModal') as HTMLElement);
+  modal.show();
+}
+
 loadFormations(): void {
   this.formationService.getAllFormations().subscribe({
     next: (formations) => {
       this.formations = formations;
 
-      // Pour chaque formation, récupérer les users
       this.formations.forEach(f => {
   this.formationService.getUsersByFormation(f.id).subscribe({
-    next: (users) => f.users = users,  // <-- stocke les users dans la formation
+    next: (users) => f.users = users,
     error: (err) => console.error('Impossible de récupérer les users pour formation', f.id, err)
   });
 });
@@ -63,7 +79,6 @@ loadFormations(): void {
 }
 
 
-  // Ajout de formation
   openAddFormationModal(): void {
     this.newFormation = { title: '', description: '', price: 0, duration: 0, numberOfStudents: 0 };
     this.newImageFile = null;
@@ -85,7 +100,7 @@ onSubmitAddFormation(): void {
   this.formationService.addFormation(
     this.newFormation.title,
     this.newFormation.description,
-    this.newImageFile, // ici on est sûr qu’il y a un fichier
+    this.newImageFile,
     this.newFormation.price,
     this.newFormation.duration,
     this.newFormation.numberOfStudents
@@ -101,7 +116,6 @@ onSubmitAddFormation(): void {
 }
 
 
-  // Modification de formation
   openEditModal(formation: any): void {
     this.selectedFormation = { ...formation };
     this.selectedImageFile = null;
@@ -154,7 +168,6 @@ onSubmitAddFormation(): void {
     }
   }
 
-  // Modification chapitre
   editChapitre(chapitre: any): void {
     this.selectedChapitre = { ...chapitre };
     this.editChapitreModal.show();
@@ -203,11 +216,14 @@ onSubmitAddFormation(): void {
 }
 
 
-  deleteChapitre(chapitreId: number): void {
+deleteChapitre(chapitreId: number): void {
   if (confirm('Voulez-vous vraiment supprimer ce chapitre ?')) {
     this.chapitreService.deleteChapitre(chapitreId).subscribe({
       next: () => {
-        // Retirer le chapitre de la liste affichée (dans formations)
+        // Retirer le chapitre de la liste affichée dans le modal
+        this.selectedChapitres = this.selectedChapitres.filter(c => c.id !== chapitreId);
+
+        // Si tu veux aussi retirer du tableau formations global
         this.formations.forEach(formation => {
           if (formation.chapitres) {
             formation.chapitres = formation.chapitres.filter((c: any) => c.id !== chapitreId);
@@ -216,30 +232,36 @@ onSubmitAddFormation(): void {
       },
       error: (err) => {
         console.error('Erreur lors de la suppression du chapitre :', err);
+        alert('Impossible de supprimer le chapitre.');
       }
     });
   }
 }
 
-// Voir le détail d'un utilisateur (par exemple ouvrir un modal ou rediriger)
 viewUser(user: any) {
   this.selectedUser = user;
 
-  // Afficher le modal via Bootstrap JS
   const modal = new bootstrap.Modal(
     document.getElementById('viewUserModal') as HTMLElement
   );
   modal.show();
 }
 
-// Retirer un utilisateur de la formation
 removeUserFromFormation(userId: number, formationId: number) {
   if (confirm('Voulez-vous vraiment retirer cet utilisateur de la formation ?')) {
     this.formationService.removeUserFromFormation(userId, formationId).subscribe({
       next: () => {
-        alert('Utilisateur retiré avec succès');
-        // Recharger la liste des formations ou des utilisateurs
-        this.loadFormations();  // si tu as une fonction pour recharger la liste
+        this.selectedUsers = this.selectedUsers.filter(u => u.id !== userId);
+
+
+          alert('Utilisateur retiré avec succès');
+
+
+        this.formations.forEach(f => {
+          if (f.id === formationId && f.users) {
+            f.users = f.users.filter((u:any) => u.id !== userId);
+          }
+        });
       },
       error: (err) => {
         console.error('Erreur lors du retrait de l’utilisateur', err);

@@ -5,7 +5,7 @@
           <div class="title-block">
             <h1>Slides List</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="mainAdmin/home">Home</a></li>
+              <li><a class="headerlien"href="mainAdmin/home">Home</a></li>
               <li class="active" aria-current="page">Chapters Details</li>
             </ul>
           </div>
@@ -14,133 +14,126 @@
     </div>
 </section>
 
-<section class="woocommerce single page-wrapper">
+<section class="py-5 bg-light">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-      <div class="d-flex gap-3 mb-3 flex-wrap">
-<div class="filter-bar d-flex flex-wrap align-items-center gap-3 mb-4">
-    <span class="filter-label fw-semibold text-secondary">Filtrer par :</span>
-  <!-- Filtre Formation -->
-  <div class="filter-item">
-    <select class="form-select modern-select" [(ngModel)]="selectedFormationId" (change)="onFormationChange()">
-      <option [ngValue]="null">Toutes les formations</option>
-      <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
-    </select>
-  </div>
 
-  <!-- Filtre Chapitre -->
-  <div class="filter-item">
-    <select class="form-select modern-select" [(ngModel)]="selectedChapitreId" (change)="onChapitreChange()" [disabled]="chapitres.length === 0">
-      <option [ngValue]="null">Tous les chapitres</option>
-      <option *ngFor="let c of chapitres" [ngValue]="c.id">{{ c.titre }}</option>
-    </select>
-  </div>
-</div>
+    <!-- Filtres et Ajouter Slide -->
+    <div class="d-flex justify-content-between flex-wrap align-items-center mb-4 gap-3">
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <span class="fw-semibold text-secondary">Filtrer par :</span>
 
+        <select class="form-select form-select-sm shadow-sm" [(ngModel)]="selectedFormationId" (change)="onFormationChange()" style="min-width: 160px;">
+          <option [ngValue]="null">Toutes les formations</option>
+          <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
+        </select>
 
-</div>
+        <select class="form-select form-select-sm shadow-sm" [(ngModel)]="selectedChapitreId" (change)="onChapitreChange()" [disabled]="chapitres.length === 0" style="min-width: 160px;">
+          <option [ngValue]="null">Tous les chapitres</option>
+          <option *ngFor="let c of chapitres" [ngValue]="c.id">{{ c.titre }}</option>
+        </select>
+      </div>
 
-      <button
-        class="btn btn-sm text-white"
-        style="background-color: #FF5369; border: none;"
-        (click)="openAddSlideModal()"
-      >
+      <button class="btn text-white btn-gradient px-4 py-2 rounded-pill shadow" (click)="openAddSlideModal()">
         <i class="fa fa-plus me-2"></i> Ajouter Slide
       </button>
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped align-middle">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Formation</th>
-                <th>Chapitre</th>
-                <th>Titre</th>
-                <th>Sous-titre</th>
-                <th>Paragraphe</th>
-                <th>Image</th>
-                <th>Vidéo</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let slide of filteredSlides  | paginate: { itemsPerPage: 6, currentPage: p }">
-                <td>{{ slide.id }}</td>
-                <td>{{ slide.chapitre?.formation?.title }}</td>
-                <td>
-                  {{ slide.chapitre?.titre }}
-                </td>
-                <td class="fw-bold">{{ slide.titre }}</td>
-                <td>{{ slide.sousTitre }}</td>
-                <td class="text-truncate" style="max-width: 150px;" [attr.title]="slide.paragraphe">
-                  {{ slide.paragraphe }}
-                </td>
-                <td>
-                  <img
-                    *ngIf="slide.imageUrl"
-                    [src]="'http://localhost:8080/files/' + slide.imageUrl"
-                    alt="{{ slide.titre }}"
-                    class="img-fluid rounded"
-                    style="max-width: 80px; max-height: 60px;"
-                  >
-                </td>
-                <td>
-                  <a *ngIf="slide.videoUrl" [href]="slide.videoUrl" target="_blank">Voir Vidéo</a>
-                </td>
-                <td class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-sm text-white me-1"
-                    style="background-color: #6c757d; border: none;"
-                    (click)="editSlide(slide)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-sm text-white"
-                    style="background-color: #FF5369; border: none;"
-                    (click)="deleteSlide(slide.id)"
-                  >
-                    <i class="fa fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Liste des slides -->
+                 <div class="row ">
+                     <div *ngFor="let slide of filteredSlides | paginate: { itemsPerPage: 4, currentPage: p }" class="course-item col-lg-6 col-md-6">
+                    <div class="single-course style-2 bg-shade border-0">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-xl" >
+                                <div class="course-thumb" >
+                                    <span class="category">   {{ slide.chapitre?.formation?.title }}</span>
+                                </div>
+                            </div>
+                            <div class="col-xl">
+                                <div class="course-content py-6 pt-xl-12">
+                                    <div class="course-title">{{ slide.chapitre?.titre }}</div>
+                                    <h3 class="course-title">               <!-- Slide Title -->
+              <h5 class="card-title fw-bold mb-2 text-truncate" style="max-width: 100%;">
+                <a href="#" class="text-dark text-decoration-none">{{ slide.titre }}</a>
+              </h5> </h3>
+              <p class="text-truncate mb-2" style="max-height:50px;">{{ slide.paragraphe }}</p>
+            <div class="d-flex gap-2 flex-wrap mt-2">
+              <button class="btn btn-sm rounded-pill shadow-sm text-white px-3 py-1" style="background-color:#4c8ec4;" (click)="editSlide(slide)">
+                <i class="fa fa-edit me-1"></i>
+              </button>
+              <button class="btn btn-sm rounded-pill shadow-sm text-white px-3 py-1" style="background-color:#be323d;" (click)="deleteSlide(slide.id)">
+                <i class="fa fa-trash me-1"></i>
+              </button>
+              <a *ngIf="slide.videoUrl" [href]="slide.videoUrl" target="_blank" class="btn btn-sm rounded-pill btn-info text-white shadow-sm px-3 py-1">
+                <i class="fa fa-play me-1"></i>
+              </a>
+              <button *ngIf="slide.imageUrl" class="btn btn-sm rounded-pill btn-secondary text-white shadow-sm px-3 py-1" data-bs-toggle="modal" [attr.data-bs-target]="'#slideImageModal' + slide.id">
+                <i class="fa fa-image me-1"></i>
+              </button>
+            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+<nav class="blog-page-navigation d-flex justify-content-center" *ngIf="filteredSlides.length > 0">
+  <ul class="pagination">
+    <!-- Bouton Précédent -->
+    <li class="pagination-arrow" [class.disabled]="p === 1">
+      <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
+        <i class="fa fa-angle-double-left"></i>
+      </a>
+    </li>
+
+    <!-- Pages dynamiques limitées à 3 -->
+    <li *ngFor="let page of getVisiblePages(); let i = index">
+      <a href="javascript:void(0)"
+         [class.active]="p === page"
+         (click)="p = page">
+        {{ page }}
+      </a>
+    </li>
+
+    <!-- Bouton Suivant -->
+    <li class="pagination-arrow" [class.disabled]="p === totalPages">
+      <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div>
+</section>
+
+
+<!-- Modal Images -->
+<div class="modal fade" *ngFor="let slide of filteredSlides" [id]="'slideImageModal' + slide.id" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header text-white" style="background-color: #be323d;">
+        <h5 class="modal-title fw-bold">Image : {{ slide.titre }}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+      <img *ngIf="slide.imageUrl" [src]="'http://localhost:8080/files/' + slide.imageUrl"
+     alt="{{ slide.titre }}" class="img-fluid rounded">
+
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center mt-3">
-          <pagination-controls
-            (pageChange)="p = $event"
-            previousLabel="‹"
-            nextLabel="›"
-            [maxSize]="5"
-            class="custom-pagination"
-          >
-          </pagination-controls>
-        </div>
-</section>
+</div>
 
 <!-- Modal Ajouter Slide -->
 <div class="modal fade" id="addSlideModal" tabindex="-1" aria-labelledby="addSlideModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
-        <h5 class="modal-title" id="addSlideModalLabel">
-          <i class="fa fa-plus me-2"></i>Ajouter Slide
-        </h5>
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header text-white" style="background-color: #be323d;">
+        <h5 class="modal-title fw-bold" id="addSlideModalLabel"><i class="fa fa-plus me-2"></i> Ajouter Slide</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
-
-      <div class="modal-body">
+      <div class="modal-body p-4">
         <form #addSlideForm="ngForm" (ngSubmit)="onSubmitAddSlide()">
-
           <!-- Sélection Formation -->
           <div class="mb-3">
             <label class="form-label fw-bold">Formation</label>
@@ -224,10 +217,9 @@
               </select>
             </div>
           </div>
-
-          <div class="modal-footer px-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Ajouter</button>
+          <div class="modal-footer px-0 border-0">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn text-white rounded-pill px-4" style="background-color: #FF5369;">Ajouter</button>
           </div>
         </form>
       </div>
@@ -238,14 +230,12 @@
 <!-- Modal Modifier Slide -->
 <div class="modal fade" id="editSlideModal" tabindex="-1" aria-labelledby="editSlideModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content" *ngIf="selectedSlide">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
-        <h5 class="modal-title" id="editSlideModalLabel">
-          <i class="fa fa-edit me-2"></i>Modifier Slide
-        </h5>
+    <div class="modal-content rounded-4 shadow-lg" *ngIf="selectedSlide">
+      <div class="modal-header text-white" style="background-color: #be323d;">
+        <h5 class="modal-title fw-bold" id="editSlideModalLabel"><i class="fa fa-edit me-2"></i> Modifier Slide</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4">
         <form #editSlideForm="ngForm" (ngSubmit)="onSubmitEditSlide()">
           <div class="mb-3">
             <label class="form-label fw-bold">Titre</label>
@@ -259,11 +249,18 @@
             <label class="form-label fw-bold">Paragraphe</label>
             <textarea class="form-control" rows="3" [(ngModel)]="selectedSlide.paragraphe" name="paragraphe"></textarea>
           </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">Image</label>
-            <input type="file" class="form-control" (change)="onImageSelected($event)" />
-            <small class="text-muted">Laissez vide pour garder l'image actuelle.</small>
-          </div>
+<div class="mb-3" *ngIf="selectedSlide.imageUrl">
+  <label class="form-label fw-bold">Image actuelle</label>
+  <div class="d-flex align-items-center gap-2">
+    <img [src]="'http://localhost:8080/files/' + selectedSlide.imageUrl" alt="Image actuelle" class="img-thumbnail" style="max-height:80px;">
+    <button type="button" class="btn btn-danger btn-sm" (click)="onRemoveImage()">Supprimer</button>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label class="form-label fw-bold">Nouvelle image</label>
+  <input type="file" class="form-control" (change)="onImageSelected($event)" />
+</div>
           <div class="mb-3">
             <label class="form-label fw-bold">Vidéo (URL)</label>
             <input type="text" class="form-control" [(ngModel)]="selectedSlide.videoUrl" name="videoUrl" />
@@ -295,10 +292,9 @@
                 <option value="bottom">Bas</option>
               </select>
             </div>
-          </div>
-          <div class="modal-footer px-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Enregistrer</button>
+          </div>          <div class="modal-footer px-0 border-0">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn text-white rounded-pill px-4" style="background-color: #be323d;">Enregistrer</button>
           </div>
         </form>
       </div>

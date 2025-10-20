@@ -25,7 +25,6 @@ public class FileController {
                 return ResponseEntity.notFound().build();
             }
 
-            // On devine le type MIME de l’image (png, jpeg, etc.)
             String contentType = filename.toLowerCase().endsWith(".png") ? MediaType.IMAGE_PNG_VALUE
                     : filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".jpeg") ? MediaType.IMAGE_JPEG_VALUE
                     : MediaType.APPLICATION_OCTET_STREAM_VALUE;

@@ -1,0 +1,145 @@
+<app-header-home>
+</app-header-home>
+
+<section class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Contact Us</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a class="headerlien" href="index.html">Home</a></li>
+              <li class="active" aria-current="page">Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+
+<!-- Contact section start -->
+<section class="contact section-padding">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-xl-4 col-lg-5">
+               <div class="contact-info-wrapper mb-5 mb-lg-0">
+                   <h3>what's your story?
+                       <span>Get in touch</span>
+                   </h3>
+
+                    <div class="contact-item">
+                        <i style="color: #be323d" class="fa fa-envelope" c></i>
+                        <h5>contact&#64;muntucybersecure.com</h5>
+                    </div>
+
+                    <div class="contact-item">
+                        <i style="color: #be323d" class="fa fa-phone-alt"></i>
+                        <h5>+33 (0) 2 53 35 22 78</h5>
+                    </div>
+
+                    <div class="contact-item">
+                        <i style="color: #be323d" class="fa fa-map-marker"></i>
+                        <h5>26 allée Semper Virens, 44470, Carquefou - France</h5>
+                    </div>
+               </div>
+            </div>
+<div class="col-xl-7 col-lg-6">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact__form form-row" id="contactForm">
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="alert alert-success contact__msg"
+          *ngIf="successMessage"
+          role="alert"
+        >
+          {{ successMessage }}
+        </div>
+        <div
+          class="alert alert-danger contact__msg"
+          *ngIf="errorMessage"
+          role="alert"
+        >
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="name"
+            id="name"
+            class="form-control"
+            placeholder="Your Name"
+          />
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <input
+            type="email"
+            formControlName="email"
+            id="email"
+            class="form-control"
+            placeholder="Email Address"
+          />
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="subject"
+            id="subject"
+            class="form-control"
+            placeholder="Subject"
+          />
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="form-group">
+          <textarea
+            formControlName="message"
+            id="message"
+            cols="30"
+            rows="6"
+            class="form-control"
+            placeholder="Your Message"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="text-center">
+        <button
+          class="btn-main w-100 rounded btn-gradient"
+          type="submit"
+         
+        >
+          Send Message
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+        </div>
+    </div>
+</section>
+<!-- Contact section End -->
+
+<!-- Map section start -->
+<section class="map">
+    <div id="map"></div>
+ </section>
+ <!-- Map section End -->
+
+<app-footer></app-footer>

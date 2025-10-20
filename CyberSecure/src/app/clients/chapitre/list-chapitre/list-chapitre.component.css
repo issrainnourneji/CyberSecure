@@ -50,3 +50,37 @@
   color: #4c8ec4;
   font-weight: 500;
 }
+.disabled-link {
+  color: #aaa !important;
+  cursor: not-allowed;
+  pointer-events: auto; /* important : pour que le clic déclenche quand même l’alerte */
+}
+.btn-certification {
+  background: linear-gradient(135deg, #FF5369, #ff758c);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(255, 83, 105, 0.4);
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-certification i {
+  font-size: 18px;
+}
+
+.btn-certification:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 83, 105, 0.5);
+  background: linear-gradient(135deg, #ff758c, #FF5369);
+}
+
+.btn-certification:active {
+  transform: scale(0.98);
+}
+
+

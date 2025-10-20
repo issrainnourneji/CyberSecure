@@ -1,0 +1,53 @@
+.contact-link {
+  color: black; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+
+.contact-link:hover {
+  color: #cda6ac;
+}
+/* Bouton Buy Now personnalisé */
+.btn-buy-now {
+  background-color: rgb(58, 110, 221);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-buy-now i {
+  transition: transform 0.3s ease;
+}
+
+.btn-buy-now:hover {
+  background-color: #e04861; /* un peu plus foncé au hover */
+  transform: translateY(-2px);
+}
+
+.btn-buy-now:hover i {
+  transform: translateX(5px);
+}
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #511435) !important;
+  color: white !important;
+  border: none !important;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}

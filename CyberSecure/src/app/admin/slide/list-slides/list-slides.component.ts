@@ -16,8 +16,8 @@ export class ListSlidesComponent implements OnInit {
   slides: any[] = [];
   newSlide: any = {};
   selectedSlide: any = null;
-  selectedImage: File | null = null;
-  newSelectedImage: File | null = null;
+selectedImage: File | null = null;
+removeImage: boolean = false;  newSelectedImage: File | null = null;
 
   formations: any[] = [];
   chapitres: any[] = [];
@@ -28,6 +28,8 @@ export class ListSlidesComponent implements OnInit {
   editSlideModal: any;
   p: number = 1;
 filteredSlides: any[] = [];
+totalPages: number = 0;
+itemsPerPage: number = 4;
 
   constructor(private formationService: FormationServiceService, private slideService: SlideService, private http: HttpClient, private chapitreService: ChapterService,) {}
 
@@ -42,6 +44,7 @@ filteredSlides: any[] = [];
       next: (data) => {
         this.slides = data;
         this.filteredSlides = data;
+this.updatePagination();
       },
       error: (err) => {
         console.error('Erreur chargement slides', err);
@@ -49,6 +52,14 @@ filteredSlides: any[] = [];
     });
 
   }
+
+  updatePagination(): void {
+  this.totalPages = Math.ceil(this.filteredSlides.length / this.itemsPerPage);
+  if (this.p > this.totalPages) {
+    this.p = this.totalPages || 1; // Sécurité si on supprime des éléments
+  }
+}
+
 
   loadFormations(): void {
     this.formationService.getAllFormations().subscribe({
@@ -88,14 +99,15 @@ onChapitreChange() {
   this.applyFilter();
 }
 
-// Appliquer le filtre combiné
 applyFilter() {
   this.filteredSlides = this.slides.filter(slide => {
     return (!this.selectedFormationId || slide.chapitre?.formation?.id === this.selectedFormationId)
         && (!this.selectedChapitreId || slide.chapitre?.id === this.selectedChapitreId);
   });
-  this.p = 1; // reset pagination
+  this.p = 1;
+  this.updatePagination(); // ✅ recalcul automatique
 }
+
 
   // --- AJOUTER SLIDE ---
   openAddSlideModal(): void {
@@ -153,9 +165,28 @@ this.addSlideModal.show();
   }
 }
 
-  onImageSelected(event: any): void {
-  this.selectedImage = event.target.files[0];
+onImageSelected(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedImage = file;
+    this.removeImage = false; // nouvelle image → ne pas supprimer
+  } else {
+    this.selectedImage = null;
+    this.removeImage = true; // aucune image → suppression demandée
+  }
 }
+
+
+// Appelé si l’utilisateur clique sur "Supprimer l'image"
+onRemoveImage(): void {
+  this.selectedImage = null;
+  this.removeImage = true;           // marque l'image pour suppression
+  if (this.selectedSlide) {
+    this.selectedSlide.imageUrl = ''; // côté client l'image disparaît
+  }
+}
+
+
 
 onSubmitEditSlide(): void {
   if (!this.selectedSlide) return;
@@ -163,22 +194,37 @@ onSubmitEditSlide(): void {
   const formData = new FormData();
 
   // Champs texte
-  const fields = ['titre','sousTitre','paragraphe','videoUrl','imageWidth','imageHeight','imagePosition','imagePositionY'];
+  const fields = [
+    'titre',
+    'sousTitre',
+    'paragraphe',
+    'videoUrl',
+    'imageWidth',
+    'imageHeight',
+    'imagePosition',
+    'imagePositionY'
+  ];
   fields.forEach(f => formData.append(f, this.selectedSlide[f] || ''));
 
-  // Image si nouvelle sélection
+  // 🖼️ Gestion image
   if (this.selectedImage) {
-    formData.append('image', this.selectedImage);
+    formData.append('image', this.selectedImage); // nouvelle image
+  } else if (this.removeImage) {
+    formData.append('removeImage', 'true'); // indique qu'on veut supprimer
   }
 
+  // 🔄 Envoi
   this.http.put(`http://localhost:8080/slide/${this.selectedSlide.id}`, formData).subscribe({
     next: () => {
       this.loadSlides();
+      this.selectedImage = null;
+      this.removeImage = false;
       this.editSlideModal?.hide();
     },
     error: err => console.error('Erreur update slide', err)
   });
 }
+
 
 
 
@@ -194,6 +240,26 @@ onSubmitEditSlide(): void {
   });
 }
 
+getVisiblePages(): number[] {
+  const pages: number[] = [];
+  const total = this.totalPages;
+
+  if (total <= 5) {
+    // Affiche tout si peu de pages
+    for (let i = 1; i <= total; i++) pages.push(i);
+  } else {
+    let start = Math.max(1, this.p - 2);
+    let end = Math.min(total, start + 4);
+
+    if (end - start < 4) {
+      start = Math.max(1, end - 4);
+    }
+
+    for (let i = start; i <= end; i++) pages.push(i);
+  }
+
+  return pages;
+}
 
 
 }

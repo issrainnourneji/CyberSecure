@@ -121,6 +121,18 @@ public class EmailServiceImpl {
             log.error("Erreur lors de l'envoi de l'email de RDV : {}", e.getMessage());
         }
     }
+    @Async
+    public void sendSimpleEmail(String to, String subject, String htmlContent) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+        helper.setFrom("israa.neji8@gmail.com");
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+
+        mailSender.send(mimeMessage);
+    }
 
 
 }

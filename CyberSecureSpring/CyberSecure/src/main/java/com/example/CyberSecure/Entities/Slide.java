@@ -26,8 +26,8 @@ public class Slide {
     private String imageUrl;
     private String videoUrl;
 
-    private String imageWidth;     // ex: 50%, 300px
-    private String imageHeight;    // ex: auto, 200px
+    private String imageWidth;
+    private String imageHeight;
     private String imagePosition;
     private String imagePositionY;
 

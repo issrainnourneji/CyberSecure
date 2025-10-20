@@ -94,7 +94,6 @@ public class FormationController {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Récupérer les formations depuis le panier
         List<CartItem> cartItems = cartService.getUserCart(user.getId());
 
         List<Formation> formations = cartItems.stream()
@@ -129,10 +128,8 @@ public class FormationController {
             @PathVariable Long formationId,
             @PathVariable Long userId) {
 
-        // Code pour retirer l’utilisateur de la formation
         formationService.removeUserFromFormation(formationId, userId);
 
-        // Retourner un objet JSON
         Map<String, String> response = new HashMap<>();
         response.put("message", "Utilisateur retiré de la formation avec succès");
 

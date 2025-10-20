@@ -1,0 +1,36 @@
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #511435) !important;
+  color: white !important;
+  border: none !important;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+.course-header-wrapper h1 {
+  font-size: 2rem;
+}
+
+@media (max-width: 992px) {
+  .course-header-wrapper h1 {
+    font-size: 1.5rem;
+  }
+  .list-info li {
+    width: 100%; /* Chaque info sur sa ligne */
+    justify-content: flex-start;
+  }
+  .list-rating span i {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .course-header-wrapper p {
+    font-size: 14px;
+  }
+}

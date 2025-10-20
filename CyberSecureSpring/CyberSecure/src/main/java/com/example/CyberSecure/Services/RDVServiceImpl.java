@@ -31,12 +31,9 @@ public class RDVServiceImpl {
 
 
     public RDV createRDV(Map<String, Object> request, String clientEmail) {
-        // Récupérer le client via son email
         User user = userRepository.findByEmail(clientEmail)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-
-        // Extraire et valider les détails de la requête
         String rdvDateStr = (String) request.get("RDVDate");
         String rdvTypeStr = (String) request.get("RDVType");
         String notes = request.getOrDefault("notes", "").toString();
@@ -52,7 +49,10 @@ public class RDVServiceImpl {
             throw new IllegalArgumentException("Invalid date format. Use ISO-8601 format");
         }
 
-        // Créer et sauvegarder le rendez-vous
+        if (RDVDate.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Date must be in the future");
+        }
+
         RDV appointment = RDV.builder()
                 .user(user)
                 .RDVDate(RDVDate)
@@ -62,12 +62,6 @@ public class RDVServiceImpl {
                 .build();
 
         return rdvRepository.save(appointment);
-    }
-
-    public List<RDV> getUserAppointments(String userEmail) {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return rdvRepository.findByUser(user);
     }
 
     public RDV updateRDV(Long id, Map<String, Object> request, String userEmail) {
@@ -100,6 +94,12 @@ public class RDVServiceImpl {
 
         return rdvRepository.save(rdv);
     }
+
+    public List<RDV> getUserAppointments(String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return rdvRepository.findByUser(user);
+    }
     public void deleteRDV(Long id, String userEmail) {
         RDV rdv = rdvRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("RDV not found"));
@@ -131,7 +131,6 @@ public class RDVServiceImpl {
         rdv.setStatus(RDVStatus.CONFIRMED);
         rdvRepository.save(rdv);
 
-        // Envoi d’email après save pour éviter que ça bloque la transaction
         try {
             emailService.sendRDVEmail(
                     rdv.getUser().getEmail(),
@@ -141,7 +140,6 @@ public class RDVServiceImpl {
                     "Merci de votre confiance. Veuillez être présent à l'heure indiquée."
             );
         } catch (Exception e) {
-            // Important : ne jamais relancer ici !
             log.error("Erreur lors de l'envoi de l'e-mail de confirmation pour le RDV ID {}: {}", rdvId, e.getMessage());
         }
 

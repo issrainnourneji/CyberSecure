@@ -1,0 +1,128 @@
+:root {
+  --primary: #193152;
+  --accent: #be323d;
+  --light-bg: #f4f6fb;
+}
+
+/* Pagination stylée */
+.pagination .page-link {
+  border: none;
+  color: var(--primary);
+  border-radius: 50%;
+  margin: 0 3px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.pagination .page-item.active .page-link {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 83, 105, 0.4);
+}
+
+/* FullCalendar modern */
+.fc {
+  font-family: 'Poppins', sans-serif;
+}
+.fc .fc-toolbar {
+  margin-bottom: 15px;
+}
+.fc .fc-toolbar-title {
+  font-weight: 700;
+  color: var(--primary);
+}
+.fc .fc-button-primary {
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.fc .fc-button-primary:hover {
+  background: #ff6b81;
+}
+.fc .fc-daygrid-day-frame {
+  border-radius: 10px;
+  background: white;
+  transition: 0.3s;
+}
+.fc .fc-daygrid-day-frame:hover {
+  background-color: #eef3ff;
+  transform: scale(1.02);
+}
+.fc-daygrid-day-number {
+  color: var(--primary);
+  font-weight: 600;
+}
+.fc-event {
+  border-radius: 8px !important;
+  padding: 4px 6px !important;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white !important;
+}
+
+/* Couleurs des événements selon statut */
+.fc-event-confirmed {
+  background-color: #28a745 !important;
+}
+.fc-event-pending {
+  background-color: #ffc107 !important;
+  color: #222 !important;
+}
+.fc-event-cancelled {
+  background-color: #dc3545 !important;
+}
+
+/* Conteneur calendrier */
+#calendar-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 3px 15px rgba(25, 49, 82, 0.1);
+}
+/* Jour normal */
+.fc-day-modern {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin: 2px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Jour actuel */
+.fc-today-modern {
+  background: linear-gradient(120deg, #be323d, #193152);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Hover sur une case */
+.fc-day-modern:hover, .fc-today-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+/* Événements */
+.fc-event {
+  border-radius: 8px !important;
+  padding: 3px 6px;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  text-align: center;
+}
+
+/* Hover sur les événements */
+.fc-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Couleurs selon statut */
+.fc-event-pending { background-color: #FFC107 !important; color: #212529 !important; }
+.fc-event-confirmed { background-color: #28A745 !important; }
+.fc-event-cancelled { background-color: #DC3545 !important; }

@@ -1,0 +1,112 @@
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.popular-courses-title {
+    color: #430e2b;             /* couleur demandée */
+    font-size: 37px;            /* même taille que .team h4 */
+    font-weight: 700;           /* gras */
+    padding-bottom: 15px;       /* espace sous le titre */
+    text-align: center;          /* centré */
+    text-transform: capitalize; /* première lettre de chaque mot en majuscule */
+    margin-top: 10px;           /* comme h4 */
+    margin-bottom: 10px;        /* comme h4 */
+}
+.features-3.section-padding-top,
+.testimonial-4.section-padding {
+    padding-top: 20px;      /* Réduit l’espace au-dessus de la section */
+    padding-bottom: 20px;   /* Réduit l’espace en dessous */
+}
+
+.section-heading {
+    margin-bottom: 20px;    /* Réduit l’espace sous le titre et le paragraphe */
+}
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espace entre number et title */
+    margin-bottom: 30px; /* Espace entre les lignes */
+}
+
+.step-number {
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white; /* fallback si gradient ne s'affiche pas */
+    background-clip: border-box;
+    text-align: center;
+}
+
+.step-number.bg-1 {
+    background: linear-gradient(to right, #b93b4a, #912943);
+}
+
+.step-number.bg-2 {
+    background: linear-gradient(to right, #912943, #681b37);
+}
+
+.step-number.bg-3 {
+    background: linear-gradient(to right, #b93b4a, #912943);
+}
+
+.step-number.bg-4 {
+    background: linear-gradient(to right, #912943, #681b37);
+}
+
+.step-text h5 {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Pour que 2 steps soient sur la même ligne */
+.row.steps-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.row.steps-row .col-xl-6 {
+    flex: 1 1 45%; /* 2 par ligne */
+}
+.about-features {
+  display: flex;
+  flex-direction: column; /* alignement vertical */
+  gap: 20px; /* espace entre les items */
+}
+
+.feature-item {
+  display: flex;
+  align-items: center; /* icône et texte sur la même ligne */
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.feature-text h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #193152;
+}

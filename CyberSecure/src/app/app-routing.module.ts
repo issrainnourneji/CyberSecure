@@ -25,6 +25,12 @@ import { CartComponent } from './clients/panier/cart/cart.component';
 import { SlidehtmlComponent } from './clients/slidehtml/slidehtml/slidehtml.component';
 import { QuizComponent } from './clients/quiz/quiz/quiz.component';
 import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
+import { AllquizComponent } from './clients/quiz/allquiz/allquiz.component';
+import { CertificationComponent } from './clients/certificat/certification/certification.component';
+import { UserCertifComponent } from './clients/certificat/user-certif/user-certif.component';
+import { AboutComponent } from './info/about/about.component';
+import { CourseComponent } from './info/course/course.component';
+import { ContactComponent } from './info/contact/contact.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -34,19 +40,31 @@ const routes: Routes = [
     {path: "activate-account" , component:ActivateAccountComponent},
     {path: 'forgot-password', component: ForgotPaswordComponent},
     {path: 'reset-password', component: ResetPasswordComponent},
+
+    // infos
+    {path: 'about', component: AboutComponent},
+    {path: 'courses', component: CourseComponent},
+    {path: 'contact', component: ContactComponent},
+
+
 // User paths
     {path: "mainUser" , component:MainUserComponent ,canActivate: [clientGuard], children: [
     {path: "home" , component:HomeUserComponent ,canActivate: [clientGuard]},
     {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
     {path: "addRdv" , component:AddRdvComponent , canActivate : [clientGuard]},
     {path: "formations" , component:FormationClientListComponent, canActivate : [clientGuard]},
+    {path: "allQuiz", component: AllquizComponent , canActivate:[clientGuard] },
+    {path: 'allCertif', component: UserCertifComponent ,  canActivate : [clientGuard] },
+    {path: "panier", component: CartComponent,  canActivate : [clientGuard] },
 
     ]
   },
   {path: "chapterList/:id" , component:ListChapitreComponent ,  canActivate : [clientGuard]},
   {path: "chapitre/:id/slides", component: ChapterDetailsComponent ,  canActivate : [clientGuard]},
-  {path: "panier", component: CartComponent,  canActivate : [clientGuard] },
-  {path: "quiz/:chapitreId" , component:QuizComponent},
+  {path: "quiz/:chapitreId" , component:QuizComponent,  canActivate : [clientGuard] },
+  {path: 'certification/:id', component: CertificationComponent ,  canActivate : [clientGuard] },
+
+
 //  Admin paths
      {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
      {path: 'profile', component: ProfileComponent,canActivate: [userGuard]},
@@ -56,7 +74,6 @@ const routes: Routes = [
      {path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] },
      {path: "slideList", component: ListSlidesComponent , canActivate:[adminGuard] },
      {path: "quizList", component: QuizListComponent , canActivate:[adminGuard] }
-
 
     ]},
 // Visitor paths

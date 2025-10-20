@@ -18,7 +18,7 @@ public class Slidehtml {
     private Long id;
 
 
-    @Column(columnDefinition = "TEXT") // permet du HTML long
+    @Column(columnDefinition = "TEXT")
     private String htmlContent;
     
 }

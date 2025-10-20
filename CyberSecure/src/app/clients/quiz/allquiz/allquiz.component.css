@@ -1,0 +1,21 @@
+.quiz-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fff;
+}
+.quiz-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Bouton gradient rose #FF5369 */
+.btn-gradient {
+  background: linear-gradient(45deg, #be323d, #d7424f);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 83, 105, 0.4);
+}

@@ -1,0 +1,40 @@
+.contact-link {
+  color: black; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+
+.contact-link:hover {
+  color: #b93b4a;
+;
+}
+.about-features {
+  display: flex;
+  flex-direction: column; /* alignement vertical */
+  gap: 10px; /* espace entre les items */
+}
+
+.feature-item {
+  display: flex;
+  align-items: center; /* icône et texte sur la même ligne */
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.feature-text h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #193152;
+}

@@ -1,0 +1,72 @@
+.contact-link {
+  color: #ffffff; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #b93b4a;
+}
+
+/* Burger icon */
+.offcanvas-icon a {
+  color: #ede3e3;
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+.offcanvas-icon a:hover {
+  transform: scale(1.1);
+}
+
+/* Offcanvas Mobile */
+.mobile-offcanvas {
+  background: #fff;
+  max-width: 270px;
+  color: #681b37;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.1);
+}
+
+.mobile-offcanvas .btn-close {
+  filter: invert(1);
+}
+
+.mobile-offcanvas .contact-link {
+  color: #681b37 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.mobile-offcanvas .contact-link:hover {
+  color: #b93b4a !important;
+  transform: translateX(3px);
+}
+
+/* Sous-menus mobiles (si ajoutés plus tard) */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.submenu-checkbox:checked ~ .submenu {
+  max-height: 600px;
+}
+.submenu-label {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.submenu-label i {
+  font-size: 11px;
+  transition: transform 0.3s ease;
+}
+.submenu-checkbox:checked + .submenu-label i {
+  transform: rotate(180deg);
+}

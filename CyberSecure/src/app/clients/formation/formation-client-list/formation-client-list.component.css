@@ -1,0 +1,12 @@
+.contact-link {
+  color: black; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+
+.contact-link:hover {
+  color: #b93b4a ;
+}

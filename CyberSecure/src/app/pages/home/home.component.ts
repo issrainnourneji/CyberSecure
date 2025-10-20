@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   private authStatusSub: Subscription | null = null;
   formations: any[] = [];
+    chapitres: any[] = [];
+
 
 studentsCount: { [formationId: number]: number } = {};
 

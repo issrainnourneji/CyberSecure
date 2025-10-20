@@ -6,7 +6,7 @@
           <div class="title-block">
             <h1>Chapter Details</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="home">Home</a></li>
+              <li><a class="headerlien" href="home">Home</a></li>
               <li class="active" aria-current="page">Slides</li>
             </ul>
           </div>
@@ -14,6 +14,7 @@
       </div>
     </div>
 </section>
+
 <section class="section-padding page">
   <!-- En-tête : formation et chapitre -->
   <div class="slide-header d-flex justify-content-between align-items-center mb-3">
@@ -21,14 +22,16 @@
     <h6 class="chapitre-title mb-0">Chapitre {{ slides[currentIndex]?.chapitre?.titre }}</h6>
   </div>
 
-  <div class="container mt-4">
-    <div class="card shadow-lg p-4 rounded-lg">
+  <div class="container">
+<div class="card shadow-lg p-5 rounded-4 slide-card" style="background: linear-gradient(135deg, #ffffff, #f8f9fa);">
 
-      <!-- Titre et sous-titre -->
-      <h2 class="slide-title">{{ slides[currentIndex]?.titre }}</h2>
-      <h5 *ngIf="slides[currentIndex]?.sousTitre" class="slide-subtitle">
-        {{ slides[currentIndex]?.sousTitre }}
-      </h5>
+  <!-- Titre et sous-titre -->
+  <h2 class="slide-title  fw-bold text-center">{{ slides[currentIndex]?.titre }}</h2>
+  <h5 *ngIf="slides[currentIndex]?.sousTitre" class="slide-subtitle text-center text-secondary mb-2">
+    {{ slides[currentIndex]?.sousTitre }}
+  </h5>
+
+
 
       <!-- Image locale ou externe : inchangé -->
       <!-- Image en haut -->
@@ -39,15 +42,19 @@
              'justify-content-center': slides[currentIndex]?.imagePosition === 'center',
              'justify-content-end': slides[currentIndex]?.imagePosition === 'right'
            }">
-        <img [src]="slides[currentIndex]?.imageUrl.startsWith('http') ? slides[currentIndex]?.imageUrl : 'http://localhost:8080/files/' + slides[currentIndex]?.imageUrl"
-             class="rounded"
-             [ngStyle]="{
-               'width': slides[currentIndex]?.imageWidth || '100%',
-               'height': slides[currentIndex]?.imageHeight || 'auto'
-             }"/>
+<img *ngIf="slides[currentIndex]?.imageUrl"
+     [src]="slides[currentIndex]?.imageUrl.startsWith('http')
+             ? slides[currentIndex]?.imageUrl
+             : 'http://localhost:8080/files/' + slides[currentIndex]?.imageUrl"
+     class="rounded"
+     [ngStyle]="{
+       'width': slides[currentIndex]?.imageWidth || '100%',
+       'height': slides[currentIndex]?.imageHeight || 'auto'
+     }"/>
+
       </div>
 
-      <p *ngIf="slides[currentIndex]?.paragraphe" style="white-space: pre-line;">
+      <p *ngIf="slides[currentIndex]?.paragraphe" class="text-justify fs-5 my-3" style="white-space: pre-line;">
         {{ slides[currentIndex]?.paragraphe }}
       </p>
 
@@ -100,18 +107,22 @@
 
       <!-- Navigation -->
       <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-outline-primary btn-lg rounded" (click)="prevSlide()" [disabled]="currentIndex === 0">
-          < Précédent
+        <button class="btn btn-outline-primary btn-lg rounded-pill btn-gradient" (click)="prevSlide()" [disabled]="currentIndex === 0">
+          <i class="fa fa-arrow-left me-2"></i> Précédent
         </button>
-
-        <button *ngIf="currentIndex < slides.length - 1" class="btn btn-primary btn-lg rounded" (click)="nextSlide()">
-          Suivant >
+        <button *ngIf="currentIndex < slides.length - 1" class="btn btn-gradient btn-lg rounded-pill" (click)="nextSlide()">
+          Suivant <i class="fa fa-arrow-right ms-2"></i>
         </button>
 
         <button *ngIf="currentIndex === slides.length - 1" class=" btn-main btn-lg rounded" (click)="goToQuiz()">
-          Passer le Quiz
+          <i class="fa fa-flag-checkered ms-2"></i> Passer le Quiz
         </button>
       </div>
+<h6 class="text-center text-muted" style="margin-top: 35px; ">
+
+  {{ currentIndex + 1 }} / {{ slides.length }}
+</h6>
+
     </div>
   </div>
 </section>

@@ -96,12 +96,12 @@ enrollCourse(formationId: number) {
   this.cartService.addToCart(formationId).subscribe({
     next: (res: any) => {
        alert(res.message);
-              this.router.navigate(['/panier']);
+              this.router.navigate(['/mainUser/panier']);
 
 
       // Rediriger seulement si déjà dans le panier
       if (res.message === "Formation déjà dans le panier") {
-        this.router.navigate(['/panier']);
+        this.router.navigate(['/mainUser/panier']);
       }
     },
     error: err => {
@@ -110,7 +110,7 @@ enrollCourse(formationId: number) {
       // En cas de 409 => déjà dans le panier
       if (err.status === 409) {
          alert(err.error?.message);
-        this.router.navigate(['/panier']);
+        this.router.navigate(['/mainUser/panier']);
       } else {
          alert(err.error?.message || 'Impossible d’ajouter la formation au panier.');
       }

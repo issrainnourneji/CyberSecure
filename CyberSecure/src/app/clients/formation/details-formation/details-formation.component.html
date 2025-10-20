@@ -4,30 +4,34 @@
 <section class="course-page-header page-header-2">
     <div class="container">
       <div class="row">
-            <div class="col-lg-7 col-xl-7">
-              <div class="course-header-wrapper mb-0 bg-transparent">
-                  <h1 class="mb-3">{{formation?.title}}</h1>
-                  <p>{{formation.description}}</p>
-                    <div class="course-header-meta">
-                        <ul class="inline-list list-info">
-                          <li>
-                          <i class="far fa-clock"></i> {{formation?.duration}} Hours
-                          </li>
-                            <li>
-                              <div class="list-rating">
-                                  <span><i class="fas fa-star"></i></span>
-                                  <span><i class="fas fa-star"></i></span>
-                                  <span><i class="fas fa-star"></i></span>
-                                  <span><i class="fas fa-star"></i></span>
-                                  <span><i class="fas fa-star"></i></span>
-                                    <span class="rating-count">(19)</span>
-                                </div>
-                            </li>
-                            <li><i class="fa fa-user me-2"></i>    {{numberOfStudents}} Students</li>
-                        </ul>
-                    </div>
-              </div>
+<div class="col-lg-7 col-xl-7 col-md-12">
+  <div class="course-header-wrapper mb-3 bg-transparent">
+    <h1 class="mb-3 fs-4 fs-md-2">{{formation?.title}}</h1>
+    <p class="mb-3">{{formation.description}}</p>
+
+    <div class="course-header-meta">
+      <ul class="inline-list list-info d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
+        <li class="d-flex align-items-center">
+          <i class="far fa-clock me-2"></i> {{formation?.duration}} Hours
+        </li>
+        <li class="d-flex align-items-center">
+          <div class="list-rating d-flex align-items-center">
+            <span><i class="fas fa-star me-1"></i></span>
+            <span><i class="fas fa-star me-1"></i></span>
+            <span><i class="fas fa-star me-1"></i></span>
+            <span><i class="fas fa-star me-1"></i></span>
+            <span><i class="fas fa-star me-1"></i></span>
+            <span class="rating-count ms-2">(19)</span>
           </div>
+        </li>
+        <li class="d-flex align-items-center">
+          <i class="fa fa-user me-2"></i> {{numberOfStudents}} Students
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
           <div class="col-xl-5">
             <div class="course-thumb-wrap">
@@ -248,7 +252,7 @@
         </ul>
 
         <div class="buy-btn">
-            <button class="btn btn-primary rounded" (click)="enrollCourse(formation.id)">
+            <button class="btn btn-primary rounded btn-gradient" (click)="enrollCourse(formation.id)">
   <i class="far fa-shopping-cart me-2"></i> Enroll Course
 </button>
 
@@ -269,11 +273,11 @@
     <ul class="recent-posts course-popular"*ngFor="let formation of formations">
         <li>
             <div class="widget-post-thumb">
-                <a href="#"><img [src]="'http://localhost:8080/files/' + formation.imageUrl" alt="" class="img-fluid"></a>
+                <a><img [src]="'http://localhost:8080/files/' + formation.imageUrl" alt="" class="img-fluid"></a>
             </div>
             <div class="widget-post-body">
-                <h6> <a href="#">{{formation.title}}</a></h6>
-                <h5>$ {{formation.price}}</h5>
+                <h6> <a >{{formation.title}}</a></h6>
+                <h5 style="color: brown;">$ {{formation.price}}</h5>
             </div>
         </li>
     </ul>
@@ -283,7 +287,7 @@
            </div>
         </div>
     </div>
-  
+
 
 
 </section>

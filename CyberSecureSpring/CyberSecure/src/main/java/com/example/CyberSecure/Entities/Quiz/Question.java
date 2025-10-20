@@ -25,10 +25,10 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
-    @JsonIgnore   // <- Ignore Quiz lors de la sérialisation Question
+    @JsonIgnore
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference   // <- Ignore Reponses si tu ne veux pas les sérialiser en cascade
+    @JsonManagedReference
     private List<Reponse> reponses;
 }

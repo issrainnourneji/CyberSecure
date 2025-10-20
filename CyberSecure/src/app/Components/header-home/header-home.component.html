@@ -1,140 +1,133 @@
- <header class="header-style-1">
-      <div class="header-topbar topbar-style-2">
-          <div class="container">
-              <div class="row justify-content-between">
-                  <div class="col-xl-8 col-lg-6 col-md-12">
-                     <div class="header-contact text-center text-lg-start d-none d-sm-block">
-                          <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a href="tel:+33 (0) 2 53 35 22 78">F : +33 (0) 2 53 35 22 78</a>
-                              </li>
-                              <li class="list-inline-item">
-                                  <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a href="tel:+33 (0) 7 84 70 06 28">M : +33 (0) 7 84 70 06 28</a>
-                              </li>
-                              <li class="list-inline-item">
-                                  <span class="text-color me-2"><i class="fa fa-envelope"></i></span><a href="malito:helloedumel.com">contact&#64;muntucybersecure.com</a>
-                              </li>
-                          </ul>
-                     </div>
-                  </div>
+<header class="header-style-1">
+  <div class="header-navbar navbar-sticky">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- Logo -->
+        <div class="site-logo">
+          <a href="index.html">
+            <img src="../../../assets/images/logo.png" alt="logo">
+          </a>
+        </div>
 
-                  <div class="col-xl-4 col-lg-6 col-md-12">
-                     <div class="d-sm-flex justify-content-center justify-content-lg-end">
-                          <div class="header-socials text-center text-lg-end">
-                              <ul class="list-inline">
-                                  <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                  <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                  <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                  <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                                  <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
-                              </ul>
-                          </div>
+        <!-- Bouton Offcanvas (mobile) -->
+        <div class="offcanvas-icon d-block d-lg-none">
+          <a href="#" class="nav-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+            <i class="fal fa-bars"></i>
+          </a>
+        </div>
 
-                          <div class="header-btn text-center text-lg-end">
-                             <p (click)="login()" > <i class="fa fa-user-alt"></i>Login/Register</p>
-                          </div>
-                     </div>
-                  </div>
-              </div>
-          </div>
+        <!-- Menu principal (desktop) -->
+        <nav class="site-navbar ms-auto d-none d-lg-block">
+          <ul class="primary-menu d-flex align-items-center mb-0">
+            <li class="current"><a class="contact-link" href="index.html">Home</a></li>
+            <li class="separator">|</li>
+            <li><a class="contact-link" routerLink="/about">About</a></li>
+            <li class="separator">|</li>
+            <li><a class="contact-link" routerLink="/courses">Courses</a></li>
+            <li class="separator">|</li>
+
+            <li class="has-submenu">
+              <a class="contact-link1 contact-link" href="#">Categories</a>
+              <ul class="submenu">
+                <li>
+                  <a class="contact-link" href="#">Design</a>
+                  <ul class="submenu">
+                    <li><a class="contact-link" href="#">Design Tools</a></li>
+                    <li><a class="contact-link" href="#">Photoshop mastering</a></li>
+                    <li><a class="contact-link" href="#">Adobe Xd Design</a></li>
+                  </ul>
+                </li>
+                <li><a class="contact-link" href="#">Development</a></li>
+                <li><a class="contact-link" href="#">Marketing</a></li>
+                <li><a class="contact-link" href="#">Freelancing</a></li>
+              </ul>
+            </li>
+            <li class="separator">|</li>
+
+            <li>
+              <a class="contact-link" href="#">Pages</a>
+              <ul class="submenu">
+                <li><a class="contact-link" href="login">Login</a></li>
+                <li><a class="contact-link" href="register">Register</a></li>
+              </ul>
+            </li>
+            <li class="separator">|</li>
+            <li><a class="contact-link" routerLink="/contact">Contact</a></li>
+
+            <div class="header-btn text-center text-lg-end">
+              <button class="login-text mb-0" (click)="login()">
+                <i class="fa fa-user-alt"></i> Login/Register
+              </button>
+            </div>
+          </ul>
+        </nav>
       </div>
+    </div>
+  </div>
+</header>
 
-      <div class="header-navbar navbar-sticky">
-          <div class="container">
-              <div class="d-flex align-items-center justify-content-between">
-                  <div class="site-logo">
-                      <a href="index.html">
-                        <img src="../../../assets/images/Muntucyber.png" alt="">
-                      </a>
-                  </div>
+<div class="offcanvas offcanvas-end mobile-offcanvas" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="fw-bold m-0">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
 
-                  <div class="offcanvas-icon d-block d-lg-none">
-                      <a href="#" class="nav-toggler"><i class="fal fa-bars"></i></a>
-                  </div>
+  <div class="offcanvas-body">
+    <ul class="list-unstyled mb-4 mobile-menu">
 
-                  <div class="header-category-menu d-none d-xl-block">
-                      <ul>
-                          <li class="has-submenu">
-                              <a href="#"><i class="fa fa-th me-2"></i>Categories</a>
-                              <ul class="submenu">
-                                  <li>
-                                      <a href="#">Design</a>
-                                      <ul class="submenu">
-                                          <li><a href="#">Design Tools</a></li>
-                                          <li><a href="#">Photoshop mastering</a></li>
-                                          <li><a href="#">Adobe Xd Deisgn</a></li>
-                                      </ul>
-                                  </li>
-                                  <li><a href="#">Developemnt</a></li>
-                                  <li><a href="#">Marketing</a></li>
-                                  <li><a href="#">Freelancing</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
+      <li><a href="/home" class="contact-link d-block py-2">Home</a></li>
+      <li><a routerLink="/about" class="contact-link d-block py-2">About</a></li>
+      <li><a routerLink="/courses" class="contact-link d-block py-2">Courses</a></li>
 
-                  <div class="header-search-bar d-none d-xl-block ms-4">
-                      <form action="#">
-                          <input type="text" class="form-control" placeholder="Search for Course" >
-                          <a href="#" class="search-submit"><i class="far fa-search"></i></a>
-                      </form>
-                   </div>
+      <!-- Sous-menu principal -->
+      <li class="has-submenu">
+        <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
+        <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
+          Categories <i class="fal fa-chevron-down float-end"></i>
+        </label>
 
-                  <nav class="site-navbar ms-auto">
+        <ul class="submenu list-unstyled ps-3">
 
-                      <ul class="primary-menu">
-                          <li class="current">
-                              <a href="index.html">Home</a>
-                          </li>
-                          <li><a href="about.html">About</a></li>
+          <!-- Sous-sous-menu Design -->
+          <li class="has-submenu">
+            <input type="checkbox" id="design-toggle" class="submenu-checkbox">
+            <label for="design-toggle" class="contact-link d-block py-2 submenu-label">
+              Design <i class="fal fa-chevron-down float-end"></i>
+            </label>
 
-                          <li>
-                              <a href="courses.html">Courses</a>
-                              <ul class="submenu">
-                                  <li><a href="courses.html">Courses</a></li>
-                                  <li><a href="courses-2.html">Course Grid 2 </a></li>
-                                  <li><a href="courses-3.html">Course Grid 3</a></li>
-                                  <li><a href="courses-4.html">Course Grid 4</a></li>
-                                  <li><a href="courses-5-list.html">Course List</a></li>
-                                  <li class="has-submenu">
-                                      <a href="#">Single Layout</a>
-                                      <ul class="submenu">
-                                          <li><a href="course-single.html">Course Single 1</a></li>
-                                          <li><a href="course-single-2.html">Course Single 2</a></li>
-                                          <li><a href="course-single-3.html">Course Single 3</a></li>
-                                          <li><a href="course-single-4.html">Course Single 4</a></li>
-                                          <li><a href="course-single-5.html">Course Single 5</a></li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                          </li>
+            <ul class="submenu list-unstyled ps-3">
+              <li><a href="#" class="contact-link d-block py-2">Design Tools</a></li>
+              <li><a href="#" class="contact-link d-block py-2">Photoshop Mastering</a></li>
+              <li><a href="#" class="contact-link d-block py-2">Adobe Xd Design</a></li>
+            </ul>
+          </li>
 
-                          <li>
-                              <a href="#">Pages</a>
-                              <ul class="submenu">
-                                  <li><a href="instructor.html">Instructors</a></li>
-                                  <li><a href="cart.html">Cart</a></li>
-                                  <li><a href="checkout.html">Checkout</a></li>
-                                  <li><a href="login">Login</a></li>
-                                  <li><a href="register">Register</a></li>
-                              </ul>
-                          </li>
+          <li><a href="#" class="contact-link d-block py-2">Development</a></li>
+          <li><a href="#" class="contact-link d-block py-2">Marketing</a></li>
+          <li><a href="#" class="contact-link d-block py-2">Freelancing</a></li>
+        </ul>
+      </li>
 
-                          <li>
-                              <a href="blog.html">Blog</a>
-                              <ul class="submenu">
-                                  <li><a href="blog-grid.html">Blog</a></li>
-                                  <li><a href="blog-single.html">Blog Details</a></li>
-                              </ul>
-                          </li>
-                          <li>
-                              <a href="contact.html">Contact</a>
-                          </li>
-                      </ul>
+      <!-- Sous-menu Pages -->
+      <li class="has-submenu">
+        <input type="checkbox" id="pages-toggle" class="submenu-checkbox">
+        <label for="pages-toggle" class="contact-link d-block py-2 submenu-label">
+          Pages <i class="fal fa-chevron-down float-end"></i>
+        </label>
+        <ul class="submenu list-unstyled ps-3">
+          <li><a href="login" class="contact-link d-block py-2">Login</a></li>
+          <li><a href="register" class="contact-link d-block py-2">Register</a></li>
+        </ul>
+      </li>
 
-                      <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
-                  </nav>
-              </div>
-          </div>
-      </div>
-  </header>
+      <li><a routerLink="/contact" class="contact-link d-block py-2">Contact</a></li>
+    </ul>
+
+    <div class="text-center mt-3">
+      <button class="login-text w-100 py-2" (click)="login()">
+        <i class="fa fa-user-alt me-1"></i> Login/Register
+      </button>
+    </div>
+  </div>
+</div>
+

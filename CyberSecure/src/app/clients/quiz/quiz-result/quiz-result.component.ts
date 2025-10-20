@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/services/quiz/quiz.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-result',
@@ -12,9 +13,11 @@ export class QuizResultComponent implements OnInit {
   history: any[] = [];
   loading = true;
 
-  constructor(private quizService: QuizService) {}
+  constructor(private quizService: QuizService , private route: ActivatedRoute) {}
+
 ngOnInit(): void {
-  this.quizService.getUserQuizHistory().subscribe({
+    const chapitreId = Number(this.route.snapshot.paramMap.get('chapitreId'));
+  this.quizService.getUserQuizHistoryByChapitre(chapitreId).subscribe({
     next: (res) => {
       this.history = (res || []).map((r: any) => ({
         quiz: r.quiz || { questions: [] },
@@ -24,7 +27,7 @@ ngOnInit(): void {
         datePassed: r.datePassed ? new Date(r.datePassed) : new Date()
       }));
 
-      // 🔹 Trier par date décroissante (dernier en haut)
+      // Trier par date décroissante
       this.history.sort((a, b) => b.datePassed.getTime() - a.datePassed.getTime());
 
       this.loading = false;
@@ -36,24 +39,58 @@ ngOnInit(): void {
   });
 }
 
+isUserSelected(userAnswers: { [questionId: number]: number }, questionId: number, answer: any): boolean {
+  if (!userAnswers) return false;
+  return userAnswers[questionId] === answer.id;
+}
 
 isUserWrongAnswer(userAnswers: any, questionId: number, answer: any): boolean {
   return userAnswers && userAnswers[questionId] === answer.id && !answer.correct;
 }
 
 downloadPdf() {
-  const element = document.getElementById('quiz-results'); // ⚡ maintenant ça existe
+  const element = document.getElementById('quiz-results');
   if (!element) return;
 
   html2canvas(element, { scale: 2 }).then(canvas => {
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
-    const imgProps = pdf.getImageProperties(imgData);
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    const imgProps = pdf.getImageProperties(imgData);
+    const imgWidth = pdfWidth;
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    const title = "Résultats des Quiz"; // Ton titre ici
+    const titleFontSize = 16;
+    const titleMargin = 10;
+
+    // Ajouter le titre sur la première page
+    pdf.setFontSize(titleFontSize);
+    pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
+
+    // Ajouter l'image avec décalage pour le titre
+    pdf.addImage(imgData, 'PNG', 0, titleMargin + 5, imgWidth, imgHeight);
+    heightLeft -= pdfHeight;
+
+    while (heightLeft > 0) {
+      pdf.addPage();
+      // Ajouter le titre sur chaque nouvelle page
+      pdf.setFontSize(titleFontSize);
+      pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
+
+      position = heightLeft - imgHeight + titleMargin + 5;
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+    }
+
     pdf.save('quiz_results.pdf');
   });
+
 }
 
 

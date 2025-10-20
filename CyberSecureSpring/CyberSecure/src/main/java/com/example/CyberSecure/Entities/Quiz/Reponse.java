@@ -21,7 +21,7 @@ public class Reponse {
 
     private String texte;
 
-    private boolean correct; // Une seule réponse correcte par question
+    private boolean correct;
 
     @ManyToOne
     @JoinColumn(name = "question_id")

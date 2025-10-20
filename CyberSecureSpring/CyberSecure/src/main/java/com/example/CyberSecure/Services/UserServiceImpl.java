@@ -48,13 +48,11 @@ public class UserServiceImpl {
 
     @Transactional
     public Response registerUser(UserDto registrationRequest) {
-        // Default user role is USER
         UserRole role = UserRole.USER;
         if (registrationRequest.getRole() != null && registrationRequest.getRole().equalsIgnoreCase("admin")) {
             role = UserRole.ADMIN;
         }
 
-        // Create user object
         User user = User.builder()
                 .name(registrationRequest.getName())
                 .email(registrationRequest.getEmail())
@@ -66,11 +64,9 @@ public class UserServiceImpl {
                 .role(role)
                 .build();
 
-        // Save the user temporarily
         User savedUser = userRepo.save(user);
 
 
-        // Send validation email
         try {
             sendValidationEmail(savedUser);
         } catch (MessagingException e) {
@@ -157,7 +153,12 @@ public class UserServiceImpl {
         tokenRepository.save(savedToken);
     }
 
-    private String generateAndSaveActivationToken(User user) {
+    public User findById(Long userId) {
+        return userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable avec l'id: " + userId));
+    }
+
+        private String generateAndSaveActivationToken(User user) {
         String generatedToken = generateActivationCode(6);
         var token = Token.builder()
                 .token(generatedToken)

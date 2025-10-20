@@ -1,0 +1,112 @@
+/* Dégradés */
+.bg-gradient-blue {
+  background: linear-gradient(90deg, #912943 0%, #681b37 100%);
+}
+
+.btn-gradient-pink {
+  background: linear-gradient(90deg, #912943, #be323d);
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-gradient-pink:hover {
+  background: linear-gradient(90deg, #be323d, #912943);
+  transform: translateY(-2px);
+}
+
+/* Pagination arrondie */
+.pagination-rounded .page-link {
+  border-radius: 50px;
+  margin: 0 5px;
+  border: 1px solid #dee2e6;
+  color: #681b37;
+}
+.pagination-rounded .page-link.active {
+  background: #912943;
+  color: white;
+  border-color: #912943;
+}
+.pagination-rounded .page-link:hover {
+  background: #be323d;
+  color: white;
+  border-color: #be323d;
+}
+
+/* FullCalendar custom */
+.fc .fc-toolbar-title {
+  color: #193152;
+  font-weight: 600;
+}
+
+.fc .fc-daygrid-day-frame {
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.fc .fc-daygrid-day-frame:hover {
+  background: #f9f9ff;
+}
+
+.fc .fc-daygrid-event {
+  background: #912943;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 2px 5px;
+  font-size: 0.85rem;
+}
+
+.fc .fc-button-primary {
+  background: #912943;
+  border: none;
+  border-radius: 8px;
+}
+.fc .fc-button-primary:hover {
+  background: #f75b70;
+}
+
+/* Dégradés cohérents */
+.bg-gradient-pink {
+  background: linear-gradient(90deg, #912943, #681b37);
+}
+.bg-gradient-blue {
+  background: linear-gradient(90deg, #193152, #4c8ec4);
+}
+.btn-gradient-pink {
+  background: linear-gradient(90deg, #912943, #681b37);
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-gradient-pink:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #681b37, #912943);
+}
+.btn-gradient-blue {
+  background: linear-gradient(90deg, #912943, #be323d);
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-gradient-blue:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #be323d, #9c4f62);
+}
+
+/* Champs du formulaire */
+.modal-body .form-control,
+.modal-body .form-select {
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+  border-color: #be323d;
+  box-shadow: 0 0 0 0.25rem rgba(85, 17, 44, 0.25);
+}
+
+/* Titres et modals */
+.modal-content {
+  overflow: hidden;
+}
+.modal-header h5 {
+  letter-spacing: 0.3px;
+}
+

@@ -1,42 +1,71 @@
-<div class="text-end mb-3">
-  <button class="btn btn-outline-success" (click)="downloadPdf()">
-    📄 Télécharger les résultats
+<div class="d-flex justify-content-center mb-4">
+  <button class="btn-grey rounded-pill shadow-sm btn-gradient" (click)="downloadPdf()">
+    <i class="fas fa-file-pdf me-2"></i> Télécharger les résultats
   </button>
+
+
 </div>
 
 <!-- conteneur à exporter en PDF -->
 <div id="quiz-results">
-  <div *ngFor="let result of history; let i = index" class="card mb-4 shadow-sm p-3">
-    <!-- Numéro de tentative -->
-    <h5>Tentative #{{ i + 1 }}</h5>
+  <div *ngFor="let result of history; let i = index"
+       class="card mb-4 shadow border-0 rounded-3"
+       [ngClass]="{'border-success': result.success, 'border-danger': !result.success}">
 
-    <h4>{{ result.quiz.titre }}</h4>
-
-    <p>
-      Score : {{ result.score }}%
-      <span [ngClass]="{'text-success': result.success, 'text-danger': !result.success}">
-        {{ result.success ? '✅ Réussi' : '❌ Échec' }}
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <span class="fw-bold">Tentative #{{ i + 1 }}</span>
+      <span class="badge"
+            [ngClass]="{'bg-success': result.success, 'bg-danger': !result.success}">
+        <i class="fas" [ngClass]="{'fa-check-circle': result.success, 'fa-times-circle': !result.success}"></i>
+        {{ result.success ? 'Réussi' : 'Échec' }}
       </span>
-    </p>
+    </div>
 
-    <p class="text-muted">
-      Passé le : {{ result.datePassed | date:'dd/MM/yyyy HH:mm:ss' }}
-    </p>
+    <div class="card-body">
+      <h5 class="card-title">{{ result.quiz.titre }}</h5>
+      <p class="mb-2">
+        <strong>Score :</strong> {{ result.score }}%
+      </p>
 
-    <div *ngFor="let question of result.quiz.questions" class="ms-3 mb-3">
-      <strong>{{ question.texte }}</strong>
-      <ul>
-        <li *ngFor="let answer of question.reponses"
-            [ngClass]="{
-              'text-success fw-bold': answer.correct,
-              'text-danger fw-bold': isUserWrongAnswer(result.userAnswers, question.id, answer),
-              'text-muted': !answer.correct && !isUserWrongAnswer(result.userAnswers, question.id, answer)
-            }">
-          {{ answer.texte }}
-          <span *ngIf="isUserWrongAnswer(result.userAnswers, question.id, answer)"> (Votre choix ❌) </span>
-          <span *ngIf="answer.correct"> ✅</span>
-        </li>
-      </ul>
+      <!-- Message si échec -->
+      <p *ngIf="!result.success" class="text-danger fw-semibold">
+        <i class="fas fa-exclamation-triangle me-2"></i> Échec : le résultat doit être supérieur à 60% pour réussir.
+      </p>
+
+      <p class="text-muted mb-3">
+        Passé le : {{ result.datePassed | date:'dd/MM/yyyy HH:mm:ss' }}
+      </p>
+
+      <div *ngFor="let question of result.quiz.questions" class="mb-3">
+        <strong class="d-block mb-1">{{ question.texte }}</strong>
+        <ul class="list-group list-group-flush">
+<li *ngFor="let answer of question.reponses"
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [ngClass]="{
+
+      'list-group-item-success': (result.success && answer.correct)
+
+        || (!result.success && isUserSelected(result.userAnswers, question.id, answer) && answer.correct),
+
+
+      'list-group-item-danger': !result.success && isUserSelected(result.userAnswers, question.id, answer) && !answer.correct
+    }">
+  <span>{{ answer.texte }}</span>
+  <span>
+    <!-- Icône verte -->
+    <i *ngIf="((result.success && answer.correct) || (!result.success && isUserSelected(result.userAnswers, question.id, answer) && answer.correct))"
+       class="fas fa-check-circle text-success"></i>
+
+    <!-- Icône rouge -->
+    <i *ngIf="!result.success && isUserSelected(result.userAnswers, question.id, answer) && !answer.correct"
+       class="fas fa-times-circle text-danger"></i>
+  </span>
+</li>
+
+
+
+        </ul>
+      </div>
     </div>
   </div>
 </div>

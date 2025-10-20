@@ -5,33 +5,102 @@
  <app-header-home></app-header-home>
 
   <!--====== Header End ======-->
-  <!-- Banner Section Start -->
-  <section class="banner-style-4 banner-padding">
-      <div class="container">
-          <div class="row align-items-center justify-content-center">
-              <div class="col-md-12 col-xl-6 col-lg-6">
-                  <div class="banner-content ">
-                      <span class="subheading">Over 3000 Course Available</span>
-                      <h1>Upgrade your learning Skills & Upgrade your life</h1>
-                      <p class="mb-40"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ullam libero magni reiciendis
-                          quam ipsa blanditiis, facilis velit eaque illo?</p>
+<section class="banner-style-4 banner-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12 col-xl-6 col-lg-6">
+                <div class="banner-content">
+                    <span class="subheading">Over 3000 Course Available</span>
+                    <h1>Upgrade your learning Skills & Upgrade your life</h1>
+                </div>
+            </div>
 
-                      <div class="btn-container">
-                          <button href="#" class=" btn-main rounded">Find Courses</button>
-                          <button href="#" class=" btn-white rounded ms-2">Get started </button>
+            <div class="col-md-12 col-xl-6 col-lg-6">
+                <div class="banner-img-round mt-5 mt-lg-0 ps-5"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="btn-container text-center">
+    <button routerLink="/courses" class="btn-main btn-custom btn1">Find Courses</button>
+    <button (click)="login()" class="btn-main btn-custom btn2">Get started</button>
+</div>
+
+
+
+
+
+
+
+
+  <!--  Course style 1 -->
+  <section class="course-wrapper section-padding ">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-xl-8">
+                  <div class="section-heading mb-70 text-center">
+<h2 class="popular-courses-title">Popular Courses</h2>
+                      <p>Discover Your Perfect Program In Our Courses.</p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row justify-content-lg-center">
+              <div class="col-xl-4 col-lg-4 col-md-6"  *ngFor="let formation of formations">
+                  <div class="course-grid bg-shadow tooltip-style">
+                      <div class="course-header">
+                          <div class="course-thumb">
+  <img [src]="'http://localhost:8080/files/' + formation.imageUrl"
+       alt="Post Image"
+       class="img-fluid"
+       style="width:100%; height: 200px; object-fit:cover; border-radius:8px;">
+<div class="course-price">{{formation.price}} $</div>
+                          </div>
+                      </div>
+
+                      <div class="course-content">
+                          <div class="rating mb-30">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+
+                              <span>3.9 (30 reviews)</span>
+                          </div>
+
+                          <h3 class="course-title mb-30"> <a >{{formation.title}}</a> </h3>
+
+                          <div class="course-footer mt-30 d-flex align-items-center justify-content-between ">
+                              <span class="duration"><i class="far fa-clock me-2"></i>{{formation.duration}} hr</span>
+<span class="students">
+  <i class="far fa-user-alt me-2"></i>
+  {{studentsCount[formation.id] || 0}} Students
+</span>
+                              <span class="lessons"><i class="far fa-play-circle me-2"></i>{{formation.chapitres?.length}} Lessons</span>
+                          </div>
+                      </div>
+
+                      <div class="course-hover-content">
+  <img [src]="'http://localhost:8080/files/' + formation.imageUrl"
+       alt="Post Image"
+       class="img-fluid"
+       style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
+<h3 class="course-title  mt-10 "> <a class="contact-link" [routerLink]="['/formationDetails', formation.id]">{{formation.title}}</a> </h3>
+                        <div class="price">{{formation.price}} $</div>
+<button [routerLink]="['/formationDetails', formation.id]" class="btn-sm rounded btn-gradient">
+  Buy Now <i class="fal fa-angle-right"></i>
+</button>
                       </div>
                   </div>
-              </div>
-
-              <div class="col-md-12 col-xl-6 col-lg-6">
-                  <div class="banner-img-round mt-5 mt-lg-0 ps-5">
-                      <img src="assets/images/banner/banner_img.png" alt="" class="img-fluid">
-                  </div>
-              </div>
-          </div> <!-- / .row -->
-      </div> <!-- / .container -->
+               </div>
+              <!-- COURSE END -->
+          </div>
+      </div>
   </section>
-  <!-- Banner Section End -->
+
+  <!--  Course style 1 End -->
 
   <!-- Counter Section start -->
   <section class="counter-section4">
@@ -81,84 +150,13 @@
   <!-- COunter Section End -->
 
 
-
-
-  <!--  Course style 1 -->
-  <section class="course-wrapper section-padding ">
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-xl-8">
-                  <div class="section-heading mb-70 text-center">
-                      <h2 class="font-lg">Popular Courses</h2>
-                      <p>Discover Your Perfect Program In Our Courses.</p>
-                  </div>
-              </div>
-          </div>
-
-          <div class="row justify-content-lg-center">
-              <div class="col-xl-4 col-lg-4 col-md-6"  *ngFor="let formation of formations">
-                  <div class="course-grid bg-shadow tooltip-style">
-                      <div class="course-header">
-                          <div class="course-thumb">
-  <img [src]="'http://localhost:8080/files/' + formation.imageUrl"
-       alt="Post Image"
-       class="img-fluid"
-       style="width:100%; height: 200px; object-fit:cover; border-radius:8px;">
-<div class="course-price">{{formation.price}} $</div>
-                          </div>
-                      </div>
-
-                      <div class="course-content">
-                          <div class="rating mb-30">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-
-                              <span>3.9 (30 reviews)</span>
-                          </div>
-
-                          <h3 class="course-title mb-30"> <a href="#">{{formation.title}}</a> </h3>
-
-                          <div class="course-footer mt-30 d-flex align-items-center justify-content-between ">
-                              <span class="duration"><i class="far fa-clock me-2"></i>{{formation.duration}} hr</span>
-<span class="students">
-  <i class="far fa-user-alt me-2"></i>
-  {{studentsCount[formation.id] || 0}} Students
-</span>
-                              <span class="lessons"><i class="far fa-play-circle me-2"></i>{{formation.chapitres?.length}} Lessons</span>
-                          </div>
-                      </div>
-
-                      <div class="course-hover-content">
-  <img [src]="'http://localhost:8080/files/' + formation.imageUrl"
-       alt="Post Image"
-       class="img-fluid"
-       style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
-<h3 class="course-title  mt-10 "> <a href="#">{{formation.title}}</a> </h3>
-                        <div class="price">{{formation.price}} $</div>
-                          <button [routerLink]="['/formationDetails', formation.id]" class=" btn-grey btn-sm rounded">Buy Now  <i class="fal fa-angle-right"></i></button>
-                      </div>
-                  </div>
-               </div>
-              <!-- COURSE END -->
-          </div>
-      </div>
-  </section>
-
-  <!--  Course style 1 End -->
-
-
-
-
   <!--  Course category -->
   <section class="course-category-3 section-padding">
       <div class="container">
           <div class="row mb-70 justify-content-center">
               <div class="col-xl-8">
                   <div class="section-heading text-center">
-                      <h2 class="font-lg">Categories you want to learn</h2>
+                      <h2 class="popular-courses-title">Categories you want to learn</h2>
                   </div>
               </div>
           </div>
@@ -171,7 +169,7 @@
                       </div>
                       <div class="course-cat-content">
                           <h4 class="course-cat-title">
-                              <a href="#">Data Science & Analytics</a>
+                              <a >Data Science & Analytics</a>
                           </h4>
                       </div>
                   </div>
@@ -184,7 +182,7 @@
                       </div>
                       <div class="course-cat-content">
                           <h4 class="course-cat-title">
-                              <a href="#">Artificial Intellegence</a>
+                              <a>Artificial Intellegence</a>
                           </h4>
                       </div>
                   </div>
@@ -197,7 +195,7 @@
                       </div>
                       <div class="course-cat-content">
                           <h4 class="course-cat-title">
-                              <a href="#">Algebra Math calculation</a>
+                              <a>Algebra Math calculation</a>
                           </h4>
                       </div>
                   </div>
@@ -210,7 +208,7 @@
                       </div>
                       <div class="course-cat-content">
                           <h4 class="course-cat-title">
-                              <a href="#">Web Development</a>
+                              <a >Web Development</a>
                           </h4>
                       </div>
                   </div>
@@ -223,7 +221,7 @@
                       </div>
                       <div class="course-cat-content">
                           <h4 class="course-cat-title">
-                              <a href="#">Digital Marketing & SEO</a>
+                              <a >Digital Marketing & SEO</a>
                           </h4>
                       </div>
                   </div>
@@ -233,68 +231,71 @@
   </section>
   <!--  Course category End -->
   <!-- Work Process Section Start -->
-  <section class="work-process section-padding">
-      <div class="container">
-          <div class="row mb-40">
-              <div class="col-xl-8">
-                  <div class="section-heading ">
-                      <h2 class="font-lg">Start your journey With us</h2>
-                  </div>
-              </div>
-          </div>
-
-          <div class="row align-items-center">
-              <div class="col-xl-7 pe-xl-5 col-lg-12">
-                  <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-6">
-                          <div class="step-item ">
-                              <div class="step-number bg-1">01</div>
-                              <div class="step-text">
-                                  <h5>Signup with all info</h5>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xl-6 col-lg-6 col-md-6">
-                          <div class="step-item">
-                              <div class="step-number bg-2">02</div>
-                              <div class="step-text">
-                                  <h5>Take your Admission</h5>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xl-6 col-lg-6 col-md-6 ">
-                          <div class="step-item">
-                              <div class="step-number bg-3">03</div>
-                              <div class="step-text">
-                                  <h5>Learn from online </h5>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xl-6 col-lg-6 col-md-6">
-                          <div class="step-item">
-                              <div class="step-number bg-1">04</div>
-                              <div class="step-text">
-                                  <h5>Get certificate</h5>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-xl-5">
-                  <div class="video-section mt-3 mt-xl-0">
-                      <div class="video-content">
-                          <img src="assets/images/bg/office01.jpg" alt="" class="img-fluid">
-                          <a href="#" class="video-icon video-popup"><i class="fa fa-play"></i></a>
-                      </div>
-                  </div>
-              </div>
-          </div>
+<section class="work-process section-padding">
+  <div class="container">
+    <div class="row mb-40">
+      <div class="col-xl-8">
+        <div class="section-heading">
+          <h2 class="popular-courses-title">Start your journey With us</h2>
+        </div>
       </div>
-  </section>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-xl-7 pe-xl-5 col-lg-12">
+        <div class="row">
+          <!-- Steps -->
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="step-item">
+              <div class="step-number bg-1">01</div>
+              <div class="step-text">
+                <h5>Signup with all info</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="step-item">
+              <div class="step-number bg-2">02</div>
+              <div class="step-text">
+                <h5>Take your Admission</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="step-item">
+              <div class="step-number bg-3">03</div>
+              <div class="step-text">
+                <h5>Learn from online</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="step-item">
+              <div class="step-number bg-1">04</div>
+              <div class="step-text">
+                <h5>Get certificate</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video -->
+      <div class="col-xl-5 col-lg-12 mt-4 mt-xl-0">
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/inWWhr5tnEA?list=PLEiEAq2VkUUJfPOj5nRounXvf3n17PCft"
+            title="YouTube video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- Work Process Section End -->
 
 
@@ -308,7 +309,7 @@
           <div class="row justify-content-center">
               <div class="col-xl-8">
                   <div class="section-heading mb-50 text-center">
-                      <h2 class="font-lg">Transform Your Life </h2>
+                      <h2 class="popular-courses-title">Transform Your Life </h2>
                       <p>Discover Your Perfect Program In Our Courses.</p>
                   </div>
               </div>
@@ -322,7 +323,6 @@
                       </div>
                       <div class="feature-text">
                           <h4>Expert Teacher</h4>
-                          <p>Develop skills for career of various majors including computer</p>
                       </div>
                   </div>
               </div>
@@ -333,7 +333,6 @@
                       </div>
                       <div class="feature-text">
                           <h4>Self Development</h4>
-                          <p>Develop skills for career of various majors including computer.</p>
                       </div>
                   </div>
               </div>
@@ -344,7 +343,6 @@
                       </div>
                       <div class="feature-text">
                           <h4>Remote Learning</h4>
-                          <p>Develop skills for career of various majors including language</p>
                       </div>
                   </div>
               </div>
@@ -355,7 +353,6 @@
                       </div>
                       <div class="feature-text">
                           <h4>Life Time Support</h4>
-                          <p>Develop skills for career of various majors including language  </p>
                       </div>
                   </div>
               </div>
@@ -365,191 +362,14 @@
 
   <!-- Testimonial section start -->
   <section class="testimonial-4 section-padding bg-gray">
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-xl-6">
-                  <div class="section-heading text-center mb-50">
-                      <h2 class="font-lg">Our Students Says</h2>
-                      <p>Discover Your Perfect Program In Our Courses.</p>
-                  </div>
-              </div>
-          </div>
-          <div class="row align-items-center">
-              <div class="col-lg-12 col-xl-12">
-                  <div class="testimonials-slides owl-carousel owl-theme">
-                      <div class="testimonial-item">
-                         <div class="testimonial-inner">
-                             <div class="quote-icon"><i class="flaticon-left-quote"></i></div>
 
-                              <div class="testimonial-text mb-30">
-                                  Cras vel purus fringilla, lobortis libero ut Proin a velit convallis, fermentum orci in, rutrum diam. Duis elementum odio a pharetra commodo.
-                              </div>
-
-                              <div class="client-info d-flex align-items-center">
-                                  <div class="client-img">
-                                      <img src="assets/images/clients/testimonial-avata-01.jpg" alt="" class="img-fluid">
-                                  </div>
-                                  <div class="testimonial-author">
-                                      <h4>Cory Zamora</h4>
-                                      <span class="meta">Marketing Specialist</span>
-                                  </div>
-                              </div>
-                         </div>
-                      </div>
-
-                      <div class="testimonial-item">
-                          <div class="testimonial-inner">
-                              <div class="quote-icon"><i class="flaticon-left-quote"></i></div>
-
-                              <div class="testimonial-text  mb-30">
-                                  Cras vel purus fringilla, lobortis libero ut Proin a velit convallis, fermentum orci in, rutrum diam. Duis elementum odio a pharetra commodo.
-                              </div>
-
-                              <div class="client-info d-flex align-items-center">
-                                  <div class="client-img">
-                                      <img src="assets/images/clients/testimonial-avata-02.jpg" alt="" class="img-fluid">
-                                  </div>
-                                  <div class="testimonial-author">
-                                      <h4>Jackie Sanders</h4>
-                                      <span class="meta">Marketing Manager</span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="testimonial-item">
-                          <div class="testimonial-inner">
-                              <div class="quote-icon"><i class="flaticon-left-quote"></i></div>
-
-                              <div class="testimonial-text  mb-30">
-                                  Cras vel purus fringilla, lobortis libero ut Proin a velit convallis, fermentum orci in, rutrum diam. Duis elementum odio a pharetra commodo.
-                              </div>
-
-                              <div class="client-info d-flex align-items-center">
-                                  <div class="client-img">
-                                      <img src="assets/images/clients/testimonial-avata-03.jpg" alt="" class="img-fluid">
-                                  </div>
-                                  <div class="testimonial-author">
-                                      <h4>Nikolas Brooten</h4>
-                                      <span class="meta">Sales Manager</span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="testimonial-item">
-                          <div class="testimonial-inner">
-                              <div class="quote-icon"><i class="flaticon-left-quote"></i></div>
-
-                              <div class="testimonial-text mb-30">
-                                  Cras vel purus fringilla, lobortis libero ut Proin a velit convallis, fermentum orci in, rutrum diam. Duis elementum odio a pharetra commodo.
-                              </div>
-
-                              <div class="client-info d-flex align-items-center">
-                                  <div class="client-img">
-                                      <img src="assets/images/clients/testimonial-avata-04.jpg" alt="" class="img-fluid">
-                                  </div>
-                                  <div class="testimonial-author">
-                                      <h4>Terry Ambady</h4>
-                                      <span class="meta">Marketing Manager</span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="testimonial-item">
-                          <div class="testimonial-inner">
-                              <div class="quote-icon"><i class="flaticon-left-quote"></i></div>
-
-                              <div class="testimonial-text mb-30">
-                                  Cras vel purus fringilla, lobortis libero ut Proin a velit convallis, fermentum orci in, rutrum diam. Duis elementum odio a pharetra commodo.
-                              </div>
-
-                              <div class="client-info d-flex align-items-center">
-                                  <div class="client-img">
-                                      <img src="assets/images/clients/testimonial-avata-03.jpg" alt="" class="img-fluid">
-                                  </div>
-                                  <div class="testimonial-author">
-                                      <h4>Nikolas Brooten</h4>
-                                      <span class="meta">Sales Manager</span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
   </section>
-  <!-- Testimonial section End -->
-  <!-- CTA Sidebar start -->
-  <section class="cta-5 mb--120 bg-gray">
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-xl-12">
-                  <div class="cta-inner4">
-                      <div class="row align-items-center justify-content-center">
-                          <div class="col-xl-4 col-lg-5">
-                             <div class="cta-img mb-4 mb-lg-0">
-                                 <img src="assets/images/about/img_9.png" alt="" class="img-fluid">
-                             </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6">
-                              <div class="cta-content ps-lg-4">
-                                  <span class="subheading mb-10">Not sure where to start?</span>
-                                  <h2 class="mb-20"> Want to know Special Offers & Updates of new courses?</h2>
-                                  <button href="#" class=" btn-main rounded"> Join NOw</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-  <!-- CTA Sidebar end -->
+  <!-- Testimonial section End -
   <!-- Footer section start -->
 <app-footer></app-footer>
   <!-- Footer section End -->
 
 
-
-
-
-      <!--
-      Essential Scripts
-      =====================================-->
-
-      <!-- Main jQuery -->
-      <script src="assets/vendors/jquery/jquery.js"></script>
-      <!-- Bootstrap 5:0 -->
-      <script src="assets/vendors/bootstrap/popper.min.js"></script>
-      <script src="assets/vendors/bootstrap/bootstrap.js"></script>
-      <!-- Counterup -->
-      <script src="assets/vendors/counterup/waypoint.js"></script>
-      <script src="assets/vendors/counterup/jquery.counterup.min.js"></script>
-      <!--  Owl Carousel -->
-      <script src="assets/vendors/owl/owl.carousel.min.js"></script>
-      <!-- Isotope -->
-      <script src="assets/vendors/isotope/jquery.isotope.js"></script>
-      <script src="assets/vendors/isotope/imagelaoded.min.js"></script>
-      <!-- Animated Headline -->
-      <script src="assets/vendors/animated-headline/animated-headline.js"></script>
-      <!-- Magnific Popup -->
-      <script src="assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-      <script src="assets/js/script.js"></script>
-
-
-    </body>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
 

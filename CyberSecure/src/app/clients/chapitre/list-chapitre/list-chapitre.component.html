@@ -12,7 +12,7 @@
           <div class="title-block">
             <h1>Chapters List</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="home">Home</a></li>
+              <li><a class="headerlien" href="home">Home</a></li>
               <li class="active" aria-current="page">Chapters</li>
             </ul>
           </div>
@@ -24,9 +24,21 @@
    <section class="section-padding page">
    <div class="container mb-4">
     <div class="slide-header d-flex justify-content-between align-items-center mb-3">
-      <h4 class="formation-title mb-0 text-primary">
+      <h4 class=" mb-0 popular-courses-title">
        {{ formation?.title }}
       </h4>
+<div class="text-end mt-4" *ngIf="shouldShowCertificationButton()">
+  <button
+    (click)="obtenirCertification()"
+    class="btn-certification btn-gradient"
+  >
+    <i class="fas fa-graduation-cap me-2"></i>
+    Obtenir ma certification
+  </button>
+</div>
+
+
+
     </div>
   </div>
   <!-- Top bar -->
@@ -39,76 +51,110 @@
           </p>
         </div>
 
-        <div class="col-lg-4">
-          <div class="topbar-search position-relative">
-            <input
-              type="text"
-              [(ngModel)]="searchTerm"
-              placeholder="Search by chapter title..."
-              class="form-control rounded-pill ps-4 shadow-sm"
-            />
-            <i
-              class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
-            ></i>
-          </div>
-        </div>
+<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+  <div class="position-relative">
+<input
+  type="text"
+  [(ngModel)]="searchTerm"
+  (ngModelChange)="onSearchChange()"
+  placeholder="Rechercher un chapitre..."
+  class="form-control rounded-pill ps-4 shadow-sm border-0"
+  style="height: 42px;"
+/>
+
+    <i
+      class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 "
+      style="pointer-events: none;"
+    ></i>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
 
   <!-- Course list -->
-  <div class="container">
-    <div class="row gy-4">
-      <div
-        class="course-item col-lg-12"
-        *ngFor="let chapitre of filteredChapitres | paginate: { itemsPerPage: 6, currentPage: p }"
-      >
-        <div
-          class="single-course d-flex align-items-center p-3 shadow-sm rounded bg-white hover-card"
-        >
-          <!-- image -->
-          <div class="me-4 flex-shrink-0">
-            <img
-              class="course-thumb rounded shadow-sm"
-              [src]="'http://localhost:8080/files/' + formation?.imageUrl"
-              width="100"
-              height="80"
-              alt="Chapitre image"
-            />
-          </div>
+<div class="container">
+  <div class="row gy-4">
 
-          <!-- content -->
-          <div class="flex-grow-1">
-            <h5 class="mb-1 fw-bold text-primary">
-              <a
-                [routerLink]="['/chapitre', chapitre.id, 'slides']"
-                class="text-decoration-none"
-                >{{ chapitre.titre }}</a
-              >
-            </h5>
-            <div class="course-meta text-muted small d-flex align-items-center gap-3">
- <span class="students-count" *ngIf="studentsCount[formation.id] !== undefined">
+<div
+  class="course-item col-lg-12"
+  *ngFor="let chapitre of filteredChapitres | paginate: { itemsPerPage: 6, currentPage: p }; let chapitreIndex = index"
+>
+  <div class="single-course d-flex align-items-center p-3 shadow-sm rounded bg-white hover-card">
+    <div class="me-4 flex-shrink-0">
+      <img
+        class="course-thumb rounded shadow-sm"
+        [src]="'http://localhost:8080/files/' + formation?.imageUrl"
+        width="100"
+        height="80"
+        alt="Chapitre image"
+      />
+    </div>
+
+    <div class="flex-grow-1">
+<!-- Titre du chapitre -->
+<h5 class="mb-1 fw-bold text-primary">
+  <a
+    href="javascript:void(0)"
+    (click)="showChapitre(chapitre, $event)"
+    [class.disabled-link]="!isChapterEnabled(chapitre)"
+    class="text-decoration-none"
+  >
+    {{ chapitre.titre }}
+  </a>
+</h5>
+
+
+
+
+<div class="course-meta text-muted small d-flex align-items-center gap-3">
+  <!-- Nombre d'étudiants -->
+  <span class="students-count" *ngIf="studentsCount[formation.id] !== undefined">
     <i class="far fa-user-alt me-1"></i>
     {{ studentsCount[formation.id] }} étudiants
   </span>
 
+  <!-- Nombre de slides -->
   <span class="slides-count" *ngIf="slideCounts[chapitre.id] !== undefined">
     <i class="far fa-file-alt me-1 text-primary"></i>
     {{ slideCounts[chapitre.id] }} slides
   </span>
+
+  <!-- État du chapitre -->
+  <span class="chapter-status ms-2" *ngIf="quizResultsMap[chapitre.id]">
+    <i
+    class="me-1"
+    [ngClass]="quizResultsMap[chapitre.id].success ? 'fas fa-check-circle text-primary' : 'fas fa-times-circle text-danger'"
+  ></i>
+  {{ quizResultsMap[chapitre.id].success ? 'Réussi' : 'Échec' }}
+    <span class="text-muted">({{ quizResultsMap[chapitre.id].score }}%)</span>
+  </span>
+
+<span class="chapter-status ms-2" *ngIf="!quizResultsMap[chapitre.id] && isChapterEnabled(chapitre)">
+  <i class="far fa-clock text-primary me-1"></i> En cours
+</span>
+
+<!-- Chapitre désactivé -->
+<span class="chapter-status ms-2 text-secondary" *ngIf="!isChapterEnabled(chapitre)">
+  <i class="far fa-lock me-1"></i> Bloqué
+</span>
+
 </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Aucun résultat trouvé -->
-      <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
-        <i class="fa fa-search fa-2x text-muted mb-2"></i>
-        <p class="text-muted">Aucun chapitre trouvé.</p>
-      </div>
     </div>
   </div>
+</div>
+
+
+
+    <!-- Aucun résultat trouvé -->
+    <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
+      <i class="fa fa-search fa-2x text-muted mb-2"></i>
+      <p class="text-muted">Aucun chapitre trouvé.</p>
+    </div>
+  </div>
+</div>
+
 <div class="d-flex justify-content-center mt-4">
   <pagination-controls
     (pageChange)="p = $event"

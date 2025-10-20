@@ -24,14 +24,16 @@ public class Quiz {
 
     private String titre;
 
-    private int timeLimit; // en secondes (par ex: 60 sec)
+    private int timeLimit;
 
     @OneToOne
     @JoinColumn(name = "chapitre_id")
-    @JsonManagedReference   // <- Ignore Chapitre lors de la sérialisation Quiz
+    @JsonManagedReference
     private Chapitre chapitre;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference   // <- Ignore Question lors de la sérialisation Quiz pour éviter boucle
+    @JsonManagedReference
     private List<Question> questions;
+
+
 }

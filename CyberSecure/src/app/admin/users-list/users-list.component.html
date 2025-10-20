@@ -8,7 +8,7 @@
           <div class="title-block">
             <h1>Users List</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="mainAdmin/home">Home</a></li>
+              <li><a class="headerlien"  href="mainAdmin/home">Home</a></li>
               <li class="active" aria-current="page">Users</li>
             </ul>
           </div>
@@ -17,47 +17,63 @@
     </div>
 </section>
     <!--shop category start-->
-    <section class="woocommerce single page-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-xl-12">
-                    <div class="woocommerce-cart">
-                        <div class="woocommerce-notices-wrapper"></div>
-                        <form class="woocommerce-cart-form" action="" method="">
-                            <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                      <th>ID</th>
-                                      <th>Name</th>
-                                      <th>Email</th>
-                                      <th>Phone</th>
-                                      <th>Role</th>
-                                      <th>Actions</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                       <tr *ngFor="let user of users ">
-                                          <td>{{ user.id }}</td>
-                                          <td>{{ user.name }}</td>
-                                          <td>{{ user.email }}</td>
-                                          <td>{{ user.phoneNumber }}</td>
-                                          <td>{{ user.role }}</td>
-                                          <td>
-                                            <button (click)="confirmDelete(user.id)" ><i class="fa fa-times"></i></button>
-                                          </td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                </div>
+<section class="woocommerce single page-wrapper py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle text-center mb-0 bg-white">
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users">
+                    <td>{{ user.id }}</td>
+                    <td class="fw-bold">{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phoneNumber }}</td>
+                    <td>
+                      <span class="badge"
+                            [ngClass]="{
+                              'bg-success': user.role === 'agent',
+                              'bg-primary': user.role === 'admin',
+                              'bg-secondary': user.role !== 'admin' && user.role !== 'agent'
+                            }">
+                        {{ user.role }}
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn btn-gradient btn-sm d-inline-flex justify-content-center align-items-center"
+                              style="width: 36px; height: 36px;"
+                              (click)="confirmDelete(user.id)">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+
 <modal-delete-confirmation [modalParams]="params" (onSubmitModal)="delete()"></modal-delete-confirmation>
 <notification></notification>
-    <!--shop category end-->
+
+
+
 
 
 

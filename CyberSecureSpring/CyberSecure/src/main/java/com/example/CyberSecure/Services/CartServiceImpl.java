@@ -24,7 +24,6 @@ public class CartServiceImpl {
         Formation formation = formationRepository.findById(formationId)
                 .orElseThrow(() -> new RuntimeException("Formation introuvable"));
 
-        // Vérifier si déjà ajouté
         cartItemRepository.findByUserIdAndFormationId(userId, formationId)
                 .ifPresent(item -> { throw new RuntimeException("Formation déjà dans le panier"); });
 

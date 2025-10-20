@@ -1,15 +1,4 @@
 <header class="header-style-2">
-    <div class="header-topbar topbar-noticebar">
-        <div class="container-fluid container-padding">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8">
-                   <div class="header-notice text-center">
-                        Keep learning with free resources. <a href="#">Learn more</a>
-                   </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="header-navbar menu-2 navbar-sticky">
   <div class="container-fluid container-padding">
@@ -18,40 +7,37 @@
       <!-- Logo -->
       <div class="site-logo">
         <a routerLink="/home">
-          <img src="../../../assets/images/Muntucyber.png" alt="" class="img-fluid" />
+          <img src="../../../assets/images/logo.png" alt="" class="img-fluid" />
         </a>
       </div>
 
       <!-- Search Bar -->
-      <div class="header-search-bar d-none d-xl-block">
-        <form action="#">
-          <input type="text" class="form-control" placeholder="Search">
-          <a href="#" class="search-submit"><i class="far fa-search"></i></a>
-        </form>
-      </div>
 
       <!-- Menu Burger (mobile) -->
-      <div class="offcanvas-icon d-block d-lg-none">
-        <a href="#" class="nav-toggler"><i class="fal fa-bars"></i></a>
-      </div>
+                <div class="offcanvas-icon d-block d-lg-none">
+          <a href="#" class="nav-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu2">
+            <i class="fal fa-bars"></i>
+          </a>
+        </div>
 
       <!-- Navigation -->
       <nav class="site-navbar ms-auto">
         <ul class="primary-menu">
           <li class="current">
-            <a routerLink="/home">Home</a>
+            <a class="contact-link" routerLink="/mainUser/home">Home</a>
+          </li>
+
+          <li>
+            <a class="contact-link" routerLink="/mainUser/formations">Course</a>
           </li>
           <li>
-            <a routerLink="/mainUser/formations">Formations</a>
+            <a class="contact-link" routerLink="/mainUser/allQuiz" href="#">Quiz</a>
           </li>
           <li>
-            <a routerLink="/mainUser/addRdv">RDV</a>
+            <a class="contact-link" routerLink="/mainUser/allCertif">Certificate</a>
           </li>
-          <li>
-            <a href="#">Certificats</a>
-          </li>
-          <li>
-            <a href="#">Quizs</a>
+                              <li>
+            <a class="contact-link" routerLink="/mainUser/addRdv">Appointment</a>
           </li>
         </ul>
         <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
@@ -62,9 +48,8 @@
 
         <!-- Panier -->
         <div class="header-btn ms-3 d-none d-lg-block position-relative">
-          <a routerLink="/panier" class="btn btn-sm-2 rounded">
-            <i class="fal fa-shopping-cart"></i>
-            Panier
+          <a routerLink="/mainUser/panier" class="btn btn-sm-2 rounded">
+            <i class="fal fa-shopping-cart"></i> Panier
           </a>
         </div>
 
@@ -109,3 +94,26 @@
 </div>
 </header>
 <!--====== Header End ======-->
+<div class="offcanvas offcanvas-end mobile-offcanvas" tabindex="-1" id="mobileMenu2">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="fw-bold m-0">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <ul class="list-unstyled mb-4 mobile-menu">
+      <li><a routerLink="/mainUser/home" class="contact-link d-block py-2">Home</a></li>
+      <li><a routerLink="/mainUser/formations" class="contact-link d-block py-2">Course</a></li>
+      <li><a routerLink="/mainUser/allQuiz" class="contact-link d-block py-2">Quiz</a></li>
+      <li><a routerLink="/mainUser/allCertif" class="contact-link d-block py-2">Certificate</a></li>
+      <li><a routerLink="/mainUser/addRdv" class="contact-link d-block py-2">Appointment</a></li>
+      <li><a routerLink="/mainUser/profile" class="contact-link d-block py-2"><i class="fal fa-user me-2"></i> Account</a></li>
+      <li><a routerLink="/mainUser/panier" class="contact-link d-block py-2"><i class="fal fa-shopping-cart"></i> Panier</a></li>
+      <li>
+        <a href="#" class="contact-link d-block py-2 text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
+           <i class="fal fa-sign-out-alt me-2"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

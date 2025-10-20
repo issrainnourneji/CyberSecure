@@ -1,0 +1,159 @@
+
+.contact-link {
+  color: #ffffff; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #4c8ec4;
+}
+
+.contact-link1:hover {
+  color: #b93b4a ;
+}
+.header-navbar {
+  padding: 8px 0 !important;
+}
+
+/* === OFFCANVAS MOBILE === */
+.mobile-offcanvas {
+  background: #fff;
+  max-width: 270px;
+  color: #681b37;
+  transition: transform 0.4s ease-in-out;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+}
+
+/* Slide in depuis la droite */
+.mobile-offcanvas.show {
+  transform: translateX(0);
+}
+
+.mobile-offcanvas .offcanvas-header {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+}
+
+.mobile-offcanvas .btn-close {
+  filter: invert(1);
+}
+
+/* Liens menu mobile */
+.mobile-offcanvas .contact-link {
+  color: #681b37 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 8px 0;
+}
+
+.mobile-offcanvas .contact-link:hover {
+  color: #b93b4a !important;
+  transform: translateX(3px);
+}
+
+/* Bouton Login/Register */
+.mobile-offcanvas .login-text {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+}
+
+.mobile-offcanvas .login-text:hover {
+  background: linear-gradient(to right, #681b37, #be323d);
+  transform: scale(1.05);
+}
+
+/* === ICÔNE BURGER === */
+.offcanvas-icon a {
+  color: #fff;
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+.offcanvas-icon a:hover {
+  transform: scale(1.1);
+}
+
+/* === SOUS-MENUS MOBILE === */
+.mobile-offcanvas .submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-left: 2px solid rgba(190, 50, 61, 0.2);
+  margin-left: 10px;
+}
+
+.submenu-checkbox {
+  display: none; /* Cache les checkbox */
+}
+
+.submenu-checkbox:checked ~ .submenu {
+  max-height: 600px; /* Ouvre les sous-menus */
+}
+
+.submenu-label {
+  cursor: pointer;
+  position: relative;
+}
+
+.submenu-label i {
+  font-size: 11px;
+  transition: transform 0.3s ease;
+  float: right;
+}
+
+.submenu-checkbox:checked + .submenu-label i {
+  transform: rotate(180deg);
+}
+
+.mobile-offcanvas .submenu li a {
+  font-size: 12px;
+  font-weight: 500;
+  color: #681b37;
+  padding: 5px 0;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+}
+
+.mobile-offcanvas .submenu li a:hover {
+  color: #be323d;
+  transform: translateX(4px);
+}
+
+.mobile-offcanvas .submenu .submenu {
+  border-left: 1px dashed rgba(190, 50, 61, 0.2);
+  margin-left: 10px;
+}
+
+/* === BOUTON LOGIN/REGISTER HEADER === */
+.header-btn .login-text {
+  color: white !important;
+  background: linear-gradient(to right, #be323d, #681b37);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: 5px;
+}
+
+.header-btn .login-text:hover {
+  background: linear-gradient(to right, #681b37, #be323d);
+  transform: scale(1.05);
+}

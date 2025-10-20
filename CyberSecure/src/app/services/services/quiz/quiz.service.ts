@@ -33,11 +33,11 @@ export class QuizService {
     });
     return this.http.get(`${this.apiUrl}/chapitre/${chapitreId}/result`, { headers });
   }
-getUserQuizHistory(): Observable<any> {
+getUserQuizHistoryByChapitre(chapitreId: number): Observable<any[]> {
   const headers = new HttpHeaders({
     'Authorization': 'Bearer ' + localStorage.getItem('token')
   });
-  return this.http.get(`${this.apiUrl}/user/history`, { headers });
+   return this.http.get<any[]>(`${this.apiUrl}/user/history/${chapitreId}`, { headers });
 }
   addQuiz(chapitreId: number, titre: string, timeLimit: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/add/${chapitreId}?titre=${titre}&timeLimit=${timeLimit}`, {});
@@ -55,6 +55,45 @@ getAllQuizzes(): Observable<any> {
   getQuizById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  getPassedChapitres(): Observable<number[]> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  });
+  return this.http.get<number[]>(`${this.apiUrl}/user/passed-chapitres`, { headers });
+}
+
+  getUserQuizzes(): Observable<any[]> {
+      const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  });
+    return this.http.get<any[]>(`${this.apiUrl}/my`, { headers }); // endpoint backend à créer
+  }
+
+  getUserQuizHistoryByQuiz(quizId: number) {
+     const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  });
+  return this.http.get<any[]>(`${this.apiUrl}/user/${quizId}/history`, { headers });
+}
+
+updateQuiz(quizId: number, quizData: any): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    'Content-Type': 'application/json'
+  });
+  return this.http.put(`${this.apiUrl}/update/${quizId}`, quizData, { headers });
+}
+
+
+
+deleteQuiz(quizId: number): Observable<any> {
+    const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    'Content-Type': 'application/json'
+  });
+  return this.http.delete(`${this.apiUrl}/${quizId}`, {headers});
+}
 
 
 }

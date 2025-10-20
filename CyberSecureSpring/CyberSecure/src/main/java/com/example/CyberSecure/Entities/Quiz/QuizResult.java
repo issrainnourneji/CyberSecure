@@ -22,10 +22,9 @@ public class QuizResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int score; // en %
+    private int score;
     private boolean success;
 
-    // ⚡ important : initialise toujours la Map
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "quiz_result_answers",
             joinColumns = @JoinColumn(name = "quiz_result_id"))
@@ -36,7 +35,7 @@ public class QuizResult {
     private LocalDateTime datePassed = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id")
+    @JoinColumn(name = "quiz_id", nullable = true)
     private Quiz quiz;
 
     @ManyToOne

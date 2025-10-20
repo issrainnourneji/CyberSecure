@@ -9,19 +9,23 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
-  styleUrl: './quiz-list.component.css'
+  styleUrls: ['./quiz-list.component.css']
 })
-export class QuizListComponent implements OnInit , AfterViewInit {
+export class QuizListComponent implements OnInit, AfterViewInit {
   quizForm: FormGroup;
   quizzes: any[] = [];
   filteredQuizzes: any[] = [];
   formations: any[] = [];
   chapitres: any[] = [];
-  selectedFormationId: number | null = null;
-  selectedChapitreId: number | null = null;
   addQuizModal: any;
-  p: number = 1;
-  quiz: any = null; // Quiz créé affiché en dessous du formulaire
+selectedQuiz: any = null;
+viewQuizModal: any;
+   isEditing: boolean = false;
+     p: number = 1;
+     selectedFormationId: number | null = null;
+selectedChapitreId: number | null = null;
+totalPages: number = 0;
+itemsPerPage: number = 6;
 
   constructor(
     private fb: FormBuilder,
@@ -29,32 +33,42 @@ export class QuizListComponent implements OnInit , AfterViewInit {
     private chapitreService: ChapterService,
     private quizService: QuizService
   ) {
-    // Initialisation du formulaire avec FormBuilder
     this.quizForm = this.fb.group({
-      formationId: [null, Validators.required],
-      chapitreId: [null, Validators.required],
-      titre: ['', Validators.required],
-      timeLimit: [30, [Validators.required, Validators.min(1)]],
-      questions: this.fb.array([]) // FormArray pour questions
-    });
+  id: [null], // <-- Ajouter l'id ici
+  formationId: [null, Validators.required],
+  chapitreId: [null, Validators.required],
+  titre: ['', Validators.required],
+  timeLimit: [30, [Validators.required, Validators.min(1)]],
+  questions: this.fb.array([])
+});
+
   }
 
   ngOnInit(): void {
-    this.loadQuizzes();
     this.loadFormations();
+    this.loadQuizzes();
   }
 
 ngAfterViewInit(): void {
-  const modalEl = document.getElementById('addQuizModal');
-  if(modalEl) {
-    this.addQuizModal = new bootstrap.Modal(modalEl);
-  } else {
-    console.error('addQuizModal introuvable !');
-  }
+  // Modal Ajouter Quiz
+  const addModalEl = document.getElementById('addQuizModal');
+  if (addModalEl) this.addQuizModal = new bootstrap.Modal(addModalEl);
+
+  // Modal Voir Quiz
+  const viewModalEl = document.getElementById('viewQuizModal');
+  if (viewModalEl) this.viewQuizModal = new bootstrap.Modal(viewModalEl);
+}
+
+openQuizModal(quiz: any) {
+  this.selectedQuiz = quiz;
+
+  // Laisser Bootstrap gérer le focus
+  setTimeout(() => {
+    if (this.viewQuizModal) this.viewQuizModal.show();
+  }, 0);
 }
 
 
-  // 🔹 FormArray getter
   get questions(): FormArray {
     return this.quizForm.get('questions') as FormArray;
   }
@@ -63,57 +77,75 @@ ngAfterViewInit(): void {
     return this.questions.at(qIndex).get('reponses') as FormArray;
   }
 
-  // 🔹 Chargement des données
-  loadQuizzes(): void {
-    this.quizService.getAllQuizzes().subscribe({
-      next: (data) => {
-        this.quizzes = data;
-        this.filteredQuizzes = data;
-      },
-      error: (err) => console.error('Erreur chargement quiz', err)
-    });
-  }
-
   loadFormations(): void {
     this.formationService.getAllFormations().subscribe({
-      next: (res) => (this.formations = res),
-      error: (err) => console.error('Erreur chargement formations', err)
+      next: res => this.formations = res,
+      error: err => console.error(err)
     });
   }
 
-// Lorsqu'on change la formation
 onFormationChange(): void {
-  const formationId = this.quizForm.get('formationId')?.value; // récupère la formation sélectionnée
+  // Priorité : filtre global, sinon valeur du formulaire
+  const formationId = this.selectedFormationId ?? this.quizForm.get('formationId')?.value;
 
-  if (formationId) {
-    this.chapitreService.getChapitresByFormation(formationId).subscribe({
-      next: (data) => {
-        this.chapitres = data;                   // remplis les chapitres disponibles
-        this.quizForm.get('chapitreId')?.setValue(null); // reset le chapitre sélectionné
-      },
-      error: (err) => console.error('Erreur chargement chapitres', err)
-    });
-  } else {
+  if (!formationId) {
     this.chapitres = [];
+    this.selectedChapitreId = null;
     this.quizForm.get('chapitreId')?.setValue(null);
+
+    // Si c'est le filtre, applique aussi
+    if (this.selectedFormationId !== null) {
+      this.applyFilter();
+    }
+    return;
   }
+
+  this.chapitreService.getChapitresByFormation(formationId).subscribe({
+    next: data => {
+      this.chapitres = data;
+      this.selectedChapitreId = null;
+      this.quizForm.get('chapitreId')?.setValue(null);
+
+      // Si c'est le filtre, applique aussi
+      if (this.selectedFormationId !== null) {
+        this.applyFilter();
+      }
+    },
+    error: err => console.error('Erreur chargement chapitres', err)
+  });
 }
 
-// Optionnel si tu veux juste récupérer le chapitre sélectionné
+
 onChapitreChange(): void {
-  const chapitreId = this.quizForm.get('chapitreId')?.value;
-  console.log('Chapitre sélectionné :', chapitreId);
-  // Tu peux ajouter ici d'autres actions si nécessaire
+  this.applyFilter();
+}
+
+applyFilter(): void {
+  this.filteredQuizzes = this.quizzes.filter(quiz =>
+    (!this.selectedFormationId || quiz.chapitre?.formation?.id === this.selectedFormationId) &&
+    (!this.selectedChapitreId || quiz.chapitre?.id === this.selectedChapitreId)
+  );
+  this.p = 1; // reset pagination
 }
 
 
-  // 🔹 Ajouter / Supprimer questions et réponses
+  loadQuizzes(): void {
+    this.quizService.getAllQuizzes().subscribe({
+      next: data => {
+        this.quizzes = data;
+        this.filteredQuizzes = data;
+            this.totalPages = Math.ceil(this.filteredQuizzes.length / this.itemsPerPage);
+
+      },
+      error: err => console.error(err)
+    });
+  }
+
   addQuestion(): void {
-    const questionGroup = this.fb.group({
+    this.questions.push(this.fb.group({
       texte: ['', Validators.required],
       reponses: this.fb.array([])
-    });
-    this.questions.push(questionGroup);
+    }));
   }
 
   removeQuestion(index: number): void {
@@ -121,75 +153,109 @@ onChapitreChange(): void {
   }
 
   addReponse(qIndex: number): void {
-    const reponsesArray = this.getReponses(qIndex);
-    const reponseGroup = this.fb.group({
+    this.getReponses(qIndex).push(this.fb.group({
       texte: ['', Validators.required],
       correct: [false]
-    });
-    reponsesArray.push(reponseGroup);
+    }));
   }
 
   removeReponse(qIndex: number, rIndex: number): void {
-    const reponsesArray = this.getReponses(qIndex);
-    reponsesArray.removeAt(rIndex);
+    this.getReponses(qIndex).removeAt(rIndex);
   }
 
-// 🔹 Soumettre le quiz complet
 submitQuiz(): void {
-  const chapitreId = this.quizForm.get('chapitreId')?.value; // <- récupérer depuis le form
-
-  if (!chapitreId) {
-    alert('Veuillez sélectionner un chapitre !');
-    return;
-  }
-
-  if (this.quizForm.invalid) {
+  if (!this.quizForm.valid) {
     alert('Veuillez remplir tous les champs requis !');
     return;
   }
 
-  const quizPayload = this.quizForm.value;
+  const payload = this.quizForm.value;
+  const chapitreId = payload.chapitreId;
 
-  this.quizService.addQuiz(chapitreId, quizPayload.titre, quizPayload.timeLimit)
-    .subscribe({
-      next: (quizResp) => {
-        const quizId = quizResp.id;
-
-        // Ajouter les questions une par une
-        const questionObservables = quizPayload.questions.map((q: any) => {
-          q.quizId = quizId; // Ajouter l'ID du quiz pour le backend
-          return this.quizService.addQuestion(quizId, q);
-        });
-
-        // Attendre toutes les requêtes questions
-       Promise.all(questionObservables.map((obs: any) => obs.toPromise()))
-  .then(() => {
-    this.loadQuizzes();
-    if (this.addQuizModal) {
-      this.addQuizModal.hide();  // <-- sécurité ajoutée
-    }
-    this.quizForm.reset({ timeLimit: 30, questions: [] });
-  })
-
-          .catch(err => console.error('Erreur ajout questions', err));
+  if (payload.id) {
+    this.quizService.updateQuiz(payload.id, payload).subscribe({
+      next: () => {
+        this.loadQuizzes();
+        alert('Quiz mis à jour ✅');
+        this.quizForm.reset({ timeLimit: 30, questions: [] });
+        if (this.addQuizModal) this.addQuizModal.hide();
       },
-      error: (err) => console.error('Erreur ajout quiz', err)
+      error: err => console.error(err)
     });
+  } else {
+    this.quizService.addQuiz(chapitreId, payload.titre, payload.timeLimit).subscribe({
+      next: quizResp => {
+        const quizId = quizResp.id;
+        const questionObservables = payload.questions.map((q: any) =>
+          this.quizService.addQuestion(quizId, q)
+        );
+
+        Promise.all(questionObservables.map((obs:any) => obs.toPromise()))
+          .then(() => {
+            this.loadQuizzes();
+            this.quizForm.reset({ timeLimit: 30, questions: [] });
+            if (this.addQuizModal) this.addQuizModal.hide();
+          })
+          .catch(err => console.error(err));
+      },
+      error: err => console.error(err)
+    });
+  }
 }
 
-  // 🔹 Filtrage (optionnel)
-applyFilter(): void {
-  const formationId = this.quizForm.get('formationId')?.value;
-  const chapitreId = this.quizForm.get('chapitreId')?.value;
 
-  this.filteredQuizzes = this.quizzes.filter(quiz =>
-    (!formationId || quiz.chapitre?.formation?.id === formationId) &&
-    (!chapitreId || quiz.chapitre?.id === chapitreId)
-  );
+
+editQuiz(quiz: any) {
+  this.quizForm.patchValue({
+    id: quiz.id, // <-- ajouter l'id
+    formationId: quiz.chapitre?.formation?.id,
+    chapitreId: quiz.chapitre?.id,
+    titre: quiz.titre,
+    timeLimit: quiz.timeLimit
+  });
+
+  this.questions.clear();
+  quiz.questions.forEach((q: any) => {
+    const qGroup = this.fb.group({
+      id: [q.id],
+      texte: [q.texte, Validators.required],
+      reponses: this.fb.array([])
+    });
+
+    q.reponses.forEach((r: any) => {
+      (qGroup.get('reponses') as FormArray).push(this.fb.group({
+        id: [r.id],
+        texte: [r.texte, Validators.required],
+        correct: [r.correct]
+      }));
+    });
+
+    this.questions.push(qGroup);
+  });
+
+  // Ouvrir le modal si tu veux
+  if (this.addQuizModal) this.addQuizModal.show();
+}
+getVisiblePages(): number[] {
+  const pages: number[] = [];
+
+  if (this.totalPages <= 3) {
+    // Si <= 3 pages → toutes affichées
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+  } else {
+    if (this.p === 1) {
+      pages.push(1, 2, 3);
+    } else if (this.p === this.totalPages) {
+      pages.push(this.totalPages - 2, this.totalPages - 1, this.totalPages);
+    } else {
+      pages.push(this.p - 1, this.p, this.p + 1);
+    }
+  }
+
+  return pages;
 }
 
 
-  // 🔹 Edition / suppression (placeholder)
-  editQuiz(quiz: any): void { console.log('Edit quiz', quiz); }
-  deleteQuiz(id: number): void { console.log('Delete quiz', id); }
 }

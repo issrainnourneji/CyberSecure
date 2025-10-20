@@ -5,7 +5,7 @@
           <div class="title-block">
             <h1>Rendez-vous List</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="mainAdmin/home">Home</a></li>
+              <li><a class="headerlien"href="mainAdmin/home">Home</a></li>
               <li class="active" aria-current="page">Rendez-vous</li>
             </ul>
           </div>
@@ -14,72 +14,191 @@
     </div>
 </section>
 
-<section class="woocommerce single page-wrapper">
+
+
+<section class="page-wrapper py-5" style="background: #f5f7fb;">
   <div class="container">
 
-    <!-- Message d'erreur -->
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="table-responsive shadow-sm rounded">
-          <table class="table table-bordered table-striped align-middle">
-            <thead class="text-white" style="background-color: #FF5369;">
-              <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Notes</th>
-                <th>Status</th>
-                <th>Utilisateur</th>
-                <th>Email</th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let rdv of appointments">
-                <td class="fw-bold">{{ rdv.rdvdate | date:'medium' }}</td>
-                <td>{{ rdv.rdvtype }}</td>
-                <td class="text-truncate" style="max-width: 150px;" [attr.title]="rdv.notes">
-                  {{ rdv.notes }}
-                </td>
-                <td>
-                  <span class="badge px-3 py-2"
-                        [ngStyle]="{
-                          'background-color': rdv.status === 'PENDING' ? '#FFC107' :
-                                              rdv.status === 'CONFIRMED' ? '#28A745' :
-                                              rdv.status === 'CANCELLED' ? '#DC3545' : '#6C757D',
-                          'color': 'white'
-                        }">
-                    {{ rdv.status }}
-                  </span>
-                </td>
-                <td>{{ rdv.userName }}</td>
-                <td>{{ rdv.userEmail }}</td>
-        <td class="text-center">
-          <!-- Bouton confirmer uniquement si PENDING -->
-          <button
-            *ngIf="rdv.status === 'PENDING'"
-            class="btn btn-sm text-white"
-            style="background-color: #FF5369; border: none;"
-            (click)="confirmRDV(rdv.id)">
-            <i class="fa fa-check"></i> Confirmer
-          </button>
-
-          <!-- Message si déjà confirmé -->
-          <span *ngIf="rdv.status === 'CONFIRMED'" class="badge bg-success">
-            Confirmé
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-          <!-- Message si aucune donnée -->
-          <div *ngIf="appointments.length === 0" class="text-center py-3">
-            <p class="text-muted">Aucun rendez-vous trouvé.</p>
-          </div>
+    <!-- 🔵 Bloc Calendrier -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5 overflow-hidden">
+      <div class="card-header text-white d-flex justify-content-between align-items-center"
+           style="background: linear-gradient(90deg, #912943, #be323d);">
+        <h5 class="mb-0 fw-semibold">
+          <i class="fas fa-calendar-week me-2"></i> Planning des Rendez-vous
+        </h5>
+      </div>
+      <div class="card-body p-4 bg-white">
+        <div id="calendar-container" class="rounded-4 p-3 shadow-sm bg-light">
+          <full-calendar [options]="calendarOptions"></full-calendar>
         </div>
       </div>
     </div>
+
+    <!-- 🧭 Filtres -->
+    <div class="filters card border-0 shadow-sm rounded-4 p-4 mb-4">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-secondary">
+            <i class="fas fa-filter me-2 "></i>Filtrer par statut :
+          </label>
+          <select class="form-select" [(ngModel)]="statusFilter" (change)="applyFilters()">
+            <option value="">Tous</option>
+            <option value="CONFIRMED">Confirmés</option>
+            <option value="PENDING">En attente</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold text-secondary">
+            <i class="fas fa-sort me-2 "></i>Trier par date :
+          </label>
+          <select class="form-select" [(ngModel)]="dateSort" (change)="applyFilters()">
+            <option value="asc">Croissante</option>
+            <option value="desc">Décroissante</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📋 Liste des rendez-vous -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="card-header border-0 text-white"
+           style="background: linear-gradient(90deg, #912943, #be323d);">
+        <h5 class="mb-0 fw-semibold">
+          <i class="fas fa-list me-2"></i> Liste des Rendez-vous
+        </h5>
+      </div>
+      <div class="card-body bg-white p-0">
+        <ul *ngIf="filteredAppointments.length > 0" class="list-group list-group-flush">
+          <li *ngFor="let rdv of paginatedAppointments"
+              class="list-group-item d-flex justify-content-between align-items-center p-3 rounded-3 border-0 shadow-sm m-2"
+              (click)="selectedRDV = rdv"
+              data-bs-toggle="modal" data-bs-target="#rdvModal"
+              style="cursor:pointer; transition:all 0.3s ease;">
+            <div>
+              <div class="fw-semibold text-primary mb-1">
+                <i class="fas fa-clock me-2"></i>{{ rdv.rdvdate | date:'EEEE d MMMM yyyy, HH:mm' }}
+              </div>
+              <div class="text-muted small">{{ rdv.rdvtype }}</div>
+            </div>
+            <span class="badge rounded-pill px-3 py-2 fs-6 shadow-sm"
+                  [ngClass]="{
+                    'bg-warning text-dark': rdv.status === 'PENDING',
+                    'bg-success': rdv.status === 'CONFIRMED',
+                    'bg-danger': rdv.status === 'CANCELLED'
+                  }">
+              {{ rdv.status }}
+            </span>
+          </li>
+        </ul>
+        <div *ngIf="filteredAppointments.length === 0" class="text-center py-4 text-muted">
+          <i class="fas fa-info-circle me-2"></i>Aucun rendez-vous trouvé.
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 Pagination -->
+    <nav class="d-flex justify-content-center mt-4" *ngIf="filteredAppointments.length > 0">
+      <ul class="pagination pagination-rounded">
+        <li class="page-item" [class.disabled]="p === 1">
+          <a class="page-link" (click)="p > 1 && (p = p - 1)">
+            <i class="fa fa-angle-double-left"></i>
+          </a>
+        </li>
+
+        <li *ngFor="let page of getVisiblePages()" class="page-item" [class.active]="p === page">
+          <a class="page-link" (click)="p = page">{{ page }}</a>
+        </li>
+
+        <li class="page-item" [class.disabled]="p === totalPages">
+          <a class="page-link" (click)="p < totalPages && (p = p + 1)">
+            <i class="fa fa-angle-double-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </section>
+
+
+
+<!-- Modal pour détails RDV -->
+<div class="modal fade" id="rdvModal" tabindex="-1" aria-labelledby="rdvModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+
+      <!-- Header modal -->
+      <div class="modal-header" style="background-color: #912943 ; border: none;">
+        <h5 class="modal-title fw-bold text-white" id="rdvModalLabel">
+          <i class="fas fa-info-circle me-2"></i> Détails du Rendez-vous
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body modal -->
+      <div class="modal-body p-4" style="background-color: #f8f9fa;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-clock me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Date</small><br>
+              <strong>{{ selectedRDV?.rdvdate | date:'medium' }}</strong>
+            </div>
+          </li>
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-clipboard-list me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Type</small><br>
+              <strong>{{ selectedRDV?.rdvtype }}</strong>
+            </div>
+          </li>
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-sticky-note me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Notes</small><br>
+              <strong>{{ selectedRDV?.notes || 'Pas de notes' }}</strong>
+            </div>
+          </li>
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-user me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Utilisateur</small><br>
+              <strong>{{ selectedRDV?.userName }}</strong>
+            </div>
+          </li>
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-envelope me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Email</small><br>
+              <strong>{{ selectedRDV?.userEmail }}</strong>
+            </div>
+          </li>
+          <li class="list-group-item d-flex align-items-start mb-2 rounded-3 shadow-sm" style="background-color: #fff;">
+            <i class="fas fa-info-circle me-3 mt-1 text-muted"></i>
+            <div>
+              <small class="text-muted">Status</small><br>
+              <strong>{{ selectedRDV?.status }}</strong>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer modal -->
+      <div class="modal-footer border-0 justify-content-between">
+        <button *ngIf="selectedRDV?.status === 'PENDING'" type="button"
+                class="btn btn-success shadow-sm"
+                (click)="confirmRDV(selectedRDV!.id); $event.stopPropagation()" data-bs-dismiss="modal">
+          <i class="fas fa-check-circle me-1"></i> Confirmer
+        </button>
+        <button type="button" class="btn btn-outline-secondary text-white shadow-sm"
+                style="background-color: #912943 ; border: none;" data-bs-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,98 @@
+.user-profile {
+  max-width: 800px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.cover-photo {
+  height: 180px;
+  background: linear-gradient(135deg, #912943, #FF5369);
+}
+
+.profile-photo-wrapper {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.profile-body {
+  padding: 80px 20px 30px;
+}
+
+.user-name {
+  color: #912943;
+  font-size: 1.8rem;
+}
+
+.user-role {
+  color: #777;
+  font-size: 1rem;
+}
+
+.profile-info {
+  font-size: 1rem;
+  color: #333;
+}
+
+.info-item {
+  margin: 8px 0;
+}
+
+/* --- Boutons stylés --- */
+.btn-edit {
+  background: linear-gradient(135deg, #912943, #be323d);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 83, 105, 0.3);
+}
+
+/* --- Formulaire édition --- */
+.edit-form {
+  max-width: 500px;
+}
+
+.btn-save {
+  background-color: #4C8EC4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  transition: 0.3s;
+}
+
+.btn-save:hover {
+  background-color: #3b79a9;
+}
+
+.btn-cancel {
+  background-color: #be323d;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  transition: 0.3s;
+}
+
+.btn-cancel:hover {
+  background-color: #e03b52;
+}

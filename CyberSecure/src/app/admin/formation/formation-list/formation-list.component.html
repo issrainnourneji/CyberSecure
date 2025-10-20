@@ -5,7 +5,7 @@
           <div class="title-block">
             <h1>Formations List</h1>
             <ul class="header-bradcrumb justify-content-center">
-              <li><a href="mainAdmin/home">Home</a></li>
+              <li><a class="headerlien" href="mainAdmin/home">Home</a></li>
               <li class="active" aria-current="page">Formations</li>
             </ul>
           </div>
@@ -13,161 +13,63 @@
       </div>
     </div>
 </section>
-<section class="woocommerce single page-wrapper">
+
+
+<section class="woocommerce single page-wrapper py-4">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-      <h3 class="fw-bold mb-2"></h3>
-      <button
-        class="btn btn-sm text-white"
-        style="background-color: #FF5369; border: none;"
-        (click)="openAddFormationModal()"
-      >
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <h3 class="fw-bold mb-4"></h3>
+      <button class="btn btn-sm btn-gradient text-white"
+              (click)="openAddFormationModal()">
         <i class="fa fa-plus me-2"></i> Ajouter Formation
       </button>
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped align-middle">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Prix (€)</th>
-                <th>Durée (h)</th>
-                <th>Étudiants</th>
-                <th>Chapitres</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let formation of formations | paginate: { itemsPerPage: 4, currentPage: p }">
-                <td>{{ formation.id }}</td>
-                <td>
-                  <img
-                    [src]="'http://localhost:8080/files/' + formation.imageUrl"
-                    alt="{{ formation.title }}"
-                    class="img-fluid rounded"
-                    style="max-width: 80px; max-height: 60px;"
-                  >
-                </td>
-                <td class="fw-bold">{{ formation.title }}</td>
-                <td class="text-truncate" style="max-width: 150px;" [attr.title]="formation.description">
-                  {{ formation.description }}
-                </td>
-                <td>{{ formation.price }}</td>
-                <td>{{ formation.duration }}</td>
-<td>
-  <div style="background-color: #f8f9fa; padding: 8px; border-radius: 6px;">
-    <table class="table table-sm table-borderless mb-1">
-      <tbody>
-        <tr *ngFor="let user of formation.users" style="vertical-align: middle;">
-          <td style="width: 30px;">{{ user.id }}</td>
-          <td class="text-truncate" style="max-width: 150px;" [attr.title]="user.firstName + ' ' + user.lastName">
-            {{ user.firstName }} {{ user.lastName }}
-          </td>
-          <td class="text-truncate" style="max-width: 200px;" [attr.title]="user.email">
-            {{ user.email }}
-          </td>
-          <td style="width: 80px; white-space: nowrap;">
-            <button
-  type="button"
-  class="btn btn-sm btn-outline me-1"
-  style="background-color: #c4c5c7; border: none;"
-  (click)="viewUser(user)"
-  title="Voir utilisateur"
->
-  <i class="fa fa-eye"></i>
-</button>
-
-            <button
-              type="button"
-              class="btn btn-sm btn-outline-danger"
-              (click)="removeUserFromFormation(user.id, formation.id)"
-              title="Retirer utilisateur"
-            >
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</td>
-
-           <td>
-  <div style="background-color: #f8f9fa; padding: 8px; border-radius: 6px;">
-    <table class="table table-sm table-borderless mb-1">
-      <tbody>
-        <tr *ngFor="let chapitre of formation.chapitres" style="vertical-align: middle;">
-          <td style="width: 30px;">{{ chapitre.id }}</td>
-          <td class="text-truncate" style="max-width: 120px;" [attr.title]="chapitre.titre">
-            {{ chapitre.titre }}
-          </td>
-              <td style="width: 80px; white-space: nowrap;">
-  <button
-    type="button"
-    class="btn btn-sm btn-outline me-1"
-                        style="background-color: #c4c5c7; border: none;"
-
-    (click)="editChapitre(chapitre)"
-    title="Modifier Chapitre"
-  >
-    <i class="fa fa-edit"></i>
-  </button>
-  <button
-    type="button"
-    class="btn btn-sm btn-outline-danger"
-    (click)="deleteChapitre(chapitre.id)"
-    title="Supprimer Chapitre"
-  >
-    <i class="fa fa-trash"></i>
-  </button>
-</td>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let formation of formations | paginate: { itemsPerPage: 9, currentPage: p }">
+        <div class="card shadow-sm h-100 border-0" style="background-color: #fdfdfd;">
+          <img [src]="'http://localhost:8080/files/' + formation.imageUrl" class="card-img-top"
+               alt="{{ formation.title }}" style="height: 180px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold ">{{ formation.title }}</h5>
+            <p class="card-text text-truncate text-secondary" [attr.title]="formation.description">{{ formation.description }}</p>
+         <div class="mb-3 d-flex flex-wrap gap-2">
+  <span class="badge-modern">Prix: {{ formation.price }}€</span>
+  <span class="badge-modern">Durée: {{ formation.duration }}h</span>
+  <span class="badge-modern">Étudiants: {{ formation.numberOfStudents }}</span>
+</div>
 
 
-        </tr>
-      </tbody>
-    </table>
-    <button
-      type="button"
-      class="btn btn-sm text-white mt-2 w-100"
-      style="background-color: #343a40; border: none;"
-      (click)="openAddChapitreModal(formation.id)"
-    >
-      + Ajouter Chapitre
-    </button>
-  </div>
-</td>
+            <div class="mb-3 d-flex justify-content-between">
+              <button class="btn btn-sm text-white w-50 me-1" style="background-color: #495057;"
+                      (click)="openUsersModal(formation)">
+                <i class="fa fa-users me-1"></i> Utilisateurs
+              </button>
+              <button class="btn btn-sm text-white w-50 ms-1" style="background-color: #6c757d;"
+                      (click)="openChapitresModal(formation)">
+                <i class="fa fa-book me-1"></i> Chapitres
+              </button>
+            </div>
 
-                <td class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-sm text-white me-1"
-                    style="background-color: #6c757d; border: none;"
-                    (click)="editFormation(formation)"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </button>
+            <div class="mt-auto text-center">
+              <button class="btn btn-sm text-white me-2" style="background-color: #6c757d;"
+                      (click)="editFormation(formation)">
+                <i class="fa fa-edit"></i>
+              </button>
                   <button
                     type="button"
                     class="btn btn-sm text-white"
-                    style="background-color: #FF5369; border: none;"
+                    style="background-color: #be323d; border: none;"
                     (click)="deleteFormation(formation.id)"
                   >
                     <i class="fa fa-trash"></i>
                   </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
   <div class="d-flex justify-content-center mt-4">
   <pagination-controls
     (pageChange)="p = $event"
@@ -178,13 +80,83 @@
   >
   </pagination-controls>
 </div>
+
+  </div>
 </section>
+
+
+<div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background-color: #495057;">
+        <h5 class="modal-title" id="usersModalLabel"><i class="fa fa-users me-2"></i>Utilisateurs</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of selectedUsers">
+            <div>
+              <strong>{{ user.name }}</strong> - {{ user.email }}
+            </div>
+            <div class="d-flex">
+              <button class="btn btn-sm btn-outline-info me-1" (click)="viewUser(user)" title="Voir détails">
+                <i class="fa fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="removeUserFromFormation(user.id, selectedFormation.id)" title="Retirer utilisateur">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer px-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Chapitres -->
+<div class="modal fade" id="chapitresModal" tabindex="-1" aria-labelledby="chapitresModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background-color: #6c757d;">
+        <h5 class="modal-title" id="chapitresModalLabel"><i class="fa fa-book me-2"></i>Chapitres</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let chapitre of selectedChapitres">
+            <span>{{ chapitre.titre }}</span>
+            <div>
+              <button class="btn btn-sm btn-outline-secondary me-1" (click)="editChapitre(chapitre)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteChapitre(chapitre.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+        <button class="btn btn-sm w-100 mt-2 text-white" style="background-color: #495057;" (click)="openAddChapitreModal(selectedFormation.id)">
+          + Ajouter Chapitre
+        </button>
+      </div>
+      <div class="modal-footer px-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- Modal Voir Utilisateur -->
 <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
+      <div class="modal-header text-white" style="background-color: #be323d;">
         <h5 class="modal-title" id="viewUserModalLabel">
           <i class="fa fa-user me-2"></i>Détails de l'utilisateur
         </h5>
@@ -207,7 +179,7 @@
 <div class="modal fade" id="addChapitreModal" tabindex="-1" aria-labelledby="addChapitreModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
+      <div class="modal-header text-white" style="background-color: #be323d;">
         <h5 class="modal-title" id="addChapitreModalLabel">
           <i class="fa fa-plus me-2"></i>Ajouter Chapitre
         </h5>
@@ -221,7 +193,7 @@
           </div>
           <div class="modal-footer px-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Ajouter</button>
+            <button type="submit" class="btn text-white" style="background-color: #be323d;">Ajouter</button>
           </div>
         </form>
       </div>
@@ -234,7 +206,7 @@
 <div class="modal fade" id="addFormationModal" tabindex="-1" aria-labelledby="addFormationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
+      <div class="modal-header text-white" style="background-color: #be323d;">
         <h5 class="modal-title" id="addFormationModalLabel">
           <i class="fa fa-plus me-2"></i>Ajouter Formation
         </h5>
@@ -274,7 +246,7 @@
           </div>
           <div class="modal-footer px-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Ajouter</button>
+            <button type="submit" class="btn text-white" style="background-color: #be323d;">Ajouter</button>
           </div>
         </form>
       </div>
@@ -286,7 +258,7 @@
 <div class="modal fade" id="editFormationModal" tabindex="-1" aria-labelledby="editFormationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" *ngIf="selectedFormation">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
+      <div class="modal-header text-white" style="background-color: #be323d;">
         <h5 class="modal-title" id="editFormationModalLabel">
           <i class="fa fa-edit me-2"></i>Modifier Formation
         </h5>
@@ -328,7 +300,7 @@
           </div>
           <div class="modal-footer px-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Enregistrer</button>
+            <button type="submit" class="btn text-white" style="background-color: #be323d;">Enregistrer</button>
           </div>
         </form>
       </div>
@@ -340,7 +312,7 @@
 <div class="modal fade" id="editChapitreModal" tabindex="-1" aria-labelledby="editChapitreModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" *ngIf="selectedChapitre">
-      <div class="modal-header text-white" style="background-color: #FF5369;">
+      <div class="modal-header text-white" style="background-color: #be323d;">
         <h5 class="modal-title" id="editChapitreModalLabel">
           <i class="fa fa-edit me-2"></i>Modifier Chapitre
         </h5>
@@ -355,7 +327,7 @@
           </div>
           <div class="modal-footer px-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn text-white" style="background-color: #FF5369;">Enregistrer</button>
+            <button type="submit" class="btn text-white" style="background-color: #be323d;">Enregistrer</button>
           </div>
         </form>
       </div>

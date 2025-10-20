@@ -33,3 +33,145 @@
   background-color: #366fa3;
   color: white;
 }
+
+
+/* Typographie et textes */
+body, .woocommerce {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #193152; /* bleu foncé sobre pour texte */
+}
+
+h3, h4, th {
+  font-weight: 600;
+  color: #193152;
+}
+
+/* Boutons principaux */
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+}
+
+/* Couleurs boutons */
+.btn-primary, .btn-sm.text-white[style*="#FF5369"] {
+  background-color: #be323d;
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-sm.text-white[style*="#FF5369"]:hover {
+  background-color: #be323d;
+}
+
+/* Tableaux */
+.table {
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  color: #193152;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa; /* gris clair pour lignes impaires */
+}
+
+/* Text truncation pour lisibilité */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Modals */
+.modal-content {
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #193152;
+}
+
+/* Sélecteurs filtres */
+.modern-select {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  background-color: #fff;
+  color: #193152;
+  transition: all 0.2s;
+}
+
+.modern-select:focus {
+  border-color: #be323d;
+  box-shadow: 0 0 0 2px rgba(255, 83, 105, 0.25);
+}
+
+/* Pagination */
+.blog-page-navigation .pagination {
+  margin: 20px 0;
+  padding: 0;
+}
+
+.blog-page-navigation .page-item {
+  margin: 0 4px;
+}
+
+.blog-page-navigation .page-link {
+  color: #193152;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 6px 12px;
+  border: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.blog-page-navigation .page-link:hover {
+  background-color: #be323d;
+  color: #fff;
+}
+
+.blog-page-navigation .page-item.active .page-link {
+  background-color: #be323d;
+  color: #fff;
+}
+
+.blog-page-navigation .page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.blog-page-navigation .pagination-arrow a {
+  background-color: #c4c5c7;
+  color: #193152;
+}
+
+.blog-page-navigation .pagination-arrow a:hover {
+  background-color: #be323d;
+  color: #fff;
+}
+
+
+.badge-modern {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  background: #f4f6f9; /* gris clair doux */
+  color: #193152; /* bleu foncé sobre */
+  font-weight: 500;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
+}
+
+.badge-modern:hover {
+  background: #be323d; /* rose moderne pour hover */
+  color: #fff;
+  cursor: default;
+}

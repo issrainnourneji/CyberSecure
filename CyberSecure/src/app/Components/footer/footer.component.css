@@ -1,0 +1,109 @@
+
+.contact-link {
+  color: #ffffff; /* Blanc par défaut */
+  text-decoration: none;
+  cursor: pointer; /* Curseur main */
+  transition: color 0.3s ease; /* Animation fluide */
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #4c8ec4;
+}
+
+.contact-link1:hover {
+  color: #FF5369;
+}
+.primary-menu .current > .contact-link {
+  color: #FF5369; /* Rosé toujours visible */
+  font-weight: 600;
+}
+.header-navbar {
+  padding: 8px 0 !important;
+}
+/* Style général du menu */
+.site-navbar .primary-menu > li > a,
+.site-navbar .primary-menu > li > .contact-link {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 8px 10px !important; /* réduit la hauteur */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: linear-gradient(to right, #be323d, #a02e41, #912943, #681b37);
+-webkit-background-clip: text; /* Chrome/Safari */
+background-clip: text;         /* standard */
+-webkit-text-fill-color: transparent;
+}
+
+/* Réduction de l'espacement entre les liens */
+.site-navbar .primary-menu > li {
+  margin-right: 4px !important; /* réduit l’espace horizontal */
+}
+
+/* Effet hover : léger zoom et opacité */
+.site-navbar .primary-menu > li > a:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+/* Sous-menus */
+.site-navbar .submenu li a {
+  color: #681b37 !important;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+.site-navbar .submenu li a:hover {
+  color: #be323d !important;
+  background: rgba(190, 50, 61, 0.1);
+}
+
+/* Bouton Login/Register */
+.header-btn .login-text {
+  color: white !important;
+  background: linear-gradient(to right, #be323d, #681b37);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: 5px;
+}
+
+.header-btn .login-text:hover {
+  background: linear-gradient(to right, #681b37, #be323d);
+  transform: scale(1.05);
+}
+/* Style pour les séparateurs | dans le menu */
+.site-navbar .primary-menu > li.separator {
+  color: #b0b0b0;      /* gris clair */
+  font-size: 10px;      /* plus petit que les liens */
+  line-height: 20px;    /* pour bien aligner verticalement */
+  padding: 0;           /* pas de padding autour du | */
+  margin: 0 2px;        /* petit espace horizontal avant/après */
+  user-select: none;    /* empêche la sélection du | au clic */
+}
+/* Cacher les sous-menus uniquement dans le footer */
+.footer-nav .primary-menu .submenu {
+  display: none !important;
+}
+
+/* Supprimer le curseur pointer pour les liens avec sous-menu */
+.footer-nav .primary-menu .has-submenu > a {
+  cursor: default;
+}
+
+/* Ajuster hover pour ne pas montrer le sous-menu */
+.footer-nav .primary-menu .has-submenu > a:hover {
+  text-decoration: none;
+  transform: none;
+  opacity: 1;
+}

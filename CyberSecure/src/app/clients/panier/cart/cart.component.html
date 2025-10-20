@@ -1,4 +1,3 @@
-<app-header-user></app-header-user><!--====== Header End ======-->
 
 <!-- Section Header -->
 <section class="page-header">
@@ -8,7 +7,7 @@
         <div class="title-block">
           <h1 class="fw-bold">Mon Panier</h1>
           <ul class="header-bradcrumb justify-content-center">
-            <li><a routerLink="/home">Accueil</a></li>
+            <li><a class="headerlien" routerLink="/home">Accueil</a></li>
             <li class="active" aria-current="page">Mes Formations</li>
           </ul>
         </div>
@@ -24,8 +23,8 @@
     <!-- Panier vide -->
     <div *ngIf="cartItems.length === 0"
          class="alert alert-light text-center p-4 rounded shadow-sm border"
-         style="border-color:#FF5369 !important;">
-      <i class="fa fa-info-circle me-2" style="color:#FF5369;"></i>
+         style="border-color:#be323d !important;">
+      <i class="fa fa-info-circle me-2" style="color:#be323d;"></i>
       Votre panier est vide
     </div>
 
@@ -44,13 +43,13 @@
         <div class="col-md-6 d-flex flex-column justify-content-center p-3">
           <h5 class="fw-bold mb-1" >{{ item.formation.title }}</h5>
           <p class="text-muted small mb-2">{{ item.formation.description }}</p>
-          <p class="fw-bold mb-0" style="color:#FF5369;"> {{ item.formation.price | currency:'EUR' }}</p>
+          <p class="fw-bold mb-0" style="color:#be323d;"> {{ item.formation.price | currency:'EUR' }}</p>
         </div>
 
         <!-- Actions -->
         <div class="col-md-3 d-flex align-items-center justify-content-center">
           <button class="btn text-white px-3"
-                  style="background-color:#FF5369;"
+                  style="background-color:#be323d;"
                   (click)="removeItem(item.formation.id)">
             <i class="fa fa-trash me-1"></i>
           </button>
@@ -73,7 +72,7 @@
     </span>
   </h4>
 
-  <button class="btn btn-success btn-lg mt-3">
+  <button class="btn-grey btn-lg mt-3">
     <i class="fa fa-credit-card me-2"></i> Passer la commande
   </button>
 </div>

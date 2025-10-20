@@ -1,120 +1,302 @@
 <section class="page-header">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 col-xl-8">
-        <div class="title-block">
-          <h1>Quiz List</h1>
-          <ul class="header-bradcrumb justify-content-center">
-            <li><a href="mainAdmin/home">Home</a></li>
-            <li class="active" aria-current="page">Quiz</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="container mt-4">
-  <h2>Créer un Quiz</h2>
-
-  <!-- Formulaire -->
-  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
-
-  <!-- Sélection Formation -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Formation</label>
-    <select class="form-select" formControlName="formationId" (change)="onFormationChange()">
-      <option [ngValue]="null">-- Choisir une formation --</option>
-      <option *ngFor="let formation of formations" [ngValue]="formation.id">
-        {{ formation.title }}
-      </option>
-    </select>
-  </div>
-
-  <!-- Sélection Chapitre -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Chapitre</label>
-    <select class="form-select" formControlName="chapitreId" (change)="onChapitreChange()">
-      <option [ngValue]="null">-- Choisir un chapitre --</option>
-      <option *ngFor="let chapitre of chapitres" [ngValue]="chapitre.id">
-        {{ chapitre.titre }}
-      </option>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label>Titre du quiz</label>
-    <input formControlName="titre" class="form-control">
-  </div>
-
-  <div class="mb-3">
-    <label>Durée (minutes)</label>
-    <input type="number" formControlName="timeLimit" class="form-control">
-  </div>
-
-  <div formArrayName="questions">
-    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="card mb-3 p-3">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5>Question #{{ i + 1 }}</h5>
-        <button type="button" class="btn btn-danger btn-sm" (click)="removeQuestion(i)">Supprimer</button>
-      </div>
-
-      <input formControlName="texte" placeholder="Texte de la question" class="form-control mb-2">
-
-      <div formArrayName="reponses">
-        <div *ngFor="let reponse of getReponses(i).controls; let j = index" [formGroupName]="j" class="d-flex mb-1">
-          <input formControlName="texte" placeholder="Texte de la réponse" class="form-control me-2">
-          <label class="form-check-label me-2">
-            <input type="checkbox" formControlName="correct" class="form-check-input">
-            Correct
-          </label>
-          <button type="button" class="btn btn-sm btn-danger" (click)="removeReponse(i, j)">Supprimer</button>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-sm btn-primary mt-2" (click)="addReponse(i)">Ajouter une réponse</button>
-    </div>
-  </div>
-
-  <button type="button" class="btn btn-success mb-3" (click)="addQuestion()">Ajouter une question</button>
-  <button type="submit" class="btn btn-primary">Créer le Quiz</button>
-</form>
-
-
-  <hr>
-
-  <!-- Liste des Quiz filtrés -->
-  <div class="mt-4">
-    <h3>Liste des Quiz</h3>
-    <div *ngFor="let quiz of filteredQuizzes">
-      <div class="card mb-3 p-3 shadow">
-        <div class="d-flex justify-content-between align-items-center">
-          <h4>{{ quiz.titre }} (⏱ {{ quiz.timeLimit }} min)</h4>
-          <div>
-            <button class="btn btn-sm btn-secondary me-1" (click)="editQuiz(quiz)">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button class="btn btn-sm btn-danger" (click)="deleteQuiz(quiz.id)">
-              <i class="fa fa-trash"></i>
-            </button>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Quiz List</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a class="headerlien"href="mainAdmin/home">Home</a></li>
+              <li class="active" aria-current="page">Quiz</li>
+            </ul>
           </div>
         </div>
+      </div>
+    </div>
+</section>
 
-        <!-- Questions & Réponses -->
-        <div *ngIf="quiz.questions?.length">
-          <ul class="mt-2">
-            <li *ngFor="let q of quiz.questions">
-              <strong>{{ q.texte }}</strong>
-              <ul>
-                <li *ngFor="let r of q.reponses">
-                  {{ r.texte }}
-                  <span *ngIf="r.correct" class="badge bg-success ms-2">✔</span>
-                </li>
-              </ul>
-            </li>
-          </ul>
+<section class="woocommerce single page-wrapper py-5 bg-light">
+  <div class="container">
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3 p-2">
+
+  <div class="d-flex flex-wrap align-items-center gap-2">
+    <span class="fw-semibold text-secondary">Filtrer par :</span>
+
+    <!-- Filtre Formation -->
+    <select class="form-select form-select-sm border shadow-sm"
+            style="min-width: 180px;"
+            [(ngModel)]="selectedFormationId"
+            (change)="onFormationChange()">
+      <option [ngValue]="null">Toutes les formations</option>
+      <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
+    </select>
+
+    <!-- Filtre Chapitre -->
+    <select class="form-select form-select-sm border shadow-sm"
+            style="min-width: 180px;"
+            [(ngModel)]="selectedChapitreId"
+            (change)="onChapitreChange()"
+            [disabled]="chapitres.length === 0">
+      <option [ngValue]="null">Tous les chapitres</option>
+      <option *ngFor="let c of chapitres" [ngValue]="c.id">{{ c.titre }}</option>
+    </select>
+  </div>
+
+  <!-- Bouton Ajouter Quiz -->
+  <button class="btn text-white btn-gradient px-4 py-2 rounded-pill shadow-sm"
+          (click)="addQuizModal.show()">
+    <i class="fa fa-plus me-1"></i> Ajouter Quiz
+  </button>
+</div>
+
+<!-- 🔹 Liste des Quiz -->
+<div class="row g-4">
+  <div *ngFor="let quiz of filteredQuizzes | paginate: { itemsPerPage: 6, currentPage: p }"
+       class="col-md-6 col-lg-4">
+
+    <div class="card border-0 shadow-lg rounded-4 h-100 overflow-hidden transition"
+         style="transition: all 0.3s ease;">
+
+      <!-- Image -->
+      <img *ngIf="quiz.chapitre?.formation?.image"
+           [src]="quiz.chapitre.formation.image"
+           class="card-img-top"
+           alt="{{ quiz.chapitre.formation.title }}"
+           style="height: 180px; object-fit: cover;">
+
+      <!-- Card body -->
+      <div class="card-body d-flex flex-column p-4">
+
+        <!-- Formation et Chapitre -->
+        <h6 class="fw-bold mb-1" style="color: #4c8ec4;">{{ quiz.chapitre?.formation?.title }}</h6>
+        <h5 class="card-title fw-bold text-dark">{{ quiz.titre }}</h5>
+        <p class="text-muted mb-2">{{ quiz.chapitre?.titre }}</p>
+
+        <!-- Badge durée -->
+        <div class="mb-3">
+          <span class="badge rounded-pill text-white px-3 py-2"
+                style="background: linear-gradient(135deg, #FF5369, #be323d);">
+            ⏱ {{ quiz.timeLimit }} min
+          </span>
         </div>
+
+        <!-- Boutons d'action -->
+        <div class="mt-auto d-flex justify-content-between">
+<button class="btn btn-sm rounded-pill px-3 text-white shadow-sm"
+        style="background:  #4c8ec4; border: none;"
+        (click)="editQuiz(quiz)">
+  <i class="fa fa-edit me-1"></i> Modifier
+</button>
+
+          <button class="btn text-white btn-sm rounded-pill px-3"
+                  style="background-color: #be323d;"
+                  (click)="openQuizModal(quiz)">
+            <i class="fa fa-eye me-1"></i> Voir
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
 </div>
+
+
+
+  <!-- Modal Ajouter / Edit Quiz -->
+<div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+
+      <!-- HEADER -->
+      <div class="modal-header text-white" style="background: linear-gradient(135deg, #be323d, #ff758c);">
+        <h5 class="modal-title fw-bold d-flex align-items-center" id="addQuizModalLabel">
+          <i class="fa fa-plus me-2"></i>{{ isEditing ? 'Modifier le Quiz' : 'Ajouter un Quiz' }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body bg-light">
+        <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()" class="px-2">
+
+          <!-- Sélection Formation / Chapitre -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Formation</label>
+              <select formControlName="formationId" class="form-select shadow-sm" (change)="onFormationChange()">
+                <option [ngValue]="null">-- Choisir une formation --</option>
+                <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Chapitre</label>
+              <select formControlName="chapitreId" class="form-select shadow-sm">
+                <option [ngValue]="null">-- Choisir un chapitre --</option>
+                <option *ngFor="let c of chapitres" [ngValue]="c.id">{{ c.titre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Titre + Durée -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-8">
+              <label class="form-label fw-semibold">Titre du Quiz</label>
+              <input formControlName="titre" class="form-control shadow-sm" placeholder="Ex: Quiz sur le Chapitre 1">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Durée (minutes)</label>
+              <input type="number" formControlName="timeLimit" class="form-control shadow-sm" placeholder="Ex: 15">
+            </div>
+          </div>
+
+          <!-- QUESTIONS -->
+          <div formArrayName="questions">
+            <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="card border-0 shadow-sm rounded-3 mb-4">
+              <div class="card-body bg-white rounded-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5 class="fw-bold text-primary mb-0">
+                    <i class="fa fa-question-circle me-1 text-danger"></i> Question #{{i+1}}
+                  </h5>
+                  <button type="button" class="btn btn-sm text-white px-3"
+                          style="background-color: #be323d; border-radius: 20px;"
+                          (click)="removeQuestion(i)">
+                    Supprimer
+                  </button>
+                </div>
+
+                <input formControlName="texte" placeholder="Texte de la question"
+                       class="form-control mb-3 shadow-sm">
+
+                <!-- RÉPONSES -->
+                <div formArrayName="reponses">
+                  <div *ngFor="let r of getReponses(i).controls; let j=index" [formGroupName]="j"
+                       class="d-flex align-items-center gap-2 mb-2">
+                    <input formControlName="texte" class="form-control shadow-sm" placeholder="Texte de la réponse">
+                    <div class="form-check">
+                      <input type="checkbox" formControlName="correct" class="form-check-input">
+                      <label class="form-check-label small">Correct</label>
+                    </div>
+                    <button type="button" class="btn btn-sm text-white"
+                            style="background-color: #be323d; border-radius: 20px;"
+                            (click)="removeReponse(i, j)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" (click)="addReponse(i)">
+                    <i class="fa fa-plus me-1"></i> Ajouter une réponse
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOUTONS ACTION -->
+          <div class="d-flex justify-content-between align-items-center mt-4">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" (click)="addQuestion()">
+              <i class="fa fa-plus me-1"></i> Ajouter une question
+            </button>
+            <button type="submit" class="btn text-white px-4 btn-gradient rounded-pill"
+                  >
+              {{ isEditing ? 'Mettre à jour' : 'Créer le Quiz' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal Voir Questions -->
+<div class="modal fade" id="viewQuizModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+
+      <!-- HEADER -->
+      <div class="modal-header text-white" style="background: linear-gradient(135deg, #be323d, #ff758c);">
+        <h5 class="modal-title fw-bold d-flex align-items-center" id="viewQuizModalLabel">
+          <i class="fa fa-eye me-2"></i> Questions du Quiz
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body bg-light">
+        <div *ngIf="selectedQuiz">
+          <div class="text-center mb-4">
+            <h4 class="fw-bold text-dark">{{ selectedQuiz.titre }}</h4>
+            <span class="badge rounded-pill" style="background-color: #be323d;">
+              ⏱ {{ selectedQuiz.timeLimit }} secondes
+            </span>
+          </div>
+
+          <div *ngFor="let q of selectedQuiz.questions" class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+              <h6 class="fw-bold text-primary mb-2">
+                <i class="fa fa-question-circle me-1 text-danger"></i> {{ q.texte }}
+              </h6>
+              <ul class="list-group list-group-flush">
+                <li *ngFor="let r of q.reponses"
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ r.texte }}
+                  <span *ngIf="r.correct" class="badge bg-success rounded-pill">✔</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!selectedQuiz" class="text-center text-muted py-4">
+          <i class="fa fa-info-circle mb-2 d-block fs-3"></i>
+          Pas de questions disponibles.
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer border-0 d-flex justify-content-end bg-light">
+        <button type="button" class="btn text-white px-4" data-bs-dismiss="modal"
+                style="background-color: #be323d; border-radius: 30px;">
+          Fermer
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<nav class="blog-page-navigation d-flex justify-content-center" *ngIf="filteredQuizzes.length > 0">
+  <ul class="pagination">
+    <!-- Bouton Précédent -->
+    <li class="pagination-arrow" [class.disabled]="p === 1">
+      <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
+        <i class="fa fa-angle-double-left"></i>
+      </a>
+    </li>
+
+    <!-- Pages dynamiques limitées à 3 -->
+    <li *ngFor="let page of getVisiblePages(); let i = index">
+      <a href="javascript:void(0)"
+         [class.active]="p === page"
+         (click)="p = page">
+        {{ page }}
+      </a>
+    </li>
+
+    <!-- Bouton Suivant -->
+    <li class="pagination-arrow" [class.disabled]="p === totalPages">
+      <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+
+</section>

@@ -30,6 +30,9 @@ export class ChapterDetailsComponent implements OnInit {
         if (this.slides.length > 0) {
           this.chapitreTitre = this.slides[0].chapitre?.titre || '';
         }
+        if (this.slides.length === 0) {
+      this.goToQuiz();
+    }
       },
       error: (err) => console.error('Erreur chargement slides', err)
     });

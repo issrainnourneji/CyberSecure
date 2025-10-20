@@ -18,6 +18,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentQuestionIndex: number = 0;
   alreadyPassed: boolean = false;
 
+    selectedAnswerId: number | null = null;
+
   constructor(private route: ActivatedRoute, private quizService: QuizService) {}
 
   ngOnInit(): void {
@@ -50,16 +52,24 @@ export class QuizComponent implements OnInit, OnDestroy {
     if (this.timerInterval) clearInterval(this.timerInterval);
   }
 
-  loadQuiz() {
-    this.quizService.getQuizByChapitre(this.chapitreId).subscribe({
-      next: (data) => {
-        this.quiz = data;
-        this.timeLeft = this.quiz.timeLimit;
-        if (!this.alreadyPassed) this.startTimer();
-      },
-      error: (err) => console.error('Erreur chargement quiz', err)
-    });
-  }
+loadQuiz() {
+  this.quizService.getQuizByChapitre(this.chapitreId).subscribe({
+    next: (data) => {
+      this.quiz = data;
+
+      // Vérification si quiz contient des questions
+      if (!this.quiz.questions || this.quiz.questions.length === 0) {
+        this.timeLeft = 0; // timer figé
+        return; // ne pas lancer de timer
+      }
+
+      this.timeLeft = this.quiz.timeLimit;
+      if (!this.alreadyPassed) this.startTimer();
+    },
+    error: (err) => console.error('Erreur chargement quiz', err)
+  });
+}
+
 
   startTimer() {
     if (this.timeLeft > 0) {
@@ -79,16 +89,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
-  nextQuestion(answerId: number) {
-  const questionId = this.quiz.questions[this.currentQuestionIndex].id;
-  this.selectedAnswers[questionId] = answerId; // <-- stocke la réponse sélectionnée
 
-  if (this.currentQuestionIndex < this.quiz.questions.length - 1) {
-    this.currentQuestionIndex++;
-  } else {
-    this.submitQuiz();
-  }
-}
 
 submitQuiz() {
   if (!this.quiz || this.submitted) return;
@@ -117,5 +118,30 @@ submitQuiz() {
     this.result = null;
     this.timeLeft = this.quiz.timeLimit;
     this.startTimer();
+  }
+
+    previousQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      const currentQId = this.quiz.questions[this.currentQuestionIndex].id;
+      this.selectedAnswerId = this.selectedAnswers[currentQId] || null;
+    }
+  }
+    selectAnswer(answerId: number) {
+    this.selectedAnswerId = answerId;
+  }
+  nextQuestion(answerId: number | null = null) {
+    if (answerId !== null) {
+      const questionId = this.quiz.questions[this.currentQuestionIndex].id;
+      this.selectedAnswers[questionId] = answerId;
+    }
+
+    if (this.currentQuestionIndex < this.quiz.questions.length - 1) {
+      this.currentQuestionIndex++;
+      const currentQId = this.quiz.questions[this.currentQuestionIndex].id;
+      this.selectedAnswerId = this.selectedAnswers[currentQId] || null;
+    } else {
+      this.submitQuiz();
+    }
   }
 }

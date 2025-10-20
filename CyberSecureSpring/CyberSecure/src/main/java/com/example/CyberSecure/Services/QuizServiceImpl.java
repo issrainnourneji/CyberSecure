@@ -1,5 +1,8 @@
 package com.example.CyberSecure.Services;
 
+import com.example.CyberSecure.Dto.QuestionDTO;
+import com.example.CyberSecure.Dto.QuizDTO;
+import com.example.CyberSecure.Dto.ReponseDTO;
 import com.example.CyberSecure.Entities.Chapitre;
 import com.example.CyberSecure.Entities.Quiz.Question;
 import com.example.CyberSecure.Entities.Quiz.Quiz;
@@ -14,13 +17,15 @@ import com.example.CyberSecure.Repositories.Quiz.QuizResultRepository;
 import com.example.CyberSecure.Repositories.Quiz.ReponseRepository;
 import com.example.CyberSecure.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +36,8 @@ public class QuizServiceImpl {
     private final ChapitreRepository chapitreRepository;
     private final QuizResultRepository quizResultRepository;
     private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final ReponseRepository reponseRepository;
 
     public Quiz addQuizToChapitre(Long chapitreId, String titre, int timeLimit) {
         Chapitre chapitre = chapitreRepository.findById(chapitreId)
@@ -88,9 +95,10 @@ public class QuizServiceImpl {
         return quizResultRepository.findByQuizIdAndUserIdAndSuccessTrue(quizId, userId);
     }
 
-    public List<QuizResult> getUserQuizResults(Long userId) {
-        return quizResultRepository.findByUserId(userId);
+    public List<QuizResult> getUserQuizResultsByChapitre(Long userId, Long chapitreId) {
+        return quizResultRepository.findByUserIdAndQuiz_Chapitre_Id(userId, chapitreId);
     }
+
 
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
@@ -100,5 +108,15 @@ public class QuizServiceImpl {
         return quizRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Quiz introuvable avec l'id : " + id));
     }
+
+    public List<Long> getPassedChapitres(Long userId) {
+        return quizResultRepository.findPassedChapitresByUserId(userId);
+    }
+
+    public List<QuizResult> getAllQuizzesOfUser(Long userId) {
+        return quizResultRepository.findByUserId(userId);
+    }
+
+
 
 }

@@ -83,15 +83,12 @@ public class FormationServiceImpl {
         return formationRepository.save(formation);
     }
     public void removeUserFromFormation(Long formationId, Long userId) {
-        // Récupérer la formation
         Formation formation = formationRepository.findById(formationId)
                 .orElseThrow(() -> new RuntimeException("Formation introuvable"));
 
-        // Récupérer l'utilisateur
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        // Chercher le CartItem correspondant
         Optional<CartItem> cartItemOpt = cartItemRepository.findByFormationIdAndUserId(formationId, userId);
         if (cartItemOpt.isPresent()) {
             cartItemRepository.delete(cartItemOpt.get());
@@ -99,5 +96,14 @@ public class FormationServiceImpl {
             throw new RuntimeException("L'utilisateur n'est pas inscrit à cette formation");
         }
     }
+    public Formation findById(Long formationId) {
+        return formationRepository.findById(formationId)
+                .orElseThrow(() -> new RuntimeException("Formation introuvable avec l'id: " + formationId));
+    }
+    public Formation getFormationById(Long id) {
+        return formationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Formation introuvable avec l'id : " + id));
+    }
+
 
 }

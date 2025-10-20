@@ -42,6 +42,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { QuizComponent } from './clients/quiz/quiz/quiz.component';
 import { QuizResultComponent } from './clients/quiz/quiz-result/quiz-result.component';
 import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
+import { AllquizComponent } from './clients/quiz/allquiz/allquiz.component';
+import { CertificationComponent } from './clients/certificat/certification/certification.component';
+import { UserCertifComponent } from './clients/certificat/user-certif/user-certif.component';
+import { AboutComponent } from './info/about/about.component';
+import { CourseComponent } from './info/course/course.component';
+import { ContactComponent } from './info/contact/contact.component';
 
 
 @NgModule({
@@ -79,7 +85,13 @@ import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
     SlidehtmlComponent,
     QuizComponent,
     QuizResultComponent,
-    QuizListComponent
+    QuizListComponent,
+    AllquizComponent,
+    CertificationComponent,
+    UserCertifComponent,
+    AboutComponent,
+    CourseComponent,
+    ContactComponent
 
   ],
   imports: [
@@ -91,7 +103,8 @@ import { QuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
     CodeInputModule,
     HttpClientModule,
     FullCalendarModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FullCalendarModule,
 
 ],
   providers: [HttpClient,
