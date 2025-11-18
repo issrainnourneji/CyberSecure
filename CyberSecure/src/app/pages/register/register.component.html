@@ -31,27 +31,24 @@
             <li class="separator">|</li>
 
             <!-- Categories avec sous-menu -->
-            <li class="has-submenu">
-              <a class="contact-link1 contact-link" href="#">Categories</a>
-              <ul class="submenu">
-                <li class="has-submenu">
-                  <a class="contact-link" href="#">Design</a>
-                  <ul class="submenu">
-                    <li><a class="contact-link" href="#">Design Tools</a></li>
-                    <li><a class="contact-link" href="#">Photoshop Mastering</a></li>
-                    <li><a class="contact-link" href="#">Adobe Xd Design</a></li>
-                  </ul>
-                </li>
-                <li><a class="contact-link" href="#">Development</a></li>
-                <li><a class="contact-link" href="#">Marketing</a></li>
-                <li><a class="contact-link" href="#">Freelancing</a></li>
-              </ul>
-            </li>
+<li class="has-submenu">
+  <a class="contact-link1 contact-link" href="#">Categories</a>
+  <ul class="submenu">
+
+<li *ngFor="let cat of categories">
+  <a class="contact-link" [routerLink]="['/courses', cat]">
+    {{ cat }}
+  </a>
+</li>
+
+
+  </ul>
+</li>
             <li class="separator">|</li>
 
             <!-- Pages -->
             <li class="has-submenu">
-              <a class="contact-link" href="#">Pages</a>
+              <a class="contact-link" href="login">Pages</a>
               <ul class="submenu">
                 <li><a class="contact-link" href="login">Login</a></li>
                 <li><a class="contact-link" href="register">Register</a></li>
@@ -85,29 +82,23 @@
       <li><a routerLink="/courses" class="contact-link d-block py-2">Courses</a></li>
 
       <!-- Categories Mobile -->
-      <li class="has-submenu">
-        <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
-        <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
-          Categories <i class="fal fa-chevron-down float-end"></i>
-        </label>
-        <ul class="submenu list-unstyled ps-3">
-          <li class="has-submenu">
-            <input type="checkbox" id="design-toggle" class="submenu-checkbox">
-            <label for="design-toggle" class="contact-link d-block py-2 submenu-label">
-              Design <i class="fal fa-chevron-down float-end"></i>
-            </label>
-            <ul class="submenu list-unstyled ps-3">
-              <li><a href="#" class="contact-link d-block py-2">Design Tools</a></li>
-              <li><a href="#" class="contact-link d-block py-2">Photoshop Mastering</a></li>
-              <li><a href="#" class="contact-link d-block py-2">Adobe Xd Design</a></li>
-            </ul>
-          </li>
-          <li><a href="#" class="contact-link d-block py-2">Development</a></li>
-          <li><a href="#" class="contact-link d-block py-2">Marketing</a></li>
-          <li><a href="#" class="contact-link d-block py-2">Freelancing</a></li>
-        </ul>
-      </li>
+<li class="has-submenu">
+  <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
+  <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
+    Categories <i class="fal fa-chevron-down float-end"></i>
+  </label>
 
+  <ul class="submenu list-unstyled ps-3">
+
+<li *ngFor="let cat of categories">
+  <a class="contact-link d-block py-2" [routerLink]="['/courses', cat]">
+    {{ cat }}
+  </a>
+</li>
+
+
+  </ul>
+</li>
       <!-- Pages Mobile -->
       <li class="has-submenu">
         <input type="checkbox" id="pages-toggle" class="submenu-checkbox">

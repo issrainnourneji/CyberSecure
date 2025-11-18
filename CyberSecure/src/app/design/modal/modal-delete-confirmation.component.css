@@ -31,3 +31,120 @@
     }
   }
 }
+
+
+/* === FOND DU MODAL === */
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 6;
+  backdrop-filter: blur(2px);
+}
+
+/* === BOÎTE DU MODAL === */
+.custom-delete-modal {
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* === BOUTON FERMETURE === */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #681b37;
+  transition: all 0.3s ease;
+}
+.modal-close:hover {
+  color: #be323d;
+  transform: scale(1.1);
+}
+
+/* === HEADER === */
+.modal-header {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+/* === CORPS === */
+.modal-body {
+  padding: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.form-delete-content {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 0.5rem;
+}
+
+/* === FOOTER === */
+.modal-footer {
+  border-top: none;
+  justify-content: center;
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* === BOUTONS === */
+.btn {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 0.6rem 1.8rem;
+  transition: all 0.3s ease;
+}
+
+/* Bouton Annuler */
+.btn-cancel {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.btn-cancel:hover {
+  background-color: #ddd;
+  transform: scale(1.05);
+}
+
+/* Bouton Supprimer (dégradé principal) */
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+  border: none;
+}
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* === Animation === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

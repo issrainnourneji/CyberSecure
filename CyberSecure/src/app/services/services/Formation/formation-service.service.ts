@@ -25,7 +25,7 @@ export class FormationServiceService {
     image: File,
     price: number,
     duration: number,
-    numberOfStudents: number
+    categorie: number
   ): Observable<any> {
     const formData = new FormData();
     formData.append('title', title);
@@ -33,14 +33,20 @@ export class FormationServiceService {
     formData.append('image', image);
     formData.append('price', price.toString());
     formData.append('duration', duration.toString());
-    formData.append('numberOfStudents', numberOfStudents.toString());
+    formData.append('categorie', categorie.toString());
 
     return this.http.post(`${this.apiUrl}/add`, formData);
   }
 
-    deleteFormation(id: number): Observable<void> {
+    deleteFormationi(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
+
+deleteFormation(id: number): Observable<string> {
+  return this.http.delete(`${this.apiUrl}/${id}`, { responseType: 'text' });
+}
+
+
 
   updateFormation(
   id: number,
@@ -49,7 +55,7 @@ export class FormationServiceService {
   image: File | null,
   price: number,
   duration: number,
-  numberOfStudents: number
+  categorie: number
 ): Observable<any> {
   const formData = new FormData();
   formData.append('title', title);
@@ -59,7 +65,7 @@ export class FormationServiceService {
   }
   formData.append('price', price.toString());
   formData.append('duration', duration.toString());
-  formData.append('numberOfStudents', numberOfStudents.toString());
+  formData.append('categorie', categorie.toString());
 
   return this.http.put(`${this.apiUrl}/update/${id}`, formData);
 }
@@ -72,10 +78,8 @@ getMyFormations(): Observable<any[]> {
   return this.http.get<any[]>('http://localhost:8080/formation/my-formations', { headers });
 }
 getUsersByFormation(formationId: number): Observable<any[]> {
-  const headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
-  });
-  return this.http.get<any[]>(`http://localhost:8080/formation/${formationId}/users`, { headers });
+
+  return this.http.get<any[]>(`http://localhost:8080/formation/${formationId}/users`);
 }
 
 getNumberOfStudentsForAllFormations(): Observable<{[key: number]: number}> {
@@ -86,6 +90,17 @@ getNumberOfStudentsForAllFormations(): Observable<{[key: number]: number}> {
     `http://localhost:8080/formation/${formationId}/user/${userId}`,
     { responseType: 'text' }  // <-- important
   );
+}
+getCategories(): Observable<string[]> {
+  return this.http.get<string[]>("http://localhost:8080/formation/categories");
+}
+
+getFormationsByCategory(category: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/category/${category}`);
+}
+
+getFormationByChapitre(chapitreId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/chapter/${chapitreId}/formation`);
 }
 
 }

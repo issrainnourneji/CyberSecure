@@ -1,9 +1,11 @@
 package com.example.CyberSecure.Controllers;
 
 import com.example.CyberSecure.Entities.CartItem;
+import com.example.CyberSecure.Entities.Chapitre;
 import com.example.CyberSecure.Entities.Formation;
 import com.example.CyberSecure.Entities.User;
 import com.example.CyberSecure.Repositories.CartItemRepository;
+import com.example.CyberSecure.Repositories.ChapitreRepository;
 import com.example.CyberSecure.Repositories.FormationRepository;
 import com.example.CyberSecure.Repositories.UserRepository;
 import com.example.CyberSecure.Services.CartServiceImpl;
@@ -34,6 +36,7 @@ public class FormationController {
     private final UserRepository userRepository;
     private final CartServiceImpl cartService;
     private final CartItemRepository cartItemRepository;
+    private final ChapitreRepository chapitreRepository;
 
 
 
@@ -45,9 +48,9 @@ public class FormationController {
             @RequestParam("image") MultipartFile image,
             @RequestParam("price") double price,
             @RequestParam("duration") double duration,
-            @RequestParam("numberOfStudents") int numberOfStudents
+            @RequestParam("categorie") String categorie
     ) throws IOException {
-         Formation formation = formationService.createFormation(title, description, image , price , duration , numberOfStudents);
+         Formation formation = formationService.createFormation(title, description, image , price , duration , categorie);
             return ResponseEntity.ok(formation);
     }
 
@@ -59,7 +62,7 @@ public class FormationController {
 
 
     @DeleteMapping("/delete/{id}")
-    public void deleteFormation(@PathVariable("id") Long id) {
+    public void deleteFormationz(@PathVariable("id") Long id) {
         formationService.DeleteFormation(id);
     }
 
@@ -76,9 +79,9 @@ public class FormationController {
             @RequestParam(value = "image", required = false) MultipartFile image,
             @RequestParam("price") double price,
             @RequestParam("duration") double duration,
-            @RequestParam("numberOfStudents") int numberOfStudents
+            @RequestParam("categorie") String categorie
     ) throws IOException {
-        Formation updated = formationService.updateFormation(id, title, description, image, price, duration, numberOfStudents);
+        Formation updated = formationService.updateFormation(id, title, description, image, price, duration, categorie);
         return ResponseEntity.ok(updated);
     }
 
@@ -114,15 +117,6 @@ public class FormationController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/formations/students/count")
-    public ResponseEntity<Map<Long, Long>> getNumberOfStudentsForAllFormations() {
-        List<CartItem> cartItems = cartItemRepository.findAll();
-
-        Map<Long, Long> countMap = cartItems.stream()
-                .collect(Collectors.groupingBy(ci -> ci.getFormation().getId(), Collectors.counting()));
-
-        return ResponseEntity.ok(countMap);
-    }
     @DeleteMapping("/{formationId}/user/{userId}")
     public ResponseEntity<Map<String, String>> removeUserFromFormation(
             @PathVariable Long formationId,
@@ -136,4 +130,43 @@ public class FormationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/formations/students/count")
+    public ResponseEntity<Map<Long, Long>> getNumberOfStudentsForAllFormations() {
+        List<CartItem> cartItems = cartItemRepository.findAll();
+
+        Map<Long, Long> countMap = cartItems.stream()
+                .collect(Collectors.groupingBy(ci -> ci.getFormation().getId(), Collectors.counting()));
+
+        return ResponseEntity.ok(countMap);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteFormation(@PathVariable("id") Long formationId) {
+        try {
+            formationService.deleteFormationWithAllDependencies(formationId);
+            return ResponseEntity.ok("Formation supprimée avec succès !");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Erreur : " + ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur serveur : " + ex.getMessage());
+        }
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories() {
+        return ResponseEntity.ok(formationService.getAllCategories());
+    }
+    @GetMapping("/category/{categorie}")
+    public List<Formation> getFormationsByCategory(@PathVariable String categorie) {
+        return formationService.getFormationsByCategory(categorie);
+    }
+
+    @GetMapping("/chapter/{chapitreId}/formation")
+    public Formation getFormationByChapitre(@PathVariable Long chapitreId) {
+        Chapitre chapitre = chapitreRepository.findById(chapitreId)
+                .orElseThrow(() -> new RuntimeException("Chapitre introuvable"));
+        return chapitre.getFormation(); // assuming getFormation() exists in Chapitre
+    }
 }

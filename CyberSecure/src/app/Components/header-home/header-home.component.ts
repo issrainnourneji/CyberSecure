@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenService } from '../../services/services/token.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 
 @Component({
   selector: 'app-header-home',
@@ -14,8 +15,8 @@ export class HeaderHomeComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   private authStatusSub: Subscription | null = null;
 
-
-  constructor(private router: Router, private readonly apiService: TokenService){}
+categories: string[] = [];
+  constructor(private router: Router, private readonly apiService: TokenService, private formationService: FormationServiceService){}
 
     ngOnInit(): void {
     this.isAuthenticated = this.apiService.isAuthenticated();
@@ -30,6 +31,10 @@ export class HeaderHomeComponent implements OnInit, OnDestroy {
       this.isClient = this.apiService.isClient();
 
     })
+
+    this.formationService.getCategories().subscribe(data => {
+    this.categories = data;
+  });
   }
     login(){
     if (this.isAuthenticated) {

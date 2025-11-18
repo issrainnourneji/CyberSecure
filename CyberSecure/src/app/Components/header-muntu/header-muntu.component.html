@@ -1,0 +1,117 @@
+<header class="header-style-1">
+  <div class="header-navbar navbar-sticky">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- Logo -->
+        <div class="site-logo">
+          <a href="home">
+            <img src="../../../assets/images/logo.png" alt="logo">
+          </a>
+        </div>
+
+        <!-- Bouton Offcanvas (mobile) -->
+        <div class="offcanvas-icon d-block d-lg-none">
+          <a href="#" class="nav-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+            <i class="fal fa-bars"></i>
+          </a>
+        </div>
+
+        <!-- Menu principal (desktop) -->
+        <nav class="site-navbar ms-auto d-none d-lg-block">
+          <ul class="primary-menu d-flex align-items-center mb-0">
+            <li>
+              <a class="contact-link" href="accueil">Accueil</a>
+            </li>
+            <li class="separator">|</li>
+
+            <li><a class="contact-link" routerLink="/about">L'entreprise</a>
+              <ul class="submenu">
+                <li><a class="contact-link" href="presentationMuntu">Qui sommes-nous ?</a></li>
+                <li><a class="contact-link" href="register">Nos partenaires</a></li>
+                <li><a class="contact-link" href="login">Référencements & certifications</a></li>
+                <li><a class="contact-link" href="register">Actualités & presse</a></li>
+              </ul></li>
+                          <li class="separator">|</li>
+
+            <li class="current"><a class="contact-link" href="home">Nos solutions</a>
+              <ul class="submenu">
+                <li><a class="contact-link" href="login">Prestations</a></li>
+                <li><a class="contact-link" href="register">Expertises spécifiques</a></li>
+                <li><a class="contact-link" href="login">Tarifs</a></li>
+                <li><a class="contact-link" href="register">Diagnostic RGPD offert</a></li>
+              </ul></li>
+            <li class="separator">|</li>
+            <li>
+              <a class="contact-link" href="joindrenous">Nos offres</a>
+            </li>
+            <li class="separator">|</li>
+            <li><a class="contact-link" routerLink="/contactMuntu">Contact</a></li>
+
+            <div class="header-btn text-center text-lg-end">
+              <button class="login-text mb-0" >
+                 Fr
+              </button>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="offcanvas offcanvas-end mobile-offcanvas" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="fw-bold m-0">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <ul class="list-unstyled mb-4 mobile-menu">
+
+      <li><a href="/home" class="contact-link d-block py-2">Home</a></li>
+      <li><a routerLink="/about" class="contact-link d-block py-2">About</a></li>
+      <li><a routerLink="/courses" class="contact-link d-block py-2">Courses</a></li>
+
+      <!-- Sous-menu principal -->
+<!-- Sous-menu Categories mobile -->
+<li class="has-submenu">
+  <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
+  <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
+    Categories <i class="fal fa-chevron-down float-end"></i>
+  </label>
+
+  <ul class="submenu list-unstyled ps-3">
+
+<li>
+  <a class="contact-link d-block py-2">
+  </a>
+</li>
+
+
+  </ul>
+</li>
+
+
+      <!-- Sous-menu Pages -->
+      <li class="has-submenu">
+        <input type="checkbox" id="pages-toggle" class="submenu-checkbox">
+        <label for="pages-toggle" class="contact-link d-block py-2 submenu-label">
+          Pages <i class="fal fa-chevron-down float-end"></i>
+        </label>
+        <ul class="submenu list-unstyled ps-3">
+          <li><a href="login" class="contact-link d-block py-2">Login</a></li>
+          <li><a href="register" class="contact-link d-block py-2">Register</a></li>
+        </ul>
+      </li>
+
+      <li><a routerLink="/contact" class="contact-link d-block py-2">Contact</a></li>
+    </ul>
+
+    <div class="text-center mt-3">
+      <button class="login-text w-100 py-2">
+        <i class="fa fa-user-alt me-1"></i> Login/Register
+      </button>
+    </div>
+  </div>
+</div>
+

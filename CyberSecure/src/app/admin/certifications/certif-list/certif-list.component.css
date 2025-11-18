@@ -1,0 +1,24 @@
+table thead th {
+  color: #821f43 !important;   /* Texte bordeaux */
+          /* Centrer le texte (optionnel) */
+}
+  table tbody tr:hover {
+    background-color: #f1f3f5;
+    transition: background-color 0.2s;
+  }
+
+  /* Vertical align middle */
+  .table th, .table td {
+    vertical-align: middle;
+  }
+
+  /* Badge plus moderne */
+  .badge {
+    font-size: 0.85rem;
+    padding: 0.4em 0.6em;
+  }
+
+  /* Bouton delete plus net */
+  .btn-danger i {
+    font-size: 0.9rem;
+  }

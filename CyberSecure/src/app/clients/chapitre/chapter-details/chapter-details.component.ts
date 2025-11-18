@@ -47,7 +47,7 @@ export class ChapterDetailsComponent implements OnInit {
   }
 
   goToQuiz() {
-    this.router.navigate(['/quiz', this.chapitreId]);
+    this.router.navigate(['/mainUser/quiz', this.chapitreId]);
   }
 
   getEmbedUrl(url: string): string {

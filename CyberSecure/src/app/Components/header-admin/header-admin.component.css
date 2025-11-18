@@ -70,3 +70,98 @@
 .submenu-checkbox:checked + .submenu-label i {
   transform: rotate(180deg);
 }
+/* Conteneur général du modal */
+.custom-modal {
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* Header avec dégradé */
+.logout-header {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+
+.logout-header .modal-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-close {
+  filter: invert(1);
+  opacity: 0.8;
+}
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Corps du modal */
+.logout-text {
+  font-size: 1rem;
+  color: #333;
+  margin: 1.5rem 0;
+}
+
+/* Pied du modal */
+.modal-footer {
+  border-top: none;
+  padding-bottom: 1.5rem;
+}
+
+/* Bouton Cancel */
+.btn-cancel {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+.btn-cancel:hover {
+  background-color: #b3b3b3;
+  transform: scale(1.03);
+}
+
+/* Bouton Logout avec dégradé */
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #681b37);
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1.8rem;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Animation fluide */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.custom-icon i {
+  font-size: 1.5rem; /* agrandir l'icône */
+  color: #912943;     /* couleur spécifique */
+  transition: color 0.3s;
+}
+
+.custom-icon i:hover {
+  color: #d15b8a; /* optionnel : changer couleur au hover */
+}

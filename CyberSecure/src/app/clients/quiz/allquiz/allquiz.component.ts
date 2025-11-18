@@ -13,47 +13,83 @@ declare var bootstrap: any;
 })
 export class AllquizComponent implements OnInit {
   quizzes: any[] = [];
+  filteredQuizzes: any[] = [];
+  formations: any[] = [];
+  chapitres: any[] = [];
+
   selectedQuiz: any = null;
   history: any[] = [];
-  currentPage: number = 1;   // Page actuelle
-  pageSize: number = 4;      // Quiz par page
+
+  // Pagination
+  currentPage: number = 1;
+  pageSize: number = 4;
   totalPages: number = 0;
+
+  // Filtres
+  selectedFormation: string = '';
+  selectedChapitre: string = '';
+  minScore: number | null = null;
+scoreSortOrder: '' | 'asc' | 'desc' = '';
   constructor(private quizService: QuizService) {}
 
-ngOnInit(): void {
-  this.quizService.getAllQuizzes().subscribe((allQuizzes: any[]) => {
-    // Pour chaque quiz, on fait un appel pour récupérer son historique
-    const requests = allQuizzes.map((quiz: any) =>
-      this.quizService.getUserQuizHistoryByQuiz(quiz.id).pipe(
-        map((history: any[]) => {
-          const hasSuccess = history.some(h => h.success === true);
-          return hasSuccess ? quiz : null;
-        })
-      )
-    );
+  ngOnInit(): void {
+    this.quizService.getUserQuizzes().subscribe({
+    next: (results: any[]) => {
+      // Récupérer tous les quiz
+      const allQuizzes = results.map(r => r.quiz);
 
-    // Typage explicite pour éviter "unknown"
-    forkJoin(requests).subscribe((results: (any | null)[]) => {
-      this.quizzes = results.filter((q): q is any => q !== null);
+      // Dédupliquer par id
+      const uniqueQuizzesMap = new Map<number, any>();
+      allQuizzes.forEach(q => {
+        if (!uniqueQuizzesMap.has(q.id)) {
+          uniqueQuizzesMap.set(q.id, q);
+        }
+      });
 
-        // Calculer le nombre total de pages
-        this.totalPages = Math.ceil(this.quizzes.length / this.pageSize);
-    });
+      this.quizzes = Array.from(uniqueQuizzesMap.values());
+      this.filteredQuizzes = [...this.quizzes];
+
+      // Récupérer formations et chapitres uniques pour les filtres
+      this.formations = [...new Map(this.quizzes.map(q => [q.chapitre.formation.id, q.chapitre.formation])).values()];
+      this.chapitres = [...new Map(this.quizzes.map(q => [q.chapitre.id, q.chapitre])).values()];
+
+      this.updatePagination();
+    },
+    error: (err) => {
+      console.error(err);
+      this.quizzes = [];
+      this.filteredQuizzes = [];
+      this.formations = [];
+      this.chapitres = [];
+    }
   });
-}
-
-getQuizzesForCurrentPage(): any[] {
-    const start = (this.currentPage - 1) * this.pageSize;
-    return this.quizzes.slice(start, start + this.pageSize);
   }
 
-  // Aller à une page spécifique
+ applyFilters(): void {
+  this.filteredQuizzes = this.quizzes.filter(q => {
+    const formationMatch = this.selectedFormation ? q.chapitre.formation.id == this.selectedFormation : true;
+    const chapitreMatch = this.selectedChapitre ? q.chapitre.id == this.selectedChapitre : true;
+    return formationMatch && chapitreMatch;
+  });
+
+  this.currentPage = 1;
+  this.updatePagination();
+}
+
+  filteredQuizzesForCurrentPage(): any[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredQuizzes.slice(start, start + this.pageSize);
+  }
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredQuizzes.length / this.pageSize);
+  }
+
   goToPage(page: number) {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
   }
 
-  // Pages visibles (limitées à 3)
   getVisiblePages(): number[] {
     let start = Math.max(this.currentPage - 1, 1);
     let end = Math.min(start + 2, this.totalPages);
@@ -62,6 +98,11 @@ getQuizzesForCurrentPage(): any[] {
     const pages = [];
     for (let i = start; i <= end; i++) pages.push(i);
     return pages;
+  }
+
+getQuizzesForCurrentPage(): any[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.quizzes.slice(start, start + this.pageSize);
   }
 
   openDetails(quiz: any): void {

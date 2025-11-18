@@ -1,0 +1,143 @@
+<section class="page-header">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-8">
+          <div class="title-block">
+            <h1>Certifications</h1>
+            <ul class="header-bradcrumb justify-content-center">
+              <li><a class="headerlien"href="mainAdmin/home">Home</a></li>
+              <li class="active" aria-current="page">User Certifications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Filtres et recherche -->
+
+<!-- Tableau des certifications -->
+<section class="woocommerce single page-wrapper py-5 bg-light">
+
+<div class="container mb-5">
+  <div class="row align-items-center gy-3 justify-content-between">
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-2 mb-md-0">
+      <select class="form-select shadow-sm" [(ngModel)]="selectedFormationId" (change)="onFormationChange()">
+        <option [ngValue]="null">Toutes les formations</option>
+        <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
+      </select>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="position-relative">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()"
+          placeholder="Rechercher un utilisateur..."
+          class="form-control rounded-pill ps-4 shadow-sm border-0"
+          style="height: 42px; max-width: 300px;"
+        />
+        <i
+          class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+          style="pointer-events: none;"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle text-center mb-0 bg-white">
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Formation</th>
+                    <th>Date obtention</th>
+                    <th>Utilisateur</th>
+                    <th>Email</th>
+                    <th>Badge</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cert of filteredCertifications">
+                    <td>{{ cert.id }}</td>
+                    <td  class="fw-bold">{{ cert.formation?.title }}</td>
+                    <td>{{ cert.dateObtained | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ cert.user?.name }}</td>
+                    <td>{{ cert.user?.email }}</td>
+                    <td>
+                      <img *ngIf="cert" src="assets/images/téléchargement.jpg" alt="Badge réussite" style="width:24px;height:24px;">
+                    </td>
+                   <td>
+
+  <button class="btn btn-sm btn-gradient me-1"
+          (click)="viewUsersForFormation(cert.formation?.id, cert.formation?.title)">
+    <i class="fa fa-eye"></i>
+  </button>
+    <button class="btn btn-sm btn-gradient" (click)="deleteCertification(cert.id)">
+    <i class="fa fa-trash"></i>
+  </button>
+</td>
+
+                  </tr>
+                  <tr *ngIf="filteredCertifications.length === 0">
+                    <td colspan="7" class="text-muted py-3">Aucune certification trouvée.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal liste des utilisateurs -->
+<!-- Modal Voir Utilisateurs -->
+<div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+
+      <!-- Header -->
+      <div class="modal-header text-white" style="background: linear-gradient(to right, #be323d, #681b37); border-bottom: none;">
+        <h5 class="modal-title" id="usersModalLabel">
+          <i class="fa fa-users me-2"></i>Utilisateurs de : {{ selectedFormationTitle }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div *ngIf="!selectedFormationUsers || selectedFormationUsers.length === 0" class="text-center text-muted py-3">
+          Aucun utilisateur affecté
+        </div>
+
+        <ul class="list-group" *ngIf="selectedFormationUsers && selectedFormationUsers.length > 0">
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" *ngFor="let user of selectedFormationUsers">
+            <div>
+              <p class="mb-1"><strong>Nom :</strong> {{ user.name }}</p>
+              <p class="mb-1"><strong>Email :</strong> {{ user.email }}</p>
+              <p class="mb-0"><strong>Téléphone :</strong> {{ user.phoneNumber || 'Non renseigné' }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer justify-content-end px-0">
+        <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>

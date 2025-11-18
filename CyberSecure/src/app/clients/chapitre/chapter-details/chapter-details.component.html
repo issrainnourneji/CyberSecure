@@ -1,4 +1,3 @@
-<app-header-user></app-header-user><!--====== Header End ======-->
 <section class="page-header">
     <div class="container">
       <div class="row justify-content-center">
@@ -15,7 +14,7 @@
     </div>
 </section>
 
-<section class="section-padding page">
+<section class="sectionp">
   <!-- En-tête : formation et chapitre -->
   <div class="slide-header d-flex justify-content-between align-items-center mb-3">
     <h4 class="formation-title mb-0">{{ slides[currentIndex]?.chapitre?.formation?.title }}</h4>
@@ -114,9 +113,15 @@
           Suivant <i class="fa fa-arrow-right ms-2"></i>
         </button>
 
-        <button *ngIf="currentIndex === slides.length - 1" class=" btn-main btn-lg rounded" (click)="goToQuiz()">
-          <i class="fa fa-flag-checkered ms-2"></i> Passer le Quiz
-        </button>
+       <button
+  *ngIf="currentIndex === slides.length - 1"
+  class="btn-main btn-lg rounded text-white"
+  style="background-color: #4d1b36; border: none;"
+  (click)="goToQuiz()"
+>
+  <i class="fa fa-flag-checkered ms-2"></i> Passer le Quiz
+</button>
+
       </div>
 <h6 class="text-center text-muted" style="margin-top: 35px; ">
 
@@ -126,7 +131,3 @@
     </div>
   </div>
 </section>
-
-<!-- Footer section start -->
-<app-footer></app-footer>
-<!-- Footer section End -->

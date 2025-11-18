@@ -3,6 +3,7 @@ import { QuizService } from '../../../services/services/quiz/quiz.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { ActivatedRoute } from '@angular/router';
+import { FormationServiceService } from '../../../services/services/Formation/formation-service.service';
 
 @Component({
   selector: 'app-quiz-result',
@@ -12,11 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 export class QuizResultComponent implements OnInit {
   history: any[] = [];
   loading = true;
-
-  constructor(private quizService: QuizService , private route: ActivatedRoute) {}
+formationId!: number;
+  constructor(private quizService: QuizService , private route: ActivatedRoute , private formationService : FormationServiceService) {}
 
 ngOnInit(): void {
     const chapitreId = Number(this.route.snapshot.paramMap.get('chapitreId'));
+
   this.quizService.getUserQuizHistoryByChapitre(chapitreId).subscribe({
     next: (res) => {
       this.history = (res || []).map((r: any) => ({
@@ -37,6 +39,15 @@ ngOnInit(): void {
       this.loading = false;
     }
   });
+
+   this.formationService.getFormationByChapitre(chapitreId).subscribe({
+      next: (formation) => {
+        this.formationId = formation.id;
+      },
+      error: (err) => console.error('Impossible de récupérer la formation :', err)
+    });
+
+
 }
 
 isUserSelected(userAnswers: { [questionId: number]: number }, questionId: number, answer: any): boolean {

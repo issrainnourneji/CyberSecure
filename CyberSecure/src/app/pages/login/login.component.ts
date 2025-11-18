@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../services/services/token.service';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,21 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   message: any = null;
   formData: any = {
       email: '',
       password: ''
     }
   showPassword: boolean = false;
+categories: string[] = [];
 
-    constructor(private readonly apiService: TokenService, private router: Router) { }
-
+    constructor(private readonly apiService: TokenService, private router: Router, private formationService: FormationServiceService) { }
+ngOnInit() {
+  this.formationService.getCategories().subscribe(res => {
+    this.categories = res;
+  });
+}
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

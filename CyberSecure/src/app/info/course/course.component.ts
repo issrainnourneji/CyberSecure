@@ -3,6 +3,7 @@ import { TokenService } from '../../services/services/token.service';
 import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 import { User } from '../../services/models/user';
 import { Role } from '../../services/models/role';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -27,10 +28,26 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private readonly apiService: TokenService,
-    private formationService: FormationServiceService
+    private formationService: FormationServiceService,
+     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+      this.route.params.subscribe(params => {
+    const cat = params['cat']; // Récupère la catégorie dans l'URL
+
+    if (cat) {
+      // Charger formations filtrées par catégorie
+      this.formationService.getFormationsByCategory(cat).subscribe({
+        next: (data) => {
+          this.formations = data;
+          this.filteredFormations = [...this.formations];
+          this.p = 1;
+          this.updatePagination();
+        },
+        error: (err) => console.error('Erreur lors du filtrage par catégorie', err)
+      });
+    } else {
     // Récupérer formations
     this.formationService.getAllFormations().subscribe({
       next: (response) => {
@@ -40,7 +57,9 @@ export class CourseComponent implements OnInit {
       },
       error: (error) => console.error('Error fetching formations:', error)
     });
-
+     }
+  });
+  
     // Récupérer nombre d'étudiants par formation
     this.formationService.getNumberOfStudentsForAllFormations().subscribe({
       next: (counts) => this.studentsCount = counts,

@@ -96,7 +96,7 @@ showLockedAlert() {
 }
 goToChapter(chapitre: any) {
   if (this.isChapterEnabled(chapitre)) {
-    this.router.navigate(['/chapitre', chapitre.id, 'slides']);
+    this.router.navigate(['/mainUser/chapitre', chapitre.id, 'slides']);
   } else {
     this.showLockedAlert();
   }
@@ -122,7 +122,7 @@ showChapitre(chapitre: any, event: Event) {
     window.alert("⚠️ Vous devez terminer le chapitre précédent avec succès avant de pouvoir accéder à celui-ci.");
     return;
   }
-  this.router.navigate(['/chapitre', chapitre.id, 'slides']);
+  this.router.navigate(['/mainUser/chapitre', chapitre.id, 'slides']);
 }
 
 
@@ -200,13 +200,29 @@ obtenirCertification() {
       res => {
         console.log("Certification générée :", res);
         // Redirection vers la page de visualisation du certificat
-        this.router.navigate(['/certification', res.id]);
+        this.router.navigate(['/mainUser/certification', res.id]);
       },
       err => {
         console.error("Erreur génération certification :", err);
       }
     );
 }
+get totalPages(): number {
+  return Math.ceil(this.filteredChapitres.length / this.itemsPerPage);
+}
+
+getVisiblePages(): number[] {
+  const pages: number[] = [];
+  const start = Math.max(1, this.p - 2);
+  const end = Math.min(this.totalPages, this.p + 2);
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  return pages;
+}
+
 
 
 }

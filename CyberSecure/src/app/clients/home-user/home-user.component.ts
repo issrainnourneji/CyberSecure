@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 import { User } from '../../services/models/user';
 import { Role } from '../../services/models/role';
+import { CertificationService } from '../../services/services/certificat/certification.service';
 
 @Component({
   selector: 'app-home-user',
@@ -17,8 +18,10 @@ export class HomeUserComponent implements OnInit {
     error:any = null;
 studentsCount: { [formationId: number]: number } = {};
 
-
-  constructor(private router: Router, private readonly apiService: TokenService , private formationService: FormationServiceService){}
+  successRate: number = 0;
+  certifications: any[] = [];
+  constructor(private router: Router, private readonly apiService: TokenService ,
+    private formationService: FormationServiceService, private certificationService : CertificationService){}
  ngOnInit(): void {
 
  this.formationService.getAllFormations().subscribe(
@@ -35,9 +38,53 @@ studentsCount: { [formationId: number]: number } = {};
   },
   error: (err) => console.error('Impossible de récupérer le nombre de students', err)
 });
-            this.loadUsers();
+            this.loadUsers(); // Charger users
+    this.apiService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = (res.userList || []).filter((u:any) => u.role === Role.USER);
+        this.calculateSuccessRate();
+      },
+      error: (err) => console.error(err)
+    });
+
+    // Charger formations
+    this.formationService.getAllFormations().subscribe({
+      next: (formations) => {
+        this.formations = formations;
+        this.calculateSuccessRate();
+      },
+      error: (err) => console.error(err)
+    });
+
+    // Charger certifications
+    this.certificationService.getAllCertifications().subscribe({
+      next: (certs) => {
+        this.certifications = certs;
+        this.calculateSuccessRate();
+      },
+      error: (err) => console.error(err)
+    });
 
   }
+calculateSuccessRate() {
+    if (!this.users || !this.formations || !this.certifications) return;
+
+    const totalUsers = this.users.length;
+    const totalFormations = this.formations.length;
+
+    if (totalUsers === 0 || totalFormations === 0) {
+      this.successRate = 0;
+      return;
+    }
+
+    // Chaque certification = réussite d'une formation par un user
+    const totalSuccesses = this.certifications.length;
+
+    const totalPossible = totalUsers * totalFormations;
+
+    this.successRate = (totalSuccesses / totalPossible) * 100;
+  }
+
   loadUsers(): void {
     this.apiService.getAllUsers().subscribe({
       next: (response) => {

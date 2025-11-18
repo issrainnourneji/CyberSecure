@@ -1,10 +1,20 @@
-<div class="d-flex justify-content-center mb-4">
-  <button class="btn-grey rounded-pill shadow-sm btn-gradient" (click)="downloadPdf()">
-    <i class="fas fa-file-pdf me-2"></i> Télécharger les résultats
+<div class="d-flex justify-content-center mb-4 gap-3 flex-wrap">
+   <!-- Bouton Retour à la liste des chapitres -->
+  <button [routerLink]="['/mainUser/chapterList', formationId]"
+          class="btn btn-gradient btn-grey rounded-pill shadow-sm d-flex align-items-center">
+    <i class="fal fa-angle-left me-2"></i>
+    Revenir aux chapitres
+  </button>
+  <!-- Bouton Télécharger PDF -->
+  <button class="btn btn-gradient btn-grey rounded-pill shadow-sm d-flex align-items-center"
+          (click)="downloadPdf()">
+    <i class="fas fa-file-pdf me-2"></i>
+    Télécharger les résultats
   </button>
 
 
 </div>
+
 
 <!-- conteneur à exporter en PDF -->
 <div id="quiz-results">

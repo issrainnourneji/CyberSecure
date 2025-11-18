@@ -21,5 +21,5 @@ public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
 
     Optional<QuizResult> findTopByUserIdAndQuizIdOrderByDatePassedDesc(Long userId, Long quizId);
     Optional<QuizResult> findTopByUserIdAndQuiz_ChapitreIdOrderByDatePassedDesc(Long userId, Long chapitreId);
-
+    List<QuizResult> findByQuizId(Long quizId);
 }

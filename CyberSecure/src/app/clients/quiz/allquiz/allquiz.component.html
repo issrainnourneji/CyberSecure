@@ -20,25 +20,52 @@
   <!-- Liste des quiz -->
 <div class="container">
   <div class="row g-4">
-    <div *ngFor="let quiz of getQuizzesForCurrentPage()" class="col-md-6 col-lg-6">
-      <div class="card shadow border-0 h-100 rounded-4 quiz-card" style="border-top: 5px solid #be323d;">
-        <div class="card-body d-flex flex-column">
-          <!-- Titre quiz -->
-          <h5 class="card-title fw-bold fs-4">
-            <i class="fas fa-graduation-cap me-2 text-danger"></i> {{ quiz.titre }}
-          </h5>
+     <!-- Filtres -->
+<div class="row mb-4 g-3 align-items-end">
+  <!-- Formation -->
+  <div class="col-md-4 col-12">
+    <label for="formationFilter" class="form-label fw-bold text-dark">Filtrer par Formation</label>
+    <select id="formationFilter"
+            class="form-select shadow-sm rounded-3 border-1 border-secondary"
+            [(ngModel)]="selectedFormation"
+            (change)="applyFilters()"
+            style="padding: 0.5rem 1rem;">
+      <option value="">Toutes les formations</option>
+      <option *ngFor="let f of formations" [value]="f.id">{{ f.title }}</option>
+    </select>
+  </div>
 
-          <!-- Chapitre & Formation -->
-          <p class="fs-6 mb-3">
-            <i class="fas fa-layer-group me-1"></i> Chapitre : <strong class="text-dark">{{ quiz?.chapitre?.titre }}</strong><br>
-            <i class="fas fa-chalkboard-teacher me-1"></i> Formation : <strong class="text-dark">{{ quiz?.chapitre?.formation?.title }}</strong>
-          </p>
+  <!-- Chapitre -->
+  <div class="col-md-4 col-12">
+    <label for="chapitreFilter" class="form-label fw-bold text-dark">Filtrer par Chapitre</label>
+    <select id="chapitreFilter"
+            class="form-select shadow-sm rounded-3 border-1 border-secondary"
+            [(ngModel)]="selectedChapitre"
+            (change)="applyFilters()"
+            style="padding: 0.5rem 1rem;">
+      <option value="">Tous les chapitres</option>
+      <option *ngFor="let c of chapitres" [value]="c.id">{{ c.titre }}</option>
+    </select>
+  </div>
+</div>
 
-          <!-- Bouton -->
-          <div class="mt-auto d-flex justify-content-end">
-            <button class="btn btn-gradient text-white fw-bold" (click)="openDetails(quiz)">
-              <i class="fas fa-eye me-1"></i> Voir détails
-            </button>
+
+    <div class="row g-4">
+      <div *ngFor="let quiz of filteredQuizzesForCurrentPage()" class="col-md-6 col-lg-6">
+        <div class="card shadow border-0 h-100 rounded-4 quiz-card" style="border-top: 5px solid #be323d;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold fs-4">
+              <i class="fas fa-graduation-cap me-2 text-danger"></i> {{ quiz.titre }}
+            </h5>
+            <p class="fs-6 mb-3">
+              <i class="fas fa-layer-group me-1"></i> Chapitre : <strong class="text-dark">{{ quiz?.chapitre?.titre }}</strong><br>
+              <i class="fas fa-chalkboard-teacher me-1"></i> Formation : <strong class="text-dark">{{ quiz?.chapitre?.formation?.title }}</strong>
+            </p>
+            <div class="mt-auto d-flex justify-content-end">
+              <button class="btn btn-gradient text-white fw-bold" (click)="openDetails(quiz)">
+                <i class="fas fa-eye me-1"></i> Voir détails
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +108,7 @@
       <div class="modal-content rounded-4 shadow-lg">
 
         <!-- Header modal -->
-        <div class="modal-header rounded-top-4" style="background-color: #be323d; color: #fff;">
+        <div class="modal-header rounded-top-4" style="background: linear-gradient(to right, #be323d, #681b37); color: #fff;">
           <h4 class="modal-title fw-bold fs-3" id="quizDetailsModalLabel">
             <i class="fas fa-graduation-cap me-2"></i> {{ selectedQuiz?.titre }}
           </h4>
@@ -90,7 +117,7 @@
 
         <div class="modal-body fs-5">
           <!-- Infos quiz -->
-          <div class="alert alert-info rounded-3 shadow-sm fs-6 lh-lg">
+          <div class="alert alert-pink rounded-3 shadow-sm fs-6 lh-lg">
             <p class="mb-1"><i class="fas fa-layer-group me-2"></i> Chapitre : <strong>{{ selectedQuiz?.chapitre?.titre }}</strong></p>
             <p class="mb-0"><i class="fas fa-chalkboard-teacher me-2"></i> Formation : <strong>{{ selectedQuiz?.chapitre?.formation?.title }}</strong></p>
           </div>

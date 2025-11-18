@@ -19,3 +19,8 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255, 83, 105, 0.4);
 }
+.alert-pink {
+  background-color: #ffd8df; /* rose clair */
+  color: #000; /* texte noir, tu peux changer selon le contraste */
+  border-color: #ffb6c1; /* bordure légèrement plus foncée si tu veux */
+}

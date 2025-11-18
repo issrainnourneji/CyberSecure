@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ChapitreRepository extends JpaRepository<Chapitre, Long> {
     List<Chapitre> findByFormationId(Long formationId);
-
+    Chapitre findById(long id);
 }

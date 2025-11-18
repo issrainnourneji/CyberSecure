@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenService } from '../../services/services/token.service';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule, NgClass } from '@angular/common';
+import { FormationServiceService } from '../../services/services/Formation/formation-service.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup ;
   message: string | null = null;
   showPassword: boolean = false;
-
+categories : String[] = []
 
   constructor(
     private readonly apiService: TokenService,
+    private formationService : FormationServiceService,
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -29,7 +31,11 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
-
+ngOnInit() {
+  this.formationService.getCategories().subscribe(res => {
+    this.categories = res;
+  });
+}
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }

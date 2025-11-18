@@ -2,6 +2,7 @@ package com.example.CyberSecure.Controllers;
 
 import com.example.CyberSecure.Entities.Certification;
 import com.example.CyberSecure.Entities.User;
+import com.example.CyberSecure.Repositories.CertificationRepository;
 import com.example.CyberSecure.Repositories.UserRepository;
 import com.example.CyberSecure.Services.CertificationServiceImpl;
 
@@ -24,6 +25,7 @@ public class CertificationController {
 
     private final CertificationServiceImpl certificationService;
     private final UserRepository userRepository;
+    private final CertificationRepository certificationRepository;
 
     @PostMapping("/generate")
     public Certification generateCertification(@RequestParam Long userId, @RequestParam Long formationId) {
@@ -48,6 +50,44 @@ public class CertificationController {
         List<Certification> certifications = certificationService.getUserCertifications(user);
         return ResponseEntity.ok(certifications);
     }
+    @GetMapping("/count")
+    public Long getTotalCertifications() {
+        return certificationService.getTotalCertifications();
+    }
+    @GetMapping("/all")
+    public List<Certification> getAllCertifications() {
+        return certificationRepository.findAll();
+    }
 
+    @GetMapping("/user/{id}")
+    public List<Certification> getCertificationsByUser(@PathVariable Long id) {
+        return certificationService.getCertificationsByUserId(id);
+    }
+
+    @GetMapping("/user/{userId}/formation/{formationId}")
+    public List<Certification> getCertificationsByUserAndFormation(
+            @PathVariable Long userId,
+            @PathVariable Long formationId) {
+        return certificationRepository.findByUserIdAndFormationId(userId, formationId);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Certification> updateCertification(
+            @PathVariable Long id,
+            @RequestBody Certification updatedCert) {
+        try {
+            Certification cert = certificationService.updateCertification(id, updatedCert);
+            return ResponseEntity.ok(cert);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteCertification(@PathVariable Long id) {
+        Certification cert = certificationService.getCertificationById(id);
+        certificationRepository.delete(cert);
+        return ResponseEntity.noContent().build();
+    }
 
 }

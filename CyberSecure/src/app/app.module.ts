@@ -48,6 +48,12 @@ import { UserCertifComponent } from './clients/certificat/user-certif/user-certi
 import { AboutComponent } from './info/about/about.component';
 import { CourseComponent } from './info/course/course.component';
 import { ContactComponent } from './info/contact/contact.component';
+import { CertifListComponent } from './admin/certifications/certif-list/certif-list.component';
+import { AccueilComponent } from './MuntuCyberSecure/accueil/accueil.component';
+import { HeaderMuntuComponent } from './Components/header-muntu/header-muntu.component';
+import { ContactMuntuComponent } from './MuntuCyberSecure/contact-muntu/contact-muntu.component';
+import { RejoinMuntuComponent } from './MuntuCyberSecure/rejoin-muntu/rejoin-muntu.component';
+import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-muntu/presentation-muntu.component';
 
 
 @NgModule({
@@ -91,7 +97,13 @@ import { ContactComponent } from './info/contact/contact.component';
     UserCertifComponent,
     AboutComponent,
     CourseComponent,
-    ContactComponent
+    ContactComponent,
+    CertifListComponent,
+    AccueilComponent,
+    HeaderMuntuComponent,
+    ContactMuntuComponent,
+    RejoinMuntuComponent,
+    PresentationMuntuComponent
 
   ],
   imports: [

@@ -1,35 +1,37 @@
 <div class="modal" *ngIf="!hideModal">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content custom-delete-modal">
       <span
-        class="modal-close cssc-btn icn-close"
+        class="modal-close icn-close"
         (click)="close()">
+        <i class="fas fa-times"></i>
       </span>
+
       <div class="modal-header">
         <h1 class="modal-title">
-          {{ modalParams.title  }}
+          {{ modalParams.title }}
         </h1>
       </div>
+
       <div class="modal-body">
         <div class="form-delete">
-          <p class="form-delete-content">{{ modalParams.content  }}</p>
+          <p class="form-delete-content">{{ modalParams.content }}</p>
         </div>
       </div>
+
       <div class="modal-footer">
-        <div>
-          <button
-            class="btn btn-default"
-            type="button"
-            (click)="close()">
-            Annuler
-          </button>
-          <button
-            class="btn btn-valid"
-            type="button"
-            (click)="submit()">
-            Submit
-          </button>
-        </div>
+        <button
+          class="btn btn-cancel"
+          type="button"
+          (click)="close()">
+          Annuler
+        </button>
+        <button
+          class="btn btn-gradient"
+          type="button"
+          (click)="submit()">
+          Supprimer
+        </button>
       </div>
     </div>
   </div>

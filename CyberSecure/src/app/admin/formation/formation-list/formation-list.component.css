@@ -175,3 +175,112 @@ h3, h4, th {
   color: #fff;
   cursor: default;
 }
+/* Style global modal */
+.custom-modal {
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* Header avec dégradé */
+.modal-header-gradient {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+
+.modal-header-gradient .modal-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+}
+
+.btn-close {
+  filter: invert(1);
+  opacity: 0.9;
+}
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Formulaire */
+.modal-body .form-label {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.modal-body .form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.6rem;
+  transition: all 0.3s ease;
+}
+
+.modal-body .form-control:focus {
+  border-color: #be323d;
+  box-shadow: 0 0 5px rgba(190, 50, 61, 0.4);
+}
+
+/* Footer */
+.modal-footer {
+  border-top: none;
+  padding-top: 1.5rem;
+}
+
+/* Bouton Annuler */
+.btn-cancel {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #ddd;
+  transform: scale(1.03);
+}
+
+/* Bouton Ajouter (dégradé principal) */
+.btn-gradient {
+  background: linear-gradient(to right, #be323d, #681b37);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Animation d’apparition */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Modal confirmation au-dessus du modal liste */
+.modal.modal-confirmation {
+  z-index: 1200 !important; /* plus haut que 1050 du modal standard */
+}
+
+/* Backdrop du modal confirmation au-dessus du modal liste */
+.modal-backdrop.modal-confirmation-backdrop {
+  z-index: 1199 !important;
+}

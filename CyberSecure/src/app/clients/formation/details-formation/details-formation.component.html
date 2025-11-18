@@ -52,7 +52,6 @@
                     <nav class="course-single-tabs learn-press-nav-tabs">
                         <div class="nav nav-tabs course-nav" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home-tab" aria-selected="true">Overview</a>
-                            <a class="nav-item nav-link" id="nav-topics-tab" data-bs-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-topics-tab" aria-selected="false">Curriculam</a>
                             <a class="nav-item nav-link" id="nav-instructor-tab" data-bs-toggle="tab" href="#nav-instructor" role="tab" aria-controls="nav-instructor-tab" aria-selected="false">Students</a>
                             <a class="nav-item nav-link" id="nav-feedback-tab" data-bs-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-feedback-tab" aria-selected="false">Reviews</a>
                         </div>
@@ -76,79 +75,53 @@
 </div>
                         </div>
 
-                        <div class="tab-pane fade" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
-                            <div class="tutori-course-curriculum" >
-    <div class="curriculum-scrollable">
-        <ul class="curriculum-sections">
-            <li class="section">
-                <div class="section-header">
-                    <div class="section-left">
-                        <h5 class="section-title">Change simplification</h5>
-                    </div>
-                </div>
 
-                <ul class="section-content">
-                    <li class="course-item has-status course-item-lp_lesson">
-                      <a class="section-item-link" href="#">
-                        <span class="item-name">The importance of data nowsaday</span>
-                        <div class="course-item-meta">
-                          <span class="item-meta duration">10.30 min</span>
-                          <i class="item-meta course-item-status"></i>
-                        </div>
-                      </a>
-                    </li>
+<div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
+  <!-- Course instructor start -->
+  <div class="courses-instructor">
 
-                    <li class="course-item course-item-lp_assignment course-item-lp_lesson">
-                        <a class="section-item-link" href="#">
-                             <span class="item-name">Assignments</span>
-                             <div class="course-item-meta">
-
-                                 <span class="item-meta count-questions">14 questions</span>
-                                 <span class="item-meta duration">10.21 min</span><i class="fa item-meta course-item-status trans"></i>
-                             </div>
-                         </a>
-                     </li>
-                    <li class="course-item course-item-lp_quiz course-item-lp_lesson">
-                       <a class="section-item-link" href="#">
-                            <span class="item-name">Quiz 1</span>
-                            <div class="course-item-meta">
-
-                                <span class="item-meta count-questions">14 questions</span>
-                                <span class="item-meta duration">5.67 min</span><i class="fa item-meta course-item-status trans"></i>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <!-- Main ul end -->
-    </div>
-</div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
-                             <!-- Course instructor start -->
- <div class="courses-instructor">
-    <div class="single-instructor-box">
-        <div class="row align-items-center"*ngFor="let user of users ">
-            <div class="col-lg-4 col-md-4">
-                <div class="instructor-image" >
-                    <img src="../../../../assets/images/clients/user-profile-icon-vector-avatar-600nw-2220431045.webp" alt="" class="img-fluid">
-                </div>
+    <!-- Vérifier s'il y a des users -->
+    <div *ngIf="users && users.length > 0; else noUsers">
+      <div class="single-instructor-box" *ngFor="let user of users">
+        <div class="row align-items-center">
+          <div class="col-lg-4 col-md-4">
+            <div class="instructor-image">
+              <img src="../../../../assets/images/clients/user-profile-icon-vector-avatar-600nw-2220431045.webp" alt="" class="img-fluid">
             </div>
+          </div>
 
-            <div class="col-lg-8 col-md-8">
-                <div class="instructor-content">
-                    <h4><a href="#">{{user.name}}</a></h4>
-                    <span class="sub-title">Web Developer</span>
+          <div class="col-lg-8 col-md-8">
+            <div class="instructor-content">
+<h4>
+  <a href="#">{{user.name}}</a>
+  <span *ngIf="user.hasCertification" class="badge-container ms-2">
+    <img src="assets/images/téléchargement.jpg"
+         alt="Badge réussite"
+         class="badge-img"
+         style="width:22px;height:22px;">
+  </span>
+</h4>
 
-					<p>{{user.email}}</p>
-                </div>
+
+              <span class="sub-title">Web Developer</span>
+              <p>{{user.email}}</p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- Template pour aucun user -->
+    <ng-template #noUsers>
+      <p class="text-center" style="color: #495057; font-weight: 500;">
+        Aucun utilisateur inscrit à cette formation.
+      </p>
+    </ng-template>
+
+  </div>
+  <!-- Course instructor end -->
 </div>
-<!-- Conurse  instructor end -->
-                        </div>
+
                         <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
                             <div id="course-reviews">
     <ul class="course-reviews-list">
@@ -246,7 +219,7 @@
                 <li>
                 <div class="d-flex justify-content-between align-items-center">
                     <span><i class="far fa-globe"></i>Categories</span>
-                    Informatique
+                    {{formation.categorie}}
                 </div>
             </li>
         </ul>
@@ -268,20 +241,7 @@
         </div>
     </div>
 
-    <div class="course-latest" >
-    <h4 class="mb-4">Popular Courses</h4>
-    <ul class="recent-posts course-popular"*ngFor="let formation of formations">
-        <li>
-            <div class="widget-post-thumb">
-                <a><img [src]="'http://localhost:8080/files/' + formation.imageUrl" alt="" class="img-fluid"></a>
-            </div>
-            <div class="widget-post-body">
-                <h6> <a >{{formation.title}}</a></h6>
-                <h5 style="color: brown;">$ {{formation.price}}</h5>
-            </div>
-        </li>
-    </ul>
-</div>
+
 </div>
     <!-- Course Sidebar end -->
            </div>
@@ -291,6 +251,19 @@
 
 
 </section>
+
+<!-- Modal toast personnalisé -->
+<div *ngIf="modalVisible" class="custom-modal-backdrop">
+  <div class="custom-modal">
+    <div class="custom-modal-body">
+      {{ modalMessage }}
+    </div>
+    <div class="custom-modal-footer">
+      <button class="btn-ok" (click)="closeModal()">OK</button>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Footer section start -->

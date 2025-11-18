@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TokenService } from '../../services/services/token.service';
-import { Router } from '@angular/router';
 import { NotificationService } from '../../design/notification/notification.service';
 import { ModalDeleteConfirmationComponent } from '../../design/modal/modal-delete-confirmation.component';
 

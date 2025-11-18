@@ -4,7 +4,6 @@
 
 
 
-<app-header-user></app-header-user><!--====== Header End ======-->
 <section class="page-header">
     <div class="container">
       <div class="row justify-content-center">
@@ -21,150 +20,155 @@
     </div>
 </section>
     <!--course section start-->
-   <section class="section-padding page">
-   <div class="container mb-4">
-    <div class="slide-header d-flex justify-content-between align-items-center mb-3">
-      <h4 class=" mb-0 popular-courses-title">
-       {{ formation?.title }}
-      </h4>
-<div class="text-end mt-4" *ngIf="shouldShowCertificationButton()">
-  <button
-    (click)="obtenirCertification()"
-    class="btn-certification btn-gradient"
-  >
-    <i class="fas fa-graduation-cap me-2"></i>
-    Obtenir ma certification
-  </button>
-</div>
+<section class="section-padding page">
+  <div class="container mb-4">
+    <div class="slide-header row align-items-center justify-content-between mb-3">
+      <div class="col-12 col-md-6">
+        <h4 class="mb-0 popular-courses-title text-center text-md-start">
+          {{ formation?.title }}
+        </h4>
+      </div>
 
-
-
+      <div class="col-12 col-md-6 text-lg-end text-center mt-3 mt-md-0" *ngIf="shouldShowCertificationButton()">
+        <button
+          (click)="obtenirCertification()"
+          class="btn-certification btn-gradient px-4 py-2"
+        >
+          <i class="fas fa-graduation-cap me-2"></i>
+          Obtenir ma certification
+        </button>
+      </div>
     </div>
   </div>
+
   <!-- Top bar -->
-  <div class="course-top-wrap py-4 mb-4 bg-light shadow-sm rounded">
+  <div class="course-top-wrap py-3 mb-4 bg-light shadow-sm rounded">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-8">
+      <div class="row align-items-center gy-3">
+        <div class="col-lg-8 text-center text-lg-start">
           <p class="mb-0 text-muted">
-             Showing 1-6 of {{ filteredChapitres.length }} results
+            Showing 1–6 of {{ filteredChapitres.length }} results
           </p>
         </div>
 
-<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-  <div class="position-relative">
-<input
-  type="text"
-  [(ngModel)]="searchTerm"
-  (ngModelChange)="onSearchChange()"
-  placeholder="Rechercher un chapitre..."
-  class="form-control rounded-pill ps-4 shadow-sm border-0"
-  style="height: 42px;"
-/>
-
-    <i
-      class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 "
-      style="pointer-events: none;"
-    ></i>
-  </div>
-</div>
-
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="position-relative">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange()"
+              placeholder="Rechercher un chapitre..."
+              class="form-control rounded-pill ps-4 shadow-sm border-0"
+              style="height: 42px;"
+            />
+            <i
+              class="fa fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+              style="pointer-events: none;"
+            ></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Course list -->
-<div class="container">
-  <div class="row gy-4">
+  <div class="container">
+    <div class="row gy-3 justify-content-center">
+      <div
+        class="course-item col-12 col-md-10 col-lg-8"
+        *ngFor="let chapitre of filteredChapitres | paginate: { itemsPerPage: 6, currentPage: p }"
+      >
+        <div class="single-course d-flex flex-column flex-md-row align-items-center p-3 shadow-sm rounded bg-white hover-card">
+          <div class="me-md-4 mb-3 mb-md-0 text-center">
+            <img
+              class="course-thumb rounded shadow-sm"
+              [src]="'http://localhost:8080/files/' + formation?.imageUrl"
+              width="120"
+              height="90"
+              alt="Chapitre image"
+            />
+          </div>
 
-<div
-  class="course-item col-lg-12"
-  *ngFor="let chapitre of filteredChapitres | paginate: { itemsPerPage: 6, currentPage: p }; let chapitreIndex = index"
->
-  <div class="single-course d-flex align-items-center p-3 shadow-sm rounded bg-white hover-card">
-    <div class="me-4 flex-shrink-0">
-      <img
-        class="course-thumb rounded shadow-sm"
-        [src]="'http://localhost:8080/files/' + formation?.imageUrl"
-        width="100"
-        height="80"
-        alt="Chapitre image"
-      />
-    </div>
+          <div class="flex-grow-1 text-center text-md-start">
+            <h5 class="mb-1 fw-bold text-primary">
+              <a
+                href="javascript:void(0)"
+                (click)="showChapitre(chapitre, $event)"
+                [class.disabled-link]="!isChapterEnabled(chapitre)"
+                class="text-decoration-none"
+              >
+                {{ chapitre.titre }}
+              </a>
+            </h5>
 
-    <div class="flex-grow-1">
-<!-- Titre du chapitre -->
-<h5 class="mb-1 fw-bold text-primary">
-  <a
-    href="javascript:void(0)"
-    (click)="showChapitre(chapitre, $event)"
-    [class.disabled-link]="!isChapterEnabled(chapitre)"
-    class="text-decoration-none"
-  >
-    {{ chapitre.titre }}
-  </a>
-</h5>
+            <div class="course-meta text-muted small d-flex flex-wrap justify-content-center justify-content-md-start gap-2 mt-1">
+              <span class="students-count" *ngIf="studentsCount[formation.id] !== undefined">
+                <i class="far fa-user-alt me-1"></i>
+                {{ studentsCount[formation.id] }} étudiants inscrits
+              </span>
 
+              <!-- <span class="slides-count" *ngIf="slideCounts[chapitre.id] !== undefined">
+                <i class="far fa-file-alt me-1 text-primary"></i>
+                {{ slideCounts[chapitre.id] }} slides
+              </span> -->
 
+              <span class="chapter-status" *ngIf="quizResultsMap[chapitre.id]">
+                <i
+                  class="me-1"
+                  [ngClass]="quizResultsMap[chapitre.id].success ? 'fas fa-check-circle text-primary' : 'fas fa-times-circle text-danger'"
+                ></i>
+                {{ quizResultsMap[chapitre.id].success ? 'Réussi' : 'Échec' }}
+                <span class="text-muted">({{ quizResultsMap[chapitre.id].score }}%)</span>
+              </span>
 
+              <span class="chapter-status" *ngIf="!quizResultsMap[chapitre.id] && isChapterEnabled(chapitre)">
+                <i class="far fa-clock text-primary me-1"></i> En cours
+              </span>
 
-<div class="course-meta text-muted small d-flex align-items-center gap-3">
-  <!-- Nombre d'étudiants -->
-  <span class="students-count" *ngIf="studentsCount[formation.id] !== undefined">
-    <i class="far fa-user-alt me-1"></i>
-    {{ studentsCount[formation.id] }} étudiants
-  </span>
+              <span class="chapter-status text-secondary" *ngIf="!isChapterEnabled(chapitre)">
+                <i class="far fa-lock me-1"></i> Bloqué
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <!-- Nombre de slides -->
-  <span class="slides-count" *ngIf="slideCounts[chapitre.id] !== undefined">
-    <i class="far fa-file-alt me-1 text-primary"></i>
-    {{ slideCounts[chapitre.id] }} slides
-  </span>
-
-  <!-- État du chapitre -->
-  <span class="chapter-status ms-2" *ngIf="quizResultsMap[chapitre.id]">
-    <i
-    class="me-1"
-    [ngClass]="quizResultsMap[chapitre.id].success ? 'fas fa-check-circle text-primary' : 'fas fa-times-circle text-danger'"
-  ></i>
-  {{ quizResultsMap[chapitre.id].success ? 'Réussi' : 'Échec' }}
-    <span class="text-muted">({{ quizResultsMap[chapitre.id].score }}%)</span>
-  </span>
-
-<span class="chapter-status ms-2" *ngIf="!quizResultsMap[chapitre.id] && isChapterEnabled(chapitre)">
-  <i class="far fa-clock text-primary me-1"></i> En cours
-</span>
-
-<!-- Chapitre désactivé -->
-<span class="chapter-status ms-2 text-secondary" *ngIf="!isChapterEnabled(chapitre)">
-  <i class="far fa-lock me-1"></i> Bloqué
-</span>
-
-</div>
-    </div>
-  </div>
-</div>
-
-
-
-    <!-- Aucun résultat trouvé -->
-    <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
-      <i class="fa fa-search fa-2x text-muted mb-2"></i>
-      <p class="text-muted">Aucun chapitre trouvé.</p>
+      <!-- Aucun résultat -->
+      <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
+        <i class="fa fa-search fa-2x text-muted mb-2"></i>
+        <p class="text-muted">Aucun chapitre trouvé.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="d-flex justify-content-center mt-4">
-  <pagination-controls
-    (pageChange)="p = $event"
-    previousLabel="‹"
-    nextLabel="›"
-    [maxSize]="5"
-    class="custom-pagination"
-  >
-  </pagination-controls>
-</div>
+<nav class="blog-page-navigation d-flex justify-content-center mt-4" *ngIf="filteredChapitres.length > 0">
+  <ul class="pagination">
+
+    <!-- Précédent -->
+    <li class="pagination-arrow" [class.disabled]="p === 1">
+      <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
+        <i class="fa fa-angle-double-left"></i>
+      </a>
+    </li>
+
+    <!-- Pages dynamiques -->
+    <li *ngFor="let page of getVisiblePages()">
+      <a href="javascript:void(0)"
+         [class.active]="p === page"
+         (click)="p = page">
+        {{ page }}
+      </a>
+    </li>
+
+    <!-- Suivant -->
+    <li class="pagination-arrow" [class.disabled]="p === totalPages">
+      <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </li>
+
+  </ul>
+</nav>
 
 
 </section>
@@ -172,9 +176,6 @@
     <!--course section end-->
 
 
-<!-- Footer section start -->
-<app-footer></app-footer>
-<!-- Footer section End -->
 
 
 

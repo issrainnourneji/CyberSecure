@@ -2,6 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TokenService } from '../../services/services/token.service';
 import { Router } from '@angular/router';
+import { CertificationService } from '../../services/services/certificat/certification.service';
 declare var bootstrap: any;
 
 @Component({
@@ -10,7 +11,9 @@ declare var bootstrap: any;
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  constructor(private readonly apiService: TokenService, private router: Router,private elementRef: ElementRef) { }
+  constructor(private readonly apiService: TokenService, private router: Router,private elementRef: ElementRef,
+    private certificationService : CertificationService
+  ) { }
 
   isAdmin: boolean = false;
   isClient: boolean = false;
@@ -19,7 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   error: any = null;
   isEditing: boolean = false;
   editForm: any = {};
-
+ hasCertification: boolean = false;
   private authStatusSub: Subscription | null = null;
 
 
@@ -37,10 +40,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.isClient = this.apiService.isClient();
 
     })
-        this.fetchUserInfo();
+         this.fetchUserInfo();
+    this.checkUserCertification();
   }
 
-fetchUserInfo(): void {
+  fetchUserInfo(): void {
     this.apiService.getLoggedInUserInfo().subscribe({
       next: (response) => {
         this.userInfo = response.user;
@@ -52,6 +56,18 @@ fetchUserInfo(): void {
       }
     });
   }
+
+  checkUserCertification(): void {
+    this.certificationService.getMyCertifications().subscribe({
+      next: (certifs) => {
+        this.hasCertification = certifs && certifs.length > 0;
+      },
+      error: (err) => {
+        console.error("Erreur récupération certifications :", err);
+      }
+    });
+  }
+
 
   editProfile(): void {
     this.isEditing = true;

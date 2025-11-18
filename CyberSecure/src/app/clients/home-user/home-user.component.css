@@ -143,3 +143,13 @@
   transform: scale(1.05);
   opacity: 0.9;
 }
+.features.section-padding-btm {
+  padding-bottom: 0; /* supprime l'espace en bas de la première section */
+}
+
+.work-process.section-padding {
+  padding-top: 0; /* supprime l'espace en haut de la deuxième section */
+}
+.counter-section-2 {
+  margin-bottom: 70px; /* ajoute 30px sous la section */
+}

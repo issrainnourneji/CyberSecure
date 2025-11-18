@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,12 @@ import { Observable } from 'rxjs';
 export class CartService {
   private apiUrl = 'http://localhost:8080/cart';
 
-  constructor(private http: HttpClient) { }
+    private cartCountSubject = new BehaviorSubject<number>(0);
+  cartCount$ = this.cartCountSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+     this.loadCartCount();
+   }
 
   private getAuthHeaders() {
     return new HttpHeaders({
@@ -17,20 +22,31 @@ export class CartService {
   }
 
 addToCart(formationId: number): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
-  });
-  return this.http.post(`${this.apiUrl}/add/${formationId}`, {}, {headers});
-}
+    return this.http.post(`${this.apiUrl}/add/${formationId}`, {}, { headers: this.getAuthHeaders() })
+      .pipe(
+        tap(() => this.loadCartCount()) // met à jour le compteur après ajout
+      );
+  }
+
   getMyCart(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/me`, { headers: this.getAuthHeaders() });
   }
 
   removeFromCart(formationId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/remove/${formationId}`, { headers: this.getAuthHeaders() });
+    return this.http.delete(`${this.apiUrl}/remove/${formationId}`, { headers: this.getAuthHeaders() })
+      .pipe(
+        tap(() => this.loadCartCount()) // met à jour le compteur après suppression
+      );
   }
+
+
   getNumberOfStudents(formationId: number): Observable<number> {
   return this.http.get<number>(`http://localhost:8080/cart/formation/${formationId}/students/count`);
 }
-
+loadCartCount() {
+    this.getMyCart().subscribe({
+      next: (data) => this.cartCountSubject.next(data.length),
+      error: (err) => console.error('Impossible de charger le compteur du panier', err)
+    });
+  }
 }

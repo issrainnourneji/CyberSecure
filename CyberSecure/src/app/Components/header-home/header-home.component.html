@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center justify-content-between">
         <!-- Logo -->
         <div class="site-logo">
-          <a href="index.html">
+          <a href="home">
             <img src="../../../assets/images/logo.png" alt="logo">
           </a>
         </div>
@@ -19,33 +19,30 @@
         <!-- Menu principal (desktop) -->
         <nav class="site-navbar ms-auto d-none d-lg-block">
           <ul class="primary-menu d-flex align-items-center mb-0">
-            <li class="current"><a class="contact-link" href="index.html">Home</a></li>
+            <li class="current"><a class="contact-link" href="home">Home</a></li>
             <li class="separator">|</li>
             <li><a class="contact-link" routerLink="/about">About</a></li>
             <li class="separator">|</li>
             <li><a class="contact-link" routerLink="/courses">Courses</a></li>
             <li class="separator">|</li>
 
-            <li class="has-submenu">
-              <a class="contact-link1 contact-link" href="#">Categories</a>
-              <ul class="submenu">
-                <li>
-                  <a class="contact-link" href="#">Design</a>
-                  <ul class="submenu">
-                    <li><a class="contact-link" href="#">Design Tools</a></li>
-                    <li><a class="contact-link" href="#">Photoshop mastering</a></li>
-                    <li><a class="contact-link" href="#">Adobe Xd Design</a></li>
-                  </ul>
-                </li>
-                <li><a class="contact-link" href="#">Development</a></li>
-                <li><a class="contact-link" href="#">Marketing</a></li>
-                <li><a class="contact-link" href="#">Freelancing</a></li>
-              </ul>
-            </li>
+<li class="has-submenu">
+  <a class="contact-link1 contact-link" href="#">Categories</a>
+  <ul class="submenu">
+
+<li *ngFor="let cat of categories">
+  <a class="contact-link" [routerLink]="['/courses', cat]">
+    {{ cat }}
+  </a>
+</li>
+
+
+  </ul>
+</li>
             <li class="separator">|</li>
 
             <li>
-              <a class="contact-link" href="#">Pages</a>
+              <a class="contact-link" href="login">Pages</a>
               <ul class="submenu">
                 <li><a class="contact-link" href="login">Login</a></li>
                 <li><a class="contact-link" href="register">Register</a></li>
@@ -53,6 +50,8 @@
             </li>
             <li class="separator">|</li>
             <li><a class="contact-link" routerLink="/contact">Contact</a></li>
+                        <li class="separator">|</li>
+                        <li><a class="contact-link" routerLink="/accueil">Muntu</a></li>
 
             <div class="header-btn text-center text-lg-end">
               <button class="login-text mb-0" (click)="login()">
@@ -80,33 +79,25 @@
       <li><a routerLink="/courses" class="contact-link d-block py-2">Courses</a></li>
 
       <!-- Sous-menu principal -->
-      <li class="has-submenu">
-        <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
-        <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
-          Categories <i class="fal fa-chevron-down float-end"></i>
-        </label>
+<!-- Sous-menu Categories mobile -->
+<li class="has-submenu">
+  <input type="checkbox" id="cat-toggle" class="submenu-checkbox">
+  <label for="cat-toggle" class="contact-link d-block py-2 submenu-label">
+    Categories <i class="fal fa-chevron-down float-end"></i>
+  </label>
 
-        <ul class="submenu list-unstyled ps-3">
+  <ul class="submenu list-unstyled ps-3">
 
-          <!-- Sous-sous-menu Design -->
-          <li class="has-submenu">
-            <input type="checkbox" id="design-toggle" class="submenu-checkbox">
-            <label for="design-toggle" class="contact-link d-block py-2 submenu-label">
-              Design <i class="fal fa-chevron-down float-end"></i>
-            </label>
+<li *ngFor="let cat of categories">
+  <a class="contact-link d-block py-2" [routerLink]="['/courses', cat]">
+    {{ cat }}
+  </a>
+</li>
 
-            <ul class="submenu list-unstyled ps-3">
-              <li><a href="#" class="contact-link d-block py-2">Design Tools</a></li>
-              <li><a href="#" class="contact-link d-block py-2">Photoshop Mastering</a></li>
-              <li><a href="#" class="contact-link d-block py-2">Adobe Xd Design</a></li>
-            </ul>
-          </li>
 
-          <li><a href="#" class="contact-link d-block py-2">Development</a></li>
-          <li><a href="#" class="contact-link d-block py-2">Marketing</a></li>
-          <li><a href="#" class="contact-link d-block py-2">Freelancing</a></li>
-        </ul>
-      </li>
+  </ul>
+</li>
+
 
       <!-- Sous-menu Pages -->
       <li class="has-submenu">

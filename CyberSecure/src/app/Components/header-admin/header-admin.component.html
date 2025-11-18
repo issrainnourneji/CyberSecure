@@ -42,9 +42,6 @@
 
             <div class="float-end d-none d-lg-block">
               <div class="header-info d-flex align-items-center">
-                <div class="header-search header_search_btn me-3">
-                  <a href="#"><i class="fa fa-search"></i></a>
-                </div>
                 <div class="header-user ms-3">
                   <a href="/mainAdmin/profile"><i class="fa fa-user"></i></a>
                 </div>
@@ -62,21 +59,29 @@
     </div>
 
     <!-- Logout Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="logoutModalLabel"><i class="fa fa-sign-out-alt me-2"></i>Confirm Logout</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">Are you sure you want to log out?</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" (click)="confirmLogout()">Logout</button>
-          </div>
-        </div>
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-modal">
+
+      <div class="modal-header logout-header">
+        <h5 class="modal-title" id="logoutModalLabel">
+          <i class="fa fa-sign-out-alt me-2"></i>Confirm Logout
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <p class="logout-text">Are you sure you want to log out?</p>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-gradient" (click)="confirmLogout()">Logout</button>
       </div>
     </div>
+  </div>
+</div>
+
 
     <!-- Navbar Desktop -->
     <div class="header-navbar menu-center style-1">
@@ -88,6 +93,7 @@
             <li><a class="contact-link" href="mainAdmin/formationList">Courses</a></li>
             <li><a class="contact-link" href="mainAdmin/slideList">Chapters</a></li>
             <li><a class="contact-link" href="mainAdmin/quizList">Quizzes</a></li>
+            <li><a class="contact-link" href="mainAdmin/allCertifications">Certifications</a></li>
             <li><a class="contact-link" href="mainAdmin/rdvList">Appointments</a></li>
           </ul>
           <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
@@ -115,25 +121,14 @@
       <li><a class="contact-link d-block py-2" href="mainAdmin/rdvList">Appointments</a></li>
     </ul>
 
-        <div class="d-flex justify-content-end mb-3">
-      <a href="#" class="me-3"><i class="fa fa-search"></i></a>
-      <a href="/mainAdmin/profile" class="me-3"><i class="fa fa-user"></i></a>
-      <a *ngIf="isAuthenticated" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-        <i class="fa fa-sign-out-alt"></i>
-      </a>
-    </div>
+<div class="d-flex justify-content-end mb-3">
+  <a href="/mainAdmin/profile" class="me-3 custom-icon"><i class="fa fa-user"></i></a>
+  <a *ngIf="isAuthenticated" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" class="custom-icon">
+    <i class="fa fa-sign-out-alt"></i>
+  </a>
+</div>
+
   </div>
 </div>
 
-<!--====== Header End ======-->
-
-<div class="page_search_box">
-    <div class="search_close">
-        <i class="fa fa-times"></i>
-    </div>
-    <form class="border-bottom" action="#">
-        <input class="border-0" placeholder="Search Courses..." type="text">
-        <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-</div>
 

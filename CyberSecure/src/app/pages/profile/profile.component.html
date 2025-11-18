@@ -50,7 +50,12 @@
   </div>
 
   <div class="profile-body text-center mt-5">
-    <h2 class="user-name fw-bold">Welcome {{ userInfo?.name }}</h2>
+<h2 class="user-name fw-bold">
+  Welcome {{ userInfo?.name }}
+  <span *ngIf="hasCertification" class="badge-container ms-2">
+    <img src="../../../assets/images/téléchargement.jpg" alt="Badge réussite" class="badge-img" style="width:24px;height:24px;">
+  </span>
+</h2>
     <p class="user-role text-muted">{{ userInfo?.role }}</p>
 
     <div *ngIf="!isEditing; else editFormSection" class="profile-info mt-4">
@@ -123,27 +128,26 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="background-color: #f7f6f7; border-radius: 6px; border: 1px solid #e0dede;">
-      <div class="modal-header" style="background-color: #e0dede; border-bottom: 1px solid #e0dede;">
-        <h5 class="modal-title text-black fw-bold" id="successModalLabel">Profile Updated</h5>
+    <div class="modal-content custom-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Profile Updated</h5>
         <button
           type="button"
-          class="btn-close btn-close-white"
+          class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
 
-      <div class="modal-body text-center py-4">
-        <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #e0dede;"></i>
-        <p class="mt-3 mb-0" style="font-size: 1rem; color: #333;">Your profile has been updated successfully!</p>
+      <div class="modal-body text-center">
+        <i class="bi bi-check-circle-fill success-icon"></i>
+        <p>Your profile has been updated successfully!</p>
       </div>
 
-      <div class="modal-footer justify-content-center border-top-0 pb-4">
+      <div class="modal-footer">
         <button
           type="button"
-          class="button alt wc-forward"
-          style="padding: 0.5rem 2rem;"
+          class="btn-gradient"
           data-bs-dismiss="modal"
         >
           OK
@@ -152,6 +156,7 @@
     </div>
   </div>
 </div>
+
 
 
     <!--shop category end-->

@@ -27,13 +27,17 @@ public class CertificationServiceImpl{
         if (!existing.isEmpty()) {
             return existing.get(0);
         }
-
+        User user = userService.findById(userId);
+        Formation formation = formationService.findById(formationId);
         Certification cert = new Certification();
-        cert.setUser(userService.findById(userId));
-        cert.setFormation(formationService.findById(formationId));
+        cert.setUser(user);
+        cert.setFormation(formation);
         cert.setDateObtained(LocalDateTime.now());
         cert.setCertificateNumber(UUID.randomUUID().toString());
         cert.setStatus("VALID");
+
+        cert.setUserName(user.getName());
+        cert.setUserAddress(user.getAddress());
 
         return certificationRepository.save(cert);
     }
@@ -52,4 +56,28 @@ public class CertificationServiceImpl{
     public List<Certification> getUserCertifications(User user) {
         return certificationRepository.findByUser(user);
     }
+
+    public Long getTotalCertifications() {
+        return certificationRepository.countAllCertifications();
+    }
+    public List<Certification> getCertificationsByUserId(Long userId) {
+        return certificationRepository.findByUserId(userId);
+    }
+
+    public Certification updateCertification(Long id, Certification updatedCert) {
+        Certification cert = certificationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Certification not found"));
+
+        // Mettre à jour les champs nécessaires
+        if (updatedCert.getUserName() != null) cert.setUserName(updatedCert.getUserName());
+        if (updatedCert.getUserAddress() != null) cert.setUserAddress(updatedCert.getUserAddress());
+        if (updatedCert.getStatus() != null) cert.setStatus(updatedCert.getStatus());
+
+        // Optionnel : mettre à jour la formation ou l'utilisateur si nécessaire
+        // cert.setFormation(updatedCert.getFormation());
+        // cert.setUser(updatedCert.getUser());
+
+        return certificationRepository.save(cert);
+    }
+
 }

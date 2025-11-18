@@ -31,6 +31,11 @@ import { UserCertifComponent } from './clients/certificat/user-certif/user-certi
 import { AboutComponent } from './info/about/about.component';
 import { CourseComponent } from './info/course/course.component';
 import { ContactComponent } from './info/contact/contact.component';
+import { CertifListComponent } from './admin/certifications/certif-list/certif-list.component';
+import { AccueilComponent } from './MuntuCyberSecure/accueil/accueil.component';
+import { ContactMuntuComponent } from './MuntuCyberSecure/contact-muntu/contact-muntu.component';
+import { RejoinMuntuComponent } from './MuntuCyberSecure/rejoin-muntu/rejoin-muntu.component';
+import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-muntu/presentation-muntu.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -44,6 +49,7 @@ const routes: Routes = [
     // infos
     {path: 'about', component: AboutComponent},
     {path: 'courses', component: CourseComponent},
+    {path: 'courses/:cat', component: CourseComponent },
     {path: 'contact', component: ContactComponent},
 
 
@@ -56,14 +62,12 @@ const routes: Routes = [
     {path: "allQuiz", component: AllquizComponent , canActivate:[clientGuard] },
     {path: 'allCertif', component: UserCertifComponent ,  canActivate : [clientGuard] },
     {path: "panier", component: CartComponent,  canActivate : [clientGuard] },
-
-    ]
+    {path: 'certification/:id', component: CertificationComponent ,  canActivate : [clientGuard] },
+    {path: "chapterList/:id" , component:ListChapitreComponent ,  canActivate : [clientGuard]},
+    {path: "chapitre/:id/slides", component: ChapterDetailsComponent ,  canActivate : [clientGuard]},
+    {path: "quiz/:chapitreId" , component:QuizComponent,  canActivate : [clientGuard] },
+  ]
   },
-  {path: "chapterList/:id" , component:ListChapitreComponent ,  canActivate : [clientGuard]},
-  {path: "chapitre/:id/slides", component: ChapterDetailsComponent ,  canActivate : [clientGuard]},
-  {path: "quiz/:chapitreId" , component:QuizComponent,  canActivate : [clientGuard] },
-  {path: 'certification/:id', component: CertificationComponent ,  canActivate : [clientGuard] },
-
 
 //  Admin paths
      {path: "mainAdmin" , component:MainAdminComponent ,canActivate: [adminGuard], children : [
@@ -73,12 +77,19 @@ const routes: Routes = [
      {path: 'formationList', component: FormationListComponent,canActivate: [adminGuard]},
      {path: 'rdvList', component: RdvListComponent, canActivate:[adminGuard] },
      {path: "slideList", component: ListSlidesComponent , canActivate:[adminGuard] },
-     {path: "quizList", component: QuizListComponent , canActivate:[adminGuard] }
-
+     {path: "quizList", component: QuizListComponent , canActivate:[adminGuard] },
+     {path: "allCertifications", component: CertifListComponent , canActivate:[adminGuard] }
     ]},
 // Visitor paths
     {path: "formationDetails/:id" , component:DetailsFormationComponent},
-    {path: "slidehtml" , component:SlidehtmlComponent},
+
+//Muntu CyberSecure paths
+
+{path: "accueil" , component : AccueilComponent},
+{path: "contactMuntu" , component : ContactMuntuComponent},
+{path: "joindrenous" , component : RejoinMuntuComponent},
+{path: "presentationMuntu" , component : PresentationMuntuComponent},
+
 
 
 

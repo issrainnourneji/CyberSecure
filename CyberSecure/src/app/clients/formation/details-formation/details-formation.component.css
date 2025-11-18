@@ -34,3 +34,45 @@
     font-size: 14px;
   }
 }
+
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.custom-modal {
+  background: linear-gradient(90deg, #be323d, #912943);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.custom-modal-body {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.btn-ok {
+  background-color: white;
+  color: #912943;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-ok:hover {
+  background-color: #f0f0f0;
+}

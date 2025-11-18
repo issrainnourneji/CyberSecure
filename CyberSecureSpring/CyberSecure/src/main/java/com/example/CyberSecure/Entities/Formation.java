@@ -26,7 +26,7 @@ public class Formation {
     private String imageUrl;
     private double price;
     private double duration;
-    private int numberOfStudents;
+    private String categorie;
 
     @OneToMany(mappedBy = "formation", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("id ASC")
@@ -34,13 +34,13 @@ public class Formation {
     private List<Chapitre> chapitres;
 
 
-    public Formation(String title, String description, String imageUrl, double price, double duration, int numberOfStudents) {
+    public Formation(String title, String description, String imageUrl, double price, double duration, String categorie) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
         this.duration = duration;
-        this.numberOfStudents = numberOfStudents;
+        this.categorie = categorie;
 
     }
 
