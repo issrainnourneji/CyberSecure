@@ -13,7 +13,6 @@
 
       <!-- Search Bar -->
 
-      <!-- Menu Burger (mobile) -->
                 <div class="offcanvas-icon d-block d-lg-none">
           <a href="#" class="nav-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu2">
             <i class="fal fa-bars"></i>
@@ -43,10 +42,8 @@
         <a href="#" class="nav-close"><i class="fal fa-times"></i></a>
       </nav>
 
-      <!-- Boutons -->
       <div class="d-flex align-items-center">
 
-        <!-- Panier -->
         <div class="header-btn ms-3 d-none d-lg-block position-relative">
           <a routerLink="/mainUser/panier" class="btn btn-sm-2 rounded">
             <i class="fal fa-shopping-cart"></i> Panier
@@ -56,14 +53,12 @@
           </a>
         </div>
 
-        <!-- Account -->
         <div class="header-btn ms-3 d-none d-lg-block">
           <a routerLink="/mainUser/profile" class="btn btn-sm-2 rounded">
             <i class="fal fa-user me-2"></i>Account
           </a>
         </div>
 
-        <!-- Logout -->
         <div class="header-btn ms-3 d-none d-lg-block">
           <a href="" class="btn btn-grey-outline btn-sm-2 rounded"
              *ngIf="isAuthenticated"

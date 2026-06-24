@@ -20,7 +20,6 @@ export class NotificationComponent implements OnInit {
       if (notif) {
         this.notifications.push(notif);
 
-        // Supprimer la notification après 5 secondes
         setTimeout(() => {
           this.removeAlert(notif);
         }, 3000);
@@ -32,7 +31,7 @@ export class NotificationComponent implements OnInit {
     notif.attr = 'hidden'; // Ajouter une classe CSS pour la transition
     setTimeout(() => {
       this.notifications = this.notifications.filter((x) => x !== notif);
-    }, 500); // Correspond au temps de la transition CSS
+    }, 500); 
   }
   iconClass(notification: Notification): string {
     switch (notification.type) {

@@ -23,7 +23,6 @@ export class ChapterDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.chapitreId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // Charger les slides pour ce chapitre
     this.slideService.getSlides(this.chapitreId).subscribe({
       next: (data) => {
         this.slides = data;

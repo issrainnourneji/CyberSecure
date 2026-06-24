@@ -33,7 +33,7 @@ viewRdv: any = null;
 
   editRdv: any = {};
   selectedRdvId: number | null = null;
-p: number = 1; // page actuelle
+p: number = 1;
 pageSize: number = 6;
 calendarOptions: CalendarOptions = {
   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -63,9 +63,9 @@ events: this.appointments.map(rdv => ({
     const rdv = this.appointments.find(a => a.id.toString() === info.event.id);
     if (rdv) {
       if (rdv.status === 'CONFIRMED') {
-        this.openViewModal(rdv);  // Modal de consultation
+        this.openViewModal(rdv);
       } else if (rdv.status === 'PENDING') {
-        this.openEditModal(rdv);  // Modal de modification
+        this.openEditModal(rdv);
       }
     }
   },
@@ -97,7 +97,7 @@ scheduleReminders() {
 
   this.appointments.forEach(rdv => {
     const rdvTime = new Date(rdv.rdvdate).getTime();
-    const reminderTime = rdvTime - 2 * 60 * 60 * 1000; // 2h avant en ms
+    const reminderTime = rdvTime - 2 * 60 * 60 * 1000;
 
     if (reminderTime > now) {
       const delay = reminderTime - now;
@@ -158,25 +158,20 @@ validateForm(): boolean {
   }
 
   confirmAddAppointment(): void {
-  // Vérification du formulaire complet
   if (!this.validateForm()) {
     return;
   }
 
-  // Vérifier que la date est dans le futur
   if (!this.rendezv.RDVDate || new Date(this.rendezv.RDVDate) <= new Date()) {
-    // Afficher une alerte stylée
     alert('La date du rendez-vous doit être dans le futur !');
     return;
   }
 
-  // Appel au service pour ajouter le RDV
   this.rdvService.addRdv(this.rendezv).subscribe({
     next: (response) => {
       console.log('Rendez-vous ajouté avec succès :', response);
 
-      // Fermer le modal proprement
-      const modalElement = document.getElementById('addAppointmentModal'); // attention à l'ID correct
+      const modalElement = document.getElementById('addAppointmentModal');
       if (modalElement) {
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         if (modalInstance) {
@@ -184,11 +179,9 @@ validateForm(): boolean {
         }
       }
 
-      // Rafraîchir ou mettre à jour la liste
       window.location.reload();
     },
     error: (err) => {
-      // Alerte d'erreur stylée
       alert('Erreur lors de la création : ' + (err.error?.error || err.message));
     },
   });
@@ -196,7 +189,7 @@ validateForm(): boolean {
 
 
 openEditModal(rdv: any) {
-  if (rdv.status !== 'PENDING') return;  // sécurité, seulement pour PENDING
+  if (rdv.status !== 'PENDING') return;
 
   this.selectedRdvId = rdv.id;
   this.editRdv = {
@@ -211,16 +204,15 @@ openEditModal(rdv: any) {
 
 
 
-  // Format ISO string en format datetime-local (ex: '2025-08-12T14:30')
   formatDateForInput(dateStr: string) {
     const date = new Date(dateStr);
     return date.toISOString().slice(0,16);
   }
 isPastDate(dateString: string): boolean {
-  if (!dateString) return false; // pas de date => pas d'erreur
+  if (!dateString) return false;
   const selectedDate = new Date(dateString);
   const now = new Date();
-  return selectedDate <= now; // true si date passée
+  return selectedDate <= now;
 }
 submitEdit() {
   if (!this.selectedRdvId) return;
@@ -233,18 +225,14 @@ submitEdit() {
 
   this.rdvService.updateRDV(this.selectedRdvId, payload).subscribe({
     next: updatedRdv => {
-      // Mise à jour locale
       const index = this.appointments.findIndex(a => a.id === this.selectedRdvId);
       if (index > -1) this.appointments[index] = updatedRdv;
 
-      // Mettre à jour le calendrier
       if (this.calendarComponent?.getApi) {
         const calendarApi = this.calendarComponent.getApi();
-        // Retirer l’ancien événement
         const oldEvent = calendarApi.getEventById(updatedRdv.id.toString());
         if (oldEvent) oldEvent.remove();
 
-        // Ajouter l’événement mis à jour
         calendarApi.addEvent({
           id: updatedRdv.id.toString(),
           title: updatedRdv.rdvtype,
@@ -255,7 +243,6 @@ submitEdit() {
         });
       }
 
-      // Fermer modal Bootstrap
       const modalEl = document.getElementById('editAppointmentModal')!;
       const modal = bootstrap.Modal.getInstance(modalEl);
       modal?.hide();
@@ -288,7 +275,6 @@ submitEdit() {
       next: () => {
         this.appointments = this.appointments.filter(r => r.id !== this.selectedRdvId);
 
-        // Fermer le modal
         const modalEl = document.getElementById('editAppointmentModal')!;
         const modal = bootstrap.Modal.getInstance(modalEl);
         modal?.hide();
@@ -304,7 +290,6 @@ get totalPages(): number {
   return Math.ceil(this.appointments.length / this.pageSize);
 }
 
-// Fonction pour limiter les pages affichées à 3 autour de la page actuelle
 getVisiblePages(): number[] {
   const pages: number[] = [];
   let start = Math.max(1, this.p - 1);
@@ -313,7 +298,6 @@ getVisiblePages(): number[] {
   return pages;
 }
 
-// Renvoie les rendez-vous pour la page actuelle
 paginatedAppointments(): any[] {
   const start = (this.p - 1) * this.pageSize;
   return this.appointments.slice(start, start + this.pageSize);

@@ -35,10 +35,9 @@
 }
 
 
-/* Typographie et textes */
 body, .woocommerce {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #193152; /* bleu foncé sobre pour texte */
+  color: #193152;
 }
 
 h3, h4, th {
@@ -46,7 +45,6 @@ h3, h4, th {
   color: #193152;
 }
 
-/* Boutons principaux */
 .btn {
   border-radius: 6px;
   font-weight: 500;
@@ -57,7 +55,6 @@ h3, h4, th {
   padding: 6px 12px;
 }
 
-/* Couleurs boutons */
 .btn-primary, .btn-sm.text-white[style*="#FF5369"] {
   background-color: #be323d;
   color: #fff;
@@ -67,7 +64,6 @@ h3, h4, th {
   background-color: #be323d;
 }
 
-/* Tableaux */
 .table {
   border-radius: 6px;
   overflow: hidden;
@@ -80,24 +76,21 @@ h3, h4, th {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f8f9fa; /* gris clair pour lignes impaires */
+  background-color: #f8f9fa;
 }
 
-/* Text truncation pour lisibilité */
 .text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Modals */
 .modal-content {
   border-radius: 8px;
   font-size: 0.95rem;
   color: #193152;
 }
 
-/* Sélecteurs filtres */
 .modern-select {
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -112,7 +105,6 @@ h3, h4, th {
   box-shadow: 0 0 0 2px rgba(255, 83, 105, 0.25);
 }
 
-/* Pagination */
 .blog-page-navigation .pagination {
   margin: 20px 0;
   padding: 0;
@@ -162,8 +154,8 @@ h3, h4, th {
   display: inline-block;
   padding: 0.4rem 0.8rem;
   border-radius: 12px;
-  background: #f4f6f9; /* gris clair doux */
-  color: #193152; /* bleu foncé sobre */
+  background: #f4f6f9;
+  color: #193152;
   font-weight: 500;
   font-size: 0.85rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -171,11 +163,10 @@ h3, h4, th {
 }
 
 .badge-modern:hover {
-  background: #be323d; /* rose moderne pour hover */
+  background: #be323d;
   color: #fff;
   cursor: default;
 }
-/* Style global modal */
 .custom-modal {
   background-color: #f8f8f8;
   border-radius: 12px;
@@ -185,7 +176,6 @@ h3, h4, th {
   animation: fadeInUp 0.4s ease;
 }
 
-/* Header avec dégradé */
 .modal-header-gradient {
   background: linear-gradient(to right, #be323d, #681b37);
   color: #fff;
@@ -207,7 +197,6 @@ h3, h4, th {
   opacity: 1;
 }
 
-/* Formulaire */
 .modal-body .form-label {
   color: #333;
   font-weight: 600;
@@ -226,13 +215,11 @@ h3, h4, th {
   box-shadow: 0 0 5px rgba(190, 50, 61, 0.4);
 }
 
-/* Footer */
 .modal-footer {
   border-top: none;
   padding-top: 1.5rem;
 }
 
-/* Bouton Annuler */
 .btn-cancel {
   background-color: #f1f1f1;
   color: #333;
@@ -248,7 +235,6 @@ h3, h4, th {
   transform: scale(1.03);
 }
 
-/* Bouton Ajouter (dégradé principal) */
 .btn-gradient {
   background: linear-gradient(to right, #be323d, #681b37);
   color: #fff;
@@ -264,7 +250,6 @@ h3, h4, th {
   transform: scale(1.05);
 }
 
-/* Animation d’apparition */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -275,12 +260,10 @@ h3, h4, th {
     transform: translateY(0);
   }
 }
-/* Modal confirmation au-dessus du modal liste */
 .modal.modal-confirmation {
-  z-index: 1200 !important; /* plus haut que 1050 du modal standard */
+  z-index: 1200 !important;
 }
 
-/* Backdrop du modal confirmation au-dessus du modal liste */
 .modal-backdrop.modal-confirmation-backdrop {
   z-index: 1199 !important;
 }

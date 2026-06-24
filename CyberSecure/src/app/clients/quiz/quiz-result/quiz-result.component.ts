@@ -29,7 +29,6 @@ ngOnInit(): void {
         datePassed: r.datePassed ? new Date(r.datePassed) : new Date()
       }));
 
-      // Trier par date décroissante
       this.history.sort((a, b) => b.datePassed.getTime() - a.datePassed.getTime());
 
       this.loading = false;
@@ -76,21 +75,18 @@ downloadPdf() {
     let heightLeft = imgHeight;
     let position = 0;
 
-    const title = "Résultats des Quiz"; // Ton titre ici
+    const title = "Résultats des Quiz"; 
     const titleFontSize = 16;
     const titleMargin = 10;
 
-    // Ajouter le titre sur la première page
     pdf.setFontSize(titleFontSize);
     pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
 
-    // Ajouter l'image avec décalage pour le titre
     pdf.addImage(imgData, 'PNG', 0, titleMargin + 5, imgWidth, imgHeight);
     heightLeft -= pdfHeight;
 
     while (heightLeft > 0) {
       pdf.addPage();
-      // Ajouter le titre sur chaque nouvelle page
       pdf.setFontSize(titleFontSize);
       pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
 

@@ -4,8 +4,8 @@ export interface RDVDto {
   id: number;
   notes: string;
   status: string;
-  rdvdate: string;   // ISO string
+  rdvdate: string;   
   rdvtype?: RDVStatus;
-  userName?: string;  // optionnel pour user normal
-  userEmail?: string; // optionnel pour user normal
+  userName?: string;
+  userEmail?: string;
 }

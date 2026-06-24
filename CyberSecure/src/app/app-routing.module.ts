@@ -30,12 +30,31 @@ import { CertificationComponent } from './clients/certificat/certification/certi
 import { UserCertifComponent } from './clients/certificat/user-certif/user-certif.component';
 import { AboutComponent } from './info/about/about.component';
 import { CourseComponent } from './info/course/course.component';
-import { ContactComponent } from './info/contact/contact.component';
+
 import { CertifListComponent } from './admin/certifications/certif-list/certif-list.component';
 import { AccueilComponent } from './MuntuCyberSecure/accueil/accueil.component';
 import { ContactMuntuComponent } from './MuntuCyberSecure/contact-muntu/contact-muntu.component';
 import { RejoinMuntuComponent } from './MuntuCyberSecure/rejoin-muntu/rejoin-muntu.component';
 import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-muntu/presentation-muntu.component';
+import { OffresComponent } from './vitrine/pages/offres/offres.component';
+import { SolutionsComponent } from './vitrine/pages/solutions/solutions/solutions.component';
+import { PrestationsComponent } from './vitrine/pages/solutions/prestations/prestations.component';
+import { ExpertiseComponent } from './vitrine/pages/solutions/expertise/expertise.component';
+import { TarifsComponent } from './vitrine/pages/solutions/tarifs/tarifs.component';
+import { DiagnosticComponent } from './vitrine/pages/solutions/diagnostic/diagnostic.component';
+import { PresentationComponent } from './vitrine/pages/entreprise/presentation/presentation.component';
+import { PartenairesComponent } from './vitrine/pages/entreprise/partenaires/partenaires.component';
+import { RefCertifComponent } from './vitrine/pages/entreprise/ref-certif/ref-certif.component';
+import { ActualitesComponent } from './vitrine/pages/entreprise/actualites/actualites.component';
+import { TemoignagesComponent } from './vitrine/pages/temoignages/temoignages/temoignages.component';
+import { ClientsComponent } from './vitrine/pages/temoignages/clients/clients.component';
+import { CollabsComponent } from './vitrine/pages/temoignages/collabs/collabs.component';
+import { PartnersComponent } from './vitrine/pages/temoignages/partners/partners.component';
+import { NewsletterComponent } from './vitrine/pages/contenus/newsletter/newsletter.component';
+import { BlogComponent } from './vitrine/pages/contenus/blog/blog.component';
+import { ContactvitrineComponent } from './vitrine/pages/contactvitrine/contactvitrine.component';
+import { ContactComponent } from './info/contact/contact.component';
+import { HomevitrineComponent } from './vitrine/pages/homevitrine/homevitrine.component';
 
 const routes: Routes = [
     {path:"",redirectTo:"home", pathMatch:"full"},
@@ -92,10 +111,27 @@ const routes: Routes = [
 
 
 
+//Muntu Vitrine paths
 
 
-
-
+  { path: "homepage", component: HomevitrineComponent },
+ {path: "contactpage" , component : ContactvitrineComponent},
+  {path: "offres" , component : OffresComponent},
+  {path: "solutions" , component : SolutionsComponent},
+  {path: "prestations" , component : PrestationsComponent},
+  {path: "expertise" , component : ExpertiseComponent},
+  {path: "tarifs" , component : TarifsComponent},
+  {path: "diagnostic" , component : DiagnosticComponent},
+  {path: "qui-sommes-nous" , component : PresentationComponent},
+  {path: "nos-partenaires" , component : PartenairesComponent},
+  {path: "ref&certif" , component : RefCertifComponent},
+  {path: "actualites" , component : ActualitesComponent},
+  {path: "temoignages" , component : TemoignagesComponent},
+  {path: "temoignagesClients" , component : ClientsComponent},
+  {path: "temoignagesCollaborateurs" , component : CollabsComponent},
+  {path: "temoignagesPartenaires" , component : PartnersComponent},
+  {path: "newsletters" , component : NewsletterComponent},
+  {path: "blog" , component : BlogComponent},
 
 
 

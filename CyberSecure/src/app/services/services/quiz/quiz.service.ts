@@ -18,7 +18,6 @@ export class QuizService {
     return this.http.get(`${this.apiUrl}/chapitre/${chapitreId}`, { headers });
   }
 
-  // Soumettre le quiz
   submitQuiz(quizId: number, answers: { [questionId: number]: number }): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -26,7 +25,6 @@ export class QuizService {
     return this.http.post(`${this.apiUrl}/${quizId}/submit`, answers, { headers });
   }
 
-  // Récupérer le résultat si l'utilisateur a déjà passé le quiz
   getUserQuizResult(chapitreId: number): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -51,7 +49,6 @@ getAllQuizzes(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/all`);
   }
 
-  // 🔹 Récupérer un quiz par son ID
   getQuizById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
@@ -67,7 +64,7 @@ getAllQuizzes(): Observable<any> {
       const headers = new HttpHeaders({
     'Authorization': 'Bearer ' + localStorage.getItem('token')
   });
-    return this.http.get<any[]>(`${this.apiUrl}/my`, { headers }); // endpoint backend à créer
+    return this.http.get<any[]>(`${this.apiUrl}/my`, { headers }); 
   }
 
   getUserQuizHistoryByQuiz(quizId: number) {

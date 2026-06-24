@@ -1,8 +1,8 @@
 .contact-link {
-  color: black; /* Blanc par défaut */
+  color: black;
   text-decoration: none;
-  cursor: pointer; /* Curseur main */
-  transition: color 0.3s ease; /* Animation fluide */
+  cursor: pointer;
+  transition: color 0.3s ease;
   font-weight: 500;
 }
 
@@ -13,7 +13,7 @@
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -29,14 +29,14 @@
   border: 0;
 }
 .banner-style-4.banner-padding {
-    padding-bottom: 10% !important; /* supprime l'espace en bas de la section */
+    padding-bottom: 10% !important;
 }
 
 .btn-container {
     display: flex;
     justify-content: center;
-    gap: 1mm; /* espace très petit entre les boutons */
-    margin-top: 0; /* collé à la section */
+    gap: 1mm;
+    margin-top: 0;
 }
 
 .btn-custom {
@@ -49,13 +49,13 @@
     touch-action: manipulation;
     cursor: pointer;
     border: 1px solid transparent;
-    padding: 6px 12px; /* comme ton exemple */
+    padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    border-radius: 0px !important; /* carré */
+    border-radius: 0px !important;
     -webkit-user-select: none;
     user-select: none;
-    min-width: 150px; /* optionnel pour largeur uniforme */
+    min-width: 150px;
 }
 
 .btn1 {
@@ -72,29 +72,29 @@
     opacity: 0.9;
 }
 .popular-courses-title {
-    color: #430e2b;             /* couleur demandée */
-    font-size: 37px;            /* même taille que .team h4 */
-    font-weight: 700;           /* gras */
-    padding-bottom: 15px;       /* espace sous le titre */
-    text-align: center;          /* centré */
-    text-transform: capitalize; /* première lettre de chaque mot en majuscule */
-    margin-top: 10px;           /* comme h4 */
-    margin-bottom: 10px;        /* comme h4 */
+    color: #430e2b;
+    font-size: 37px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .features-3.section-padding-top,
 .testimonial-4.section-padding {
-    padding-top: 20px;      /* Réduit l’espace au-dessus de la section */
-    padding-bottom: 20px;   /* Réduit l’espace en dessous */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .section-heading {
-    margin-bottom: 20px;    /* Réduit l’espace sous le titre et le paragraphe */
+    margin-bottom: 20px;
 }
 .step-item {
     display: flex;
     align-items: center;
-    gap: 15px; /* Espace entre number et title */
-    margin-bottom: 30px; /* Espace entre les lignes */
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .step-number {
@@ -102,7 +102,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: white; /* fallback si gradient ne s'affiche pas */
+    color: white;
     background-clip: border-box;
     text-align: center;
 }
@@ -128,7 +128,6 @@
     font-size: 18px;
 }
 
-/* Pour que 2 steps soient sur la même ligne */
 .row.steps-row {
     display: flex;
     flex-wrap: wrap;
@@ -136,7 +135,7 @@
 }
 
 .row.steps-row .col-xl-6 {
-    flex: 1 1 45%; /* 2 par ligne */
+    flex: 1 1 45%;
 }
 .btn-gradient {
   background: linear-gradient(to right, #be323d, #511435) !important;

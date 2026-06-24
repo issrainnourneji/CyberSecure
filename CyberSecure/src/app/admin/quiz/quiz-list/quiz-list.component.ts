@@ -34,7 +34,7 @@ itemsPerPage: number = 6;
     private quizService: QuizService
   ) {
     this.quizForm = this.fb.group({
-  id: [null], // <-- Ajouter l'id ici
+  id: [null],
   formationId: [null, Validators.required],
   chapitreId: [null, Validators.required],
   titre: ['', Validators.required],
@@ -50,11 +50,9 @@ itemsPerPage: number = 6;
   }
 
 ngAfterViewInit(): void {
-  // Modal Ajouter Quiz
   const addModalEl = document.getElementById('addQuizModal');
   if (addModalEl) this.addQuizModal = new bootstrap.Modal(addModalEl);
 
-  // Modal Voir Quiz
   const viewModalEl = document.getElementById('viewQuizModal');
   if (viewModalEl) this.viewQuizModal = new bootstrap.Modal(viewModalEl);
 }
@@ -62,7 +60,6 @@ ngAfterViewInit(): void {
 openQuizModal(quiz: any) {
   this.selectedQuiz = quiz;
 
-  // Laisser Bootstrap gérer le focus
   setTimeout(() => {
     if (this.viewQuizModal) this.viewQuizModal.show();
   }, 0);
@@ -85,7 +82,6 @@ openQuizModal(quiz: any) {
   }
 
 onFormationChange(): void {
-  // Priorité : filtre global, sinon valeur du formulaire
   const formationId = this.selectedFormationId ?? this.quizForm.get('formationId')?.value;
 
   if (!formationId) {
@@ -93,7 +89,6 @@ onFormationChange(): void {
     this.selectedChapitreId = null;
     this.quizForm.get('chapitreId')?.setValue(null);
 
-    // Si c'est le filtre, applique aussi
     if (this.selectedFormationId !== null) {
       this.applyFilter();
     }
@@ -106,7 +101,6 @@ onFormationChange(): void {
       this.selectedChapitreId = null;
       this.quizForm.get('chapitreId')?.setValue(null);
 
-      // Si c'est le filtre, applique aussi
       if (this.selectedFormationId !== null) {
         this.applyFilter();
       }
@@ -125,7 +119,7 @@ applyFilter(): void {
     (!this.selectedFormationId || quiz.chapitre?.formation?.id === this.selectedFormationId) &&
     (!this.selectedChapitreId || quiz.chapitre?.id === this.selectedChapitreId)
   );
-  this.p = 1; // reset pagination
+  this.p = 1;
 }
 
 
@@ -207,7 +201,7 @@ submitQuiz(): void {
 
 editQuiz(quiz: any) {
   this.quizForm.patchValue({
-    id: quiz.id, // <-- ajouter l'id
+    id: quiz.id,
     formationId: quiz.chapitre?.formation?.id,
     chapitreId: quiz.chapitre?.id,
     titre: quiz.titre,
@@ -233,14 +227,12 @@ editQuiz(quiz: any) {
     this.questions.push(qGroup);
   });
 
-  // Ouvrir le modal si tu veux
   if (this.addQuizModal) this.addQuizModal.show();
 }
 getVisiblePages(): number[] {
   const pages: number[] = [];
 
   if (this.totalPages <= 3) {
-    // Si <= 3 pages → toutes affichées
     for (let i = 1; i <= this.totalPages; i++) {
       pages.push(i);
     }

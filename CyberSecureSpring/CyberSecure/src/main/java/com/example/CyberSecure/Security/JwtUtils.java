@@ -49,7 +49,7 @@ public class JwtUtils {
     }
 
     public String extractEmail(String token) {
-        return extractClaims(token, claims -> claims.getSubject());  // Le sujet est généralement l'email
+        return extractClaims(token, claims -> claims.getSubject());
     }
 
     public Long getUserIdFromToken(String token) {

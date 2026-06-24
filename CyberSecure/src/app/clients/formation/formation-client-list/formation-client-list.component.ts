@@ -15,11 +15,11 @@ export class FormationClientListComponent implements OnInit {
   formations: any[] = [];
   error: any = null;
 studentsCount: { [formationId: number]: number } = {};
- filteredFormations: any[] = []; // ✅ data affichée avec pagination
+ filteredFormations: any[] = [];
 
-  p: number = 1;   // page actuelle
-  itemsPerPage: number = 6; // ✅ nombre de formations par page
-  totalPages: number = 0;   // total pages
+  p: number = 1;
+  itemsPerPage: number = 6;
+  totalPages: number = 0;
 
   constructor(private formationService: FormationServiceService, private cartService: CartService) {}
 
@@ -47,20 +47,17 @@ studentsCount: { [formationId: number]: number } = {};
 });
   }
 
-  // ✅ Met à jour la liste visible selon la page
   updatePagination() {
     this.totalPages = Math.ceil(this.formations.length / this.itemsPerPage);
     const startIndex = (this.p - 1) * this.itemsPerPage;
     this.filteredFormations = this.formations.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // ✅ Appelé quand on change de page
   onPageChange(page: number) {
     this.p = page;
     this.updatePagination();
   }
 
-  // ✅ Afficher max 3 pages
   getVisiblePages(): number[] {
     let pages = [];
     let start = Math.max(1, this.p - 1);

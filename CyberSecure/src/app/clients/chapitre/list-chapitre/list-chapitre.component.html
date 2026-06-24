@@ -19,7 +19,6 @@
       </div>
     </div>
 </section>
-    <!--course section start-->
 <section class="section-padding page">
   <div class="container mb-4">
     <div class="slide-header row align-items-center justify-content-between mb-3">
@@ -41,7 +40,6 @@
     </div>
   </div>
 
-  <!-- Top bar -->
   <div class="course-top-wrap py-3 mb-4 bg-light shadow-sm rounded">
     <div class="container">
       <div class="row align-items-center gy-3">
@@ -71,7 +69,6 @@
     </div>
   </div>
 
-  <!-- Course list -->
   <div class="container">
     <div class="row gy-3 justify-content-center">
       <div
@@ -133,7 +130,6 @@
         </div>
       </div>
 
-      <!-- Aucun résultat -->
       <div *ngIf="filteredChapitres.length === 0" class="text-center py-5">
         <i class="fa fa-search fa-2x text-muted mb-2"></i>
         <p class="text-muted">Aucun chapitre trouvé.</p>
@@ -144,14 +140,12 @@
 <nav class="blog-page-navigation d-flex justify-content-center mt-4" *ngIf="filteredChapitres.length > 0">
   <ul class="pagination">
 
-    <!-- Précédent -->
     <li class="pagination-arrow" [class.disabled]="p === 1">
       <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
         <i class="fa fa-angle-double-left"></i>
       </a>
     </li>
 
-    <!-- Pages dynamiques -->
     <li *ngFor="let page of getVisiblePages()">
       <a href="javascript:void(0)"
          [class.active]="p === page"
@@ -160,7 +154,6 @@
       </a>
     </li>
 
-    <!-- Suivant -->
     <li class="pagination-arrow" [class.disabled]="p === totalPages">
       <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
         <i class="fa fa-angle-double-right"></i>
@@ -172,9 +165,6 @@
 
 
 </section>
-
-    <!--course section end-->
-
 
 
 

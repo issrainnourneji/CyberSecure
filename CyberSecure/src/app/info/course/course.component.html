@@ -82,14 +82,12 @@
 </div>
 <nav class="blog-page-navigation d-flex justify-content-center" *ngIf="filteredFormations.length > 0">
   <ul class="pagination">
-    <!-- Bouton Précédent -->
     <li class="pagination-arrow" [class.disabled]="p === 1">
       <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
         <i class="fa fa-angle-double-left"></i>
       </a>
     </li>
 
-    <!-- Pages dynamiques limitées à 3 -->
     <li *ngFor="let page of getVisiblePages(); let i = index">
       <a href="javascript:void(0)"
          [class.active]="p === page"
@@ -98,7 +96,6 @@
       </a>
     </li>
 
-    <!-- Bouton Suivant -->
     <li class="pagination-arrow" [class.disabled]="p === totalPages">
       <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
         <i class="fa fa-angle-double-right"></i>

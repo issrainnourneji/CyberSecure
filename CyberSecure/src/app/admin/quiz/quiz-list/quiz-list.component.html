@@ -22,7 +22,6 @@
   <div class="d-flex flex-wrap align-items-center gap-2">
     <span class="fw-semibold text-secondary">Filtrer par :</span>
 
-    <!-- Filtre Formation -->
     <select class="form-select form-select-sm border shadow-sm"
             style="min-width: 180px;"
             [(ngModel)]="selectedFormationId"
@@ -31,7 +30,6 @@
       <option *ngFor="let f of formations" [ngValue]="f.id">{{ f.title }}</option>
     </select>
 
-    <!-- Filtre Chapitre -->
     <select class="form-select form-select-sm border shadow-sm"
             style="min-width: 180px;"
             [(ngModel)]="selectedChapitreId"
@@ -42,14 +40,12 @@
     </select>
   </div>
 
-  <!-- Bouton Ajouter Quiz -->
   <button class="btn text-white btn-gradient px-4 py-2 rounded-pill shadow-sm"
           (click)="addQuizModal.show()">
     <i class="fa fa-plus me-1"></i> Ajouter Quiz
   </button>
 </div>
 
-<!-- 🔹 Liste des Quiz -->
 <div class="row g-4">
   <div *ngFor="let quiz of filteredQuizzes | paginate: { itemsPerPage: 6, currentPage: p }"
        class="col-md-6 col-lg-4">
@@ -57,30 +53,25 @@
     <div class="card border-0 shadow-lg rounded-4 h-100 overflow-hidden transition"
          style="transition: all 0.3s ease;">
 
-      <!-- Image -->
       <img *ngIf="quiz.chapitre?.formation?.image"
            [src]="quiz.chapitre.formation.image"
            class="card-img-top"
            alt="{{ quiz.chapitre.formation.title }}"
            style="height: 180px; object-fit: cover;">
 
-      <!-- Card body -->
       <div class="card-body d-flex flex-column p-4">
 
-        <!-- Formation et Chapitre -->
         <h6 class="fw-bold mb-1" style="color: #4c8ec4;">{{ quiz.chapitre?.formation?.title }}</h6>
         <h5 class="card-title fw-bold text-dark">{{ quiz.titre }}</h5>
         <p class="text-muted mb-2">{{ quiz.chapitre?.titre }}</p>
 
-        <!-- Badge durée -->
         <div class="mb-3">
           <span class="badge rounded-pill text-white px-3 py-2"
                 style="background: linear-gradient(135deg, #FF5369, #be323d);">
-            ⏱ {{ quiz.timeLimit }} min
+          <i class="fa fa-alarm-clock me-1"></i> {{ quiz.timeLimit }} min
           </span>
         </div>
 
-        <!-- Boutons d'action -->
         <div class="mt-auto d-flex justify-content-between">
 <button class="btn btn-sm rounded-pill px-3 text-white shadow-sm"
         style="background:  #4c8ec4; border: none;"
@@ -102,12 +93,10 @@
 
 
 
-  <!-- Modal Ajouter / Edit Quiz -->
 <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content border-0 shadow-lg rounded-4">
 
-      <!-- HEADER -->
       <div class="modal-header text-white" style="background: linear-gradient(135deg, #be323d, #ff758c);">
         <h5 class="modal-title fw-bold d-flex align-items-center" id="addQuizModalLabel">
           <i class="fa fa-plus me-2"></i>{{ isEditing ? 'Modifier le Quiz' : 'Ajouter un Quiz' }}
@@ -115,11 +104,9 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
-      <!-- BODY -->
       <div class="modal-body bg-light">
         <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()" class="px-2">
 
-          <!-- Sélection Formation / Chapitre -->
           <div class="row g-3 mb-3">
             <div class="col-md-6">
               <label class="form-label fw-semibold">Formation</label>
@@ -138,7 +125,6 @@
             </div>
           </div>
 
-          <!-- Titre + Durée -->
           <div class="row g-3 mb-4">
             <div class="col-md-8">
               <label class="form-label fw-semibold">Titre du Quiz</label>
@@ -151,7 +137,6 @@
             </div>
           </div>
 
-          <!-- QUESTIONS -->
           <div formArrayName="questions">
             <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="card border-0 shadow-sm rounded-3 mb-4">
               <div class="card-body bg-white rounded-3">
@@ -169,7 +154,6 @@
                 <input formControlName="texte" placeholder="Texte de la question"
                        class="form-control mb-3 shadow-sm">
 
-                <!-- RÉPONSES -->
                 <div formArrayName="reponses">
                   <div *ngFor="let r of getReponses(i).controls; let j=index" [formGroupName]="j"
                        class="d-flex align-items-center gap-2 mb-2">
@@ -195,7 +179,6 @@
             </div>
           </div>
 
-          <!-- BOUTONS ACTION -->
           <div class="d-flex justify-content-between align-items-center mt-4">
             <button type="button" class="btn btn-outline-secondary rounded-pill px-4" (click)="addQuestion()">
               <i class="fa fa-plus me-1"></i> Ajouter une question
@@ -213,12 +196,10 @@
 </div>
 
 
-  <!-- Modal Voir Questions -->
 <div class="modal fade" id="viewQuizModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content border-0 shadow-lg rounded-4">
 
-      <!-- HEADER -->
       <div class="modal-header text-white" style="background: linear-gradient(135deg, #be323d, #ff758c);">
         <h5 class="modal-title fw-bold d-flex align-items-center" id="viewQuizModalLabel">
           <i class="fa fa-eye me-2"></i> Questions du Quiz
@@ -226,7 +207,6 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
-      <!-- BODY -->
       <div class="modal-body bg-light">
         <div *ngIf="selectedQuiz">
           <div class="text-center mb-4">
@@ -258,7 +238,6 @@
         </div>
       </div>
 
-      <!-- FOOTER -->
       <div class="modal-footer border-0 d-flex justify-content-end bg-light">
         <button type="button" class="btn text-white px-4" data-bs-dismiss="modal"
                 style="background-color: #be323d; border-radius: 30px;">
@@ -272,14 +251,12 @@
 
 <nav class="blog-page-navigation d-flex justify-content-center" *ngIf="filteredQuizzes.length > 0">
   <ul class="pagination">
-    <!-- Bouton Précédent -->
     <li class="pagination-arrow" [class.disabled]="p === 1">
       <a href="javascript:void(0)" (click)="p > 1 && (p = p - 1)">
         <i class="fa fa-angle-double-left"></i>
       </a>
     </li>
 
-    <!-- Pages dynamiques limitées à 3 -->
     <li *ngFor="let page of getVisiblePages(); let i = index">
       <a href="javascript:void(0)"
          [class.active]="p === page"
@@ -288,7 +265,6 @@
       </a>
     </li>
 
-    <!-- Bouton Suivant -->
     <li class="pagination-arrow" [class.disabled]="p === totalPages">
       <a href="javascript:void(0)" (click)="p < totalPages && (p = p + 1)">
         <i class="fa fa-angle-double-right"></i>

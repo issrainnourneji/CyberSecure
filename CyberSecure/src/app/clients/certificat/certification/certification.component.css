@@ -1,7 +1,7 @@
 .certification-container {
   max-width: 1000px;
-  margin: 30px auto;      /* au lieu de 50px */
-  padding: 30px 25px;     /* réduit l’espace interne */
+  margin: 30px auto;
+  padding: 30px 25px;
   border: 3px solid #4c8ec4;
   border-radius: 25px;
   background: #fff;
@@ -26,11 +26,11 @@
 }
 
 .cert-header {
-  margin-bottom: 20px;   /* au lieu de 40px */
+  margin-bottom: 20px;
 }
 
 .cert-logo {
-  height: 60px;          /* réduit la hauteur du logo */
+  height: 60px;
   margin-bottom: 10px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .cert-body {
-  margin: 15px 0;        /* au lieu de 30px */
+  margin: 15px 0;
 }
 .user-name {
   font-size: 28px;
@@ -70,7 +70,7 @@
 }
 
 .cert-footer {
-  margin-top: 20px;      /* au lieu de 50px */
+  margin-top: 20px;
 }
 
 .signature p {
@@ -103,10 +103,10 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .signature-container img {
-  height: 100px;   /* augmente la taille */
+  height: 100px;
 }
 .user-phone {
-  color: #23313f; /* gris foncé lisible */
+  color: #23313f; 
   font-size: 15px;
   font-weight: 500;
   margin-bottom: 8px;

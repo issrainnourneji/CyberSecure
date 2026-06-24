@@ -191,7 +191,6 @@ public class QuizController {
     }
 
     private void synchronizeQuestions(Quiz quiz, List<QuestionDTO> questionDTOs) {
-        // Supprimer les questions supprimées
         quiz.getQuestions().removeIf(q -> questionDTOs.stream()
                 .noneMatch(d -> d.getId() != null && d.getId().equals(q.getId())));
 

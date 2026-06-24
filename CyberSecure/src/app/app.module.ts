@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
-// Importe ici tous tes composants manuellement
 import { CodeInputModule } from 'angular-code-input';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './pages/register/register.component';
@@ -55,6 +54,33 @@ import { ContactMuntuComponent } from './MuntuCyberSecure/contact-muntu/contact-
 import { RejoinMuntuComponent } from './MuntuCyberSecure/rejoin-muntu/rejoin-muntu.component';
 import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-muntu/presentation-muntu.component';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FootervitrineComponent } from './vitrine/components/footervitrine/footervitrine.component';
+import { SolutionsComponent } from './vitrine/pages/solutions/solutions/solutions.component';
+import { OffresComponent } from './vitrine/pages/offres/offres.component';
+import { PresentationComponent } from './vitrine/pages/entreprise/presentation/presentation.component';
+import { ComingSoonComponent } from './vitrine/attente/coming-soon/coming-soon.component';
+import { ExpertiseComponent } from './vitrine/pages/solutions/expertise/expertise.component';
+import { TarifsComponent } from './vitrine/pages/solutions/tarifs/tarifs.component';
+import { PartenairesComponent } from './vitrine/pages/entreprise/partenaires/partenaires.component';
+import { RefCertifComponent } from './vitrine/pages/entreprise/ref-certif/ref-certif.component';
+import { ClientsComponent } from './vitrine/pages/temoignages/clients/clients.component';
+import { TemoignagesComponent } from './vitrine/pages/temoignages/temoignages/temoignages.component';
+import { CollabsComponent } from './vitrine/pages/temoignages/collabs/collabs.component';
+import { PartnersComponent } from './vitrine/pages/temoignages/partners/partners.component';
+import { PrestationsComponent } from './vitrine/pages/solutions/prestations/prestations.component';
+import { DiagnosticComponent } from './vitrine/pages/solutions/diagnostic/diagnostic.component';
+import { ActualitesComponent } from './vitrine/pages/entreprise/actualites/actualites.component';
+import { NewsletterComponent } from './vitrine/pages/contenus/newsletter/newsletter.component';
+import { BlogComponent } from './vitrine/pages/contenus/blog/blog.component';
+import { ContactvitrineComponent } from './vitrine/pages/contactvitrine/contactvitrine.component';
+import { HomevitrineComponent } from './vitrine/pages/homevitrine/homevitrine.component';
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http); // ✅ plus d'erreur
+}
 
 @NgModule({
   declarations: [
@@ -103,7 +129,28 @@ import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-munt
     HeaderMuntuComponent,
     ContactMuntuComponent,
     RejoinMuntuComponent,
-    PresentationMuntuComponent
+    PresentationMuntuComponent,
+
+    FootervitrineComponent,
+    SolutionsComponent,
+    OffresComponent,
+    PresentationComponent,
+    ComingSoonComponent,
+    ExpertiseComponent,
+    TarifsComponent,
+    PartenairesComponent,
+    RefCertifComponent,
+    ClientsComponent,
+    TemoignagesComponent,
+    CollabsComponent,
+    PartnersComponent,
+    PrestationsComponent,
+    DiagnosticComponent,
+    ActualitesComponent,
+    NewsletterComponent,
+    BlogComponent,
+    ContactvitrineComponent,
+    HomevitrineComponent
 
   ],
   imports: [
@@ -117,8 +164,15 @@ import { PresentationMuntuComponent } from './MuntuCyberSecure/presentation-munt
     FullCalendarModule,
     NgxPaginationModule,
     FullCalendarModule,
-
-],
+     TranslateModule.forRoot({
+      defaultLanguage: 'fr', 
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+  ],
   providers: [HttpClient,
     NotificationService
   ],

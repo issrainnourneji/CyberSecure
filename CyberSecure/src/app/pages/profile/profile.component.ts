@@ -82,9 +82,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.apiService.UpdateUser(this.editForm).subscribe({
       next: (response) => {
         this.isEditing = false;
-        this.fetchUserInfo(); // Recharger les informations utilisateur
+        this.fetchUserInfo();
 
-        // Afficher la modal
         const modalElement = document.getElementById('successModal');
         if (modalElement) {
           const modal = new bootstrap.Modal(modalElement);

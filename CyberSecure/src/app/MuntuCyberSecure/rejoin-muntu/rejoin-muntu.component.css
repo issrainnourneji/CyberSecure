@@ -38,7 +38,6 @@
         font-size: 0.9rem;
     }
 }
-/* ✅ Responsive ajustements sans modifier le design visuel */
 @media (max-width: 992px) {
   .banner-style1 {
     padding: 250px 0 80px; /* réduire hauteur */
@@ -46,12 +45,12 @@
   }
 
   .feature-inner {
-    margin: -120px 30px 0 30px; /* marges fluides sur tablettes */
+    margin: -120px 30px 0 30px;
     padding: 30px 20px;
   }
 
   .feature-text h4 {
-    font-size: 28px; /* plus petit sur tablette */
+    font-size: 28px;
   }
 
   .feature-text h2 {
@@ -61,7 +60,7 @@
 
 @media (max-width: 576px) {
   .banner-style1 {
-    padding: 180px 0 60px; /* encore plus petit sur mobile */
+    padding: 180px 0 60px; 
   }
 
   .feature-inner {

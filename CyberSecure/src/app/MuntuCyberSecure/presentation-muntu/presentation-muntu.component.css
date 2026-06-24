@@ -20,7 +20,6 @@
     z-index: -1;
 }
 
-/* Feature text */
 .feature-text h2 {
     font-size: 1.5rem;
     margin-top: 60px;
@@ -28,7 +27,6 @@
     line-height: 1.3;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .feature-text h2 {
         font-size: 1.5rem;
@@ -38,7 +36,6 @@
         font-size: 0.9rem;
     }
 }
-/* ✅ Responsive ajustements sans modifier le design visuel */
 @media (max-width: 992px) {
   .banner-style1 {
     padding: 250px 0 80px; /* réduire hauteur */
@@ -51,7 +48,7 @@
   }
 
   .feature-text h4 {
-    font-size: 28px; /* plus petit sur tablette */
+    font-size: 28px;
   }
 
   .feature-text h2 {
@@ -61,7 +58,7 @@
 
 @media (max-width: 576px) {
   .banner-style1 {
-    padding: 180px 0 60px; /* encore plus petit sur mobile */
+    padding: 180px 0 60px;
   }
 
   .feature-inner {
@@ -83,9 +80,8 @@
   }
 }
 .features-intro .feature-inner1 {
-  margin-top: 50px; /* espace normal au-dessus */
+  margin-top: 50px;
 }
-/* Bouton gradient */
 .btn-gradient {
     background: linear-gradient(135deg, #be323d, #430e2b);
     color: #fff;
@@ -105,9 +101,9 @@
 .card-title::after {
     content: "";
     display: block;
-    width: 50%; /* longueur de la ligne */
-    height: 3px; /* épaisseur de la ligne */
-    margin: 8px auto 0; /* centrage et marge */
+    width: 50%; 
+    height: 3px;
+    margin: 8px auto 0;
     border-radius: 2px;
     background: linear-gradient(135deg, #be323d, #430e2b);
 }

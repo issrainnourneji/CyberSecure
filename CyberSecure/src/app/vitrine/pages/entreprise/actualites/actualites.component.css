@@ -1,0 +1,176 @@
+.btn-bordeaux {
+  background-color: #7b0f18;
+  color: white;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.btn-bordeaux:hover {
+  background-color: #be323d;
+}
+.contact-link {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #be323d ;
+}
+.primary-menu .current > .contact-link {
+  color: #be323d ;
+  font-weight: 600;
+}
+
+.hero-section {
+  background-image: url('../../../../../assets/images/news/istockphoto-901359622-612x612.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 75vh;
+  position: relative;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.title-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  top: 55%;
+  z-index: 2;
+}
+
+
+.title-background {
+  background: #7b0f18;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -20px;
+  right: -25px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.title-box {
+  background: #f2f2f2;
+  padding: 65px 50px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+  max-width: 750px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.title-line {
+  width: 250px;
+  height: 2.5px;
+  background: #7b0f18;
+}
+
+.sectionp{
+  padding-top: 180px;
+}
+
+.titlep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.titlep .red {
+  color: #7b0f18;
+}
+
+
+.press-section {
+  padding: 120px 0;
+}
+
+.press-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.press-box {
+  position: relative;
+  width: 460px;
+}
+
+.press-box::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+
+}
+
+.press-box-inner {
+  position: relative;
+  background: #f4f5f2;
+  border: 1px solid #e2e2e2;
+  padding: 45px;
+    min-height: 450px;
+
+}
+
+.press-title {
+  font-style: italic;
+  color: #7b0f18;
+  font-size: 19px;
+  display: block;
+  margin-bottom: 25px;
+}
+
+.press-icon {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 42px;
+}
+
+.press-text {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: bolder;
+}
+
+.press-date {
+  color: #7b0f18;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.press-box-inner a {
+  display: block;
+  color: #000;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.btn-center {
+  display: flex;
+  justify-content: center;
+margin-top: 30px;}

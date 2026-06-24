@@ -1,4 +1,3 @@
-/* Effet hover sur les cards */
 .hover-card {
   transition: all 0.3s ease-in-out;
 }
@@ -7,7 +6,6 @@
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Input search arrondi et plus moderne */
 .topbar-search input {
   border: 1px solid #ddd;
   padding: 10px 40px 10px 15px;
@@ -53,7 +51,7 @@
 .disabled-link {
   color: #aaa !important;
   cursor: not-allowed;
-  pointer-events: auto; /* important : pour que le clic déclenche quand même l’alerte */
+  pointer-events: auto;
 }
 .btn-certification {
   background: linear-gradient(135deg, #FF5369, #ff758c);
@@ -112,15 +110,13 @@ section.section-padding.page {
   .btn-gradient {
     font-size: 14px;
     padding: 10px 20px;
-    width: 90%; /* occupe presque toute la largeur sur mobile */
+    width: 90%;
   }
 }
-/* Général */
 .section-padding.page {
   padding: 40px 0;
 }
 
-/* Cours */
 .single-course {
   transition: all 0.3s ease;
   border: 1px solid #f0f0f0;
@@ -131,7 +127,6 @@ section.section-padding.page {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Bouton certification */
 .btn-gradient {
   background: linear-gradient(135deg, #be323d, #912943);
   color: #fff;
@@ -147,7 +142,6 @@ section.section-padding.page {
   transform: translateY(-2px);
 }
 
-/* Responsivité */
 @media (max-width: 768px) {
   .single-course {
     text-align: center;

@@ -20,7 +20,6 @@ export class CourseComponent implements OnInit {
   chapitres: any[] = [];
   studentsCount: { [formationId: number]: number } = {};
 
-  // Pagination & Recherche
   searchTerm: string = '';
   itemsPerPage = 6;
   p = 1;
@@ -34,10 +33,9 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
       this.route.params.subscribe(params => {
-    const cat = params['cat']; // Récupère la catégorie dans l'URL
+    const cat = params['cat']; 
 
     if (cat) {
-      // Charger formations filtrées par catégorie
       this.formationService.getFormationsByCategory(cat).subscribe({
         next: (data) => {
           this.formations = data;
@@ -48,7 +46,6 @@ export class CourseComponent implements OnInit {
         error: (err) => console.error('Erreur lors du filtrage par catégorie', err)
       });
     } else {
-    // Récupérer formations
     this.formationService.getAllFormations().subscribe({
       next: (response) => {
         this.formations = response;
@@ -59,18 +56,15 @@ export class CourseComponent implements OnInit {
     });
      }
   });
-  
-    // Récupérer nombre d'étudiants par formation
+
     this.formationService.getNumberOfStudentsForAllFormations().subscribe({
       next: (counts) => this.studentsCount = counts,
       error: (err) => console.error('Impossible de récupérer le nombre de students', err)
     });
 
-    // Charger users
     this.loadUsers();
   }
 
-  // Charger users
   loadUsers(): void {
     this.apiService.getAllUsers().subscribe({
       next: (response) => {
@@ -82,7 +76,6 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  // Recherche dynamique
   onSearchChange() {
     this.filteredFormations = this.formations.filter(f =>
       f.title.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -91,7 +84,6 @@ export class CourseComponent implements OnInit {
     this.updatePagination();
   }
 
-  // Pagination
   get paginatedFormations() {
     const start = (this.p - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;

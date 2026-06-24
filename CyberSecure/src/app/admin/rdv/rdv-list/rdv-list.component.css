@@ -4,7 +4,6 @@
   --light-bg: #f4f6fb;
 }
 
-/* Pagination stylée */
 .pagination .page-link {
   border: none;
   color: var(--primary);
@@ -23,7 +22,6 @@
   box-shadow: 0 2px 8px rgba(255, 83, 105, 0.4);
 }
 
-/* FullCalendar modern */
 .fc {
   font-family: 'Poppins', sans-serif;
 }
@@ -65,7 +63,6 @@
   color: white !important;
 }
 
-/* Couleurs des événements selon statut */
 .fc-event-confirmed {
   background-color: #28a745 !important;
 }
@@ -77,13 +74,11 @@
   background-color: #dc3545 !important;
 }
 
-/* Conteneur calendrier */
 #calendar-container {
   background: white;
   border-radius: 16px;
   box-shadow: 0 3px 15px rgba(25, 49, 82, 0.1);
 }
-/* Jour normal */
 .fc-day-modern {
   background-color: #f8f9fa;
   border-radius: 10px;
@@ -91,7 +86,6 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Jour actuel */
 .fc-today-modern {
   background: linear-gradient(120deg, #be323d, #193152);
   color: white;
@@ -99,14 +93,12 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* Hover sur une case */
 .fc-day-modern:hover, .fc-today-modern:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   cursor: pointer;
 }
 
-/* Événements */
 .fc-event {
   border-radius: 8px !important;
   padding: 3px 6px;
@@ -116,13 +108,11 @@
   text-align: center;
 }
 
-/* Hover sur les événements */
 .fc-event:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Couleurs selon statut */
 .fc-event-pending { background-color: #FFC107 !important; color: #212529 !important; }
 .fc-event-confirmed { background-color: #28A745 !important; }
 .fc-event-cancelled { background-color: #DC3545 !important; }

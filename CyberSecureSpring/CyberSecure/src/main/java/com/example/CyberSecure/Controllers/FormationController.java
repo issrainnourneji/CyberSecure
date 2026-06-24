@@ -50,8 +50,8 @@ public class FormationController {
             @RequestParam("duration") double duration,
             @RequestParam("categorie") String categorie
     ) throws IOException {
-         Formation formation = formationService.createFormation(title, description, image , price , duration , categorie);
-            return ResponseEntity.ok(formation);
+        Formation formation = formationService.createFormation(title, description, image , price , duration , categorie);
+        return ResponseEntity.ok(formation);
     }
 
 
@@ -167,6 +167,6 @@ public class FormationController {
     public Formation getFormationByChapitre(@PathVariable Long chapitreId) {
         Chapitre chapitre = chapitreRepository.findById(chapitreId)
                 .orElseThrow(() -> new RuntimeException("Chapitre introuvable"));
-        return chapitre.getFormation(); // assuming getFormation() exists in Chapitre
+        return chapitre.getFormation();
     }
 }

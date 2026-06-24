@@ -78,7 +78,6 @@ public class QuizServiceImpl {
         int score = (int) (((double) correctAnswers / totalQuestions) * 100);
         boolean success = score >= 60;
 
-        // ⚡ solution clé : assigner la Map après avoir créé l’objet
         QuizResult result = new QuizResult();
         result.setQuiz(quiz);
         result.setUser(user);

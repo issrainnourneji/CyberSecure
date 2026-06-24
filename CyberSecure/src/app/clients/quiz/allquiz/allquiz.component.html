@@ -17,12 +17,9 @@
 
 <section class="course-wrapper section-padding">
 
-  <!-- Liste des quiz -->
 <div class="container">
   <div class="row g-4">
-     <!-- Filtres -->
 <div class="row mb-4 g-3 align-items-end">
-  <!-- Formation -->
   <div class="col-md-4 col-12">
     <label for="formationFilter" class="form-label fw-bold text-dark">Filtrer par Formation</label>
     <select id="formationFilter"
@@ -35,7 +32,6 @@
     </select>
   </div>
 
-  <!-- Chapitre -->
   <div class="col-md-4 col-12">
     <label for="chapitreFilter" class="form-label fw-bold text-dark">Filtrer par Chapitre</label>
     <select id="chapitreFilter"
@@ -72,17 +68,14 @@
     </div>
   </div>
 
-  <!-- Pagination -->
   <nav class="blog-page-navigation d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
     <ul class="pagination">
-      <!-- Bouton Précédent -->
       <li class="page-item" [class.disabled]="currentPage === 1">
         <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)">
           <i class="fa fa-angle-double-left"></i>
         </a>
       </li>
 
-      <!-- Pages dynamiques limitées à 3 -->
       <li *ngFor="let page of getVisiblePages()" class="page-item">
         <a class="page-link" href="javascript:void(0)"
            [class.active]="currentPage === page"
@@ -91,7 +84,6 @@
         </a>
       </li>
 
-      <!-- Bouton Suivant -->
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage + 1)">
           <i class="fa fa-angle-double-right"></i>
@@ -102,12 +94,10 @@
 </div>
 
 
-  <!-- Modal -->
   <div class="modal fade" id="quizDetailsModal" tabindex="-1" aria-labelledby="quizDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content rounded-4 shadow-lg">
 
-        <!-- Header modal -->
         <div class="modal-header rounded-top-4" style="background: linear-gradient(to right, #be323d, #681b37); color: #fff;">
           <h4 class="modal-title fw-bold fs-3" id="quizDetailsModalLabel">
             <i class="fas fa-graduation-cap me-2"></i> {{ selectedQuiz?.titre }}
@@ -116,13 +106,11 @@
         </div>
 
         <div class="modal-body fs-5">
-          <!-- Infos quiz -->
           <div class="alert alert-pink rounded-3 shadow-sm fs-6 lh-lg">
             <p class="mb-1"><i class="fas fa-layer-group me-2"></i> Chapitre : <strong>{{ selectedQuiz?.chapitre?.titre }}</strong></p>
             <p class="mb-0"><i class="fas fa-chalkboard-teacher me-2"></i> Formation : <strong>{{ selectedQuiz?.chapitre?.formation?.title }}</strong></p>
           </div>
 
-          <!-- Résultats -->
           <div id="quiz-results">
             <div *ngIf="history.length === 0" class="text-muted text-center fs-5">
               <i class="fas fa-info-circle me-2"></i> Aucun résultat trouvé pour ce quiz.
@@ -147,7 +135,6 @@
                 <i class="fas fa-clock me-2"></i> Passé le : {{ result.datePassed | date:'dd/MM/yyyy HH:mm:ss' }}
               </p>
 
-              <!-- Questions & réponses -->
               <div *ngFor="let question of result.quiz.questions" class="ms-2 mb-4">
                 <div class="fw-bold mb-2 fs-5 text-dark">
                   Q : {{ question.texte }}
@@ -175,7 +162,6 @@
           </div>
         </div>
 
-        <!-- Footer -->
         <div class="modal-footer d-flex justify-content-between">
                     <div class="mt-auto d-flex justify-content-end">
             <button class="btn btn-gradient text-white fw-bold"

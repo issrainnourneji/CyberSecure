@@ -42,7 +42,6 @@ studentsCount: { [formationId: number]: number } = {};
   error: (err) => console.error('Impossible de récupérer le nombre de students', err)
 });
             this.loadUsers();
-  // Charger users
     this.apiService.getAllUsers().subscribe({
       next: (res) => {
         this.users = (res.userList || []).filter((u:any) => u.role === Role.USER);
@@ -51,7 +50,6 @@ studentsCount: { [formationId: number]: number } = {};
       error: (err) => console.error(err)
     });
 
-    // Charger formations
     this.formationService.getAllFormations().subscribe({
       next: (formations) => {
         this.formations = formations;
@@ -60,7 +58,6 @@ studentsCount: { [formationId: number]: number } = {};
       error: (err) => console.error(err)
     });
 
-    // Charger certifications
     this.certificationService.getAllCertifications().subscribe({
       next: (certs) => {
         this.certifications = certs;
@@ -81,7 +78,6 @@ calculateSuccessRate() {
       return;
     }
 
-    // Chaque certification = réussite d'une formation par un user
     const totalSuccesses = this.certifications.length;
 
     const totalPossible = totalUsers * totalFormations;

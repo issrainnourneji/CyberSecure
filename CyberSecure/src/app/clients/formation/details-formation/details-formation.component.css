@@ -21,7 +21,7 @@
     font-size: 1.5rem;
   }
   .list-info li {
-    width: 100%; /* Chaque info sur sa ligne */
+    width: 100%; 
     justify-content: flex-start;
   }
   .list-rating span i {

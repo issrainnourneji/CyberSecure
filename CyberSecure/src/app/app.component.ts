@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../environment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'CyberSecure';
-}
+
+   constructor(private translate: TranslateService) {
+    const savedLang = localStorage.getItem('lang') || 'fr';
+    translate.use(savedLang);
+  }
+  title = 'MuntuCybersecure';
+  get isComingSoon(): boolean {
+    return environment.comingSoon && !environment.developerMode;
+  }}

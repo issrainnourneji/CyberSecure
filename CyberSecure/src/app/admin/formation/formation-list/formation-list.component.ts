@@ -63,7 +63,6 @@ openUsersModal(formation: any) {
   this.selectedUsers = formation.users || [];
   this.selectedFormation = formation;
 
-  // 🔹 Vérifier pour chaque user si il a une certif pour cette formation
   this.selectedUsers.forEach(user => {
     this.certificationService.getCertificationsByUserAndFormation(user.id, this.selectedFormation.id)
       .subscribe({
@@ -184,7 +183,7 @@ onSubmitAddFormation(): void {
     next: (res: string) => {
       this.modalDelete?.close();
       this.formations = this.formations.filter(f => f.id !== this.idFormationToDelete);
-      this.notifService.success(res); // Affiche "Formation supprimée avec succès !"
+      this.notifService.success(res);
     },
     error: (err) => {
       console.error(err);
@@ -258,7 +257,6 @@ confirmDeleteChapitre() {
   if (this.selectedChapitreId !== null) {
     this.chapitreService.deleteChapitre(this.selectedChapitreId).subscribe({
       next: () => {
-        // Retirer le chapitre de la liste affichée
         this.selectedChapitres = this.selectedChapitres.filter(c => c.id !== this.selectedChapitreId);
 
         this.formations.forEach(formation => {
@@ -267,7 +265,6 @@ confirmDeleteChapitre() {
           }
         });
 
-        // Fermer le modal
         const modalEl = document.getElementById('deleteChapitreModal');
         const modal = bootstrap.Modal.getInstance(modalEl!);
         modal?.hide();
@@ -292,7 +289,6 @@ viewUser(user: any) {
 }
 
 
-// Ouvrir le modal
 openRemoveUserModal(userId: number, formationId: number) {
   this.selectedUserIdToRemove = userId;
   this.selectedFormationIdForUser = formationId;
@@ -301,22 +297,18 @@ openRemoveUserModal(userId: number, formationId: number) {
   modal.show();
 }
 
-// Confirmer le retrait
 confirmRemoveUser() {
   if (this.selectedUserIdToRemove !== null && this.selectedFormationIdForUser !== null) {
     this.formationService.removeUserFromFormation(this.selectedUserIdToRemove, this.selectedFormationIdForUser).subscribe({
       next: () => {
-        // Retirer l'utilisateur de la liste affichée
         this.selectedUsers = this.selectedUsers.filter(u => u.id !== this.selectedUserIdToRemove);
 
-        // Retirer de la formation globale
         this.formations.forEach(f => {
           if (f.id === this.selectedFormationIdForUser && f.users) {
             f.users = f.users.filter((u: any) => u.id !== this.selectedUserIdToRemove);
           }
         });
 
-        // Fermer le modal
         const modalEl = document.getElementById('removeUserModal');
         const modal = bootstrap.Modal.getInstance(modalEl!);
         modal?.hide();

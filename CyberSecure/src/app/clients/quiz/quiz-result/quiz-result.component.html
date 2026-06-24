@@ -1,11 +1,9 @@
 <div class="d-flex justify-content-center mb-4 gap-3 flex-wrap">
-   <!-- Bouton Retour à la liste des chapitres -->
   <button [routerLink]="['/mainUser/chapterList', formationId]"
           class="btn btn-gradient btn-grey rounded-pill shadow-sm d-flex align-items-center">
     <i class="fal fa-angle-left me-2"></i>
     Revenir aux chapitres
   </button>
-  <!-- Bouton Télécharger PDF -->
   <button class="btn btn-gradient btn-grey rounded-pill shadow-sm d-flex align-items-center"
           (click)="downloadPdf()">
     <i class="fas fa-file-pdf me-2"></i>
@@ -16,7 +14,6 @@
 </div>
 
 
-<!-- conteneur à exporter en PDF -->
 <div id="quiz-results">
   <div *ngFor="let result of history; let i = index"
        class="card mb-4 shadow border-0 rounded-3"
@@ -37,7 +34,6 @@
         <strong>Score :</strong> {{ result.score }}%
       </p>
 
-      <!-- Message si échec -->
       <p *ngIf="!result.success" class="text-danger fw-semibold">
         <i class="fas fa-exclamation-triangle me-2"></i> Échec : le résultat doit être supérieur à 60% pour réussir.
       </p>
@@ -62,11 +58,9 @@
     }">
   <span>{{ answer.texte }}</span>
   <span>
-    <!-- Icône verte -->
     <i *ngIf="((result.success && answer.correct) || (!result.success && isUserSelected(result.userAnswers, question.id, answer) && answer.correct))"
        class="fas fa-check-circle text-success"></i>
 
-    <!-- Icône rouge -->
     <i *ngIf="!result.success && isUserSelected(result.userAnswers, question.id, answer) && !answer.correct"
        class="fas fa-times-circle text-danger"></i>
   </span>

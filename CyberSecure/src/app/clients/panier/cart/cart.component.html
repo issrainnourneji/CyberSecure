@@ -20,7 +20,6 @@
 <section class="section-padding page">
   <div class="container">
 
-    <!-- Panier vide -->
     <div *ngIf="cartItems.length === 0"
          class="alert alert-light text-center p-4 rounded shadow-sm border"
          style="border-color:#be323d !important;">
@@ -28,10 +27,8 @@
       Votre panier est vide
     </div>
 
-    <!-- Liste du panier -->
     <div *ngFor="let item of cartItems" class="card shadow-sm mb-3 border-0 rounded-3">
       <div class="row g-0">
-        <!-- Image -->
         <div class="col-md-3">
           <img [src]="'http://localhost:8080/files/' + item.formation.imageUrl"
                alt="{{ item.formation.title }}"
@@ -39,7 +36,6 @@
                style="height: 180px; object-fit: cover; width:100%;">
         </div>
 
-        <!-- Détails -->
         <div class="col-md-6 d-flex flex-column justify-content-center p-3">
   <h5 class="fw-bold mb-1">
     <a [routerLink]="['/chapterList', item.formation.id]"
@@ -50,7 +46,6 @@
           <p class="fw-bold mb-0" style="color:#be323d;"> {{ item.formation.price | currency:'EUR' }}</p>
         </div>
 
-        <!-- Actions -->
         <div class="col-md-3 d-flex align-items-center justify-content-center">
           <button class="btn text-white px-3"
                   style="background-color:#be323d;"
@@ -61,8 +56,7 @@
       </div>
     </div>
 
-    <!-- Total Panier -->
-    <!-- Total Panier -->
+
 <div *ngIf="cartItems.length > 0" class="text-end mt-4">
   <h5>Sous-total (HT) :
     <span>{{ getTotalHT() | currency:'EUR':'symbol':'1.0-2' }}</span>

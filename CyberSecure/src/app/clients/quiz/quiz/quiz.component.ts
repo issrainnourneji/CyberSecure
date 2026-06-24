@@ -25,19 +25,15 @@ export class QuizComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chapitreId = Number(this.route.snapshot.paramMap.get('chapitreId'));
 
-    // Vérifier si le user a déjà un résultat
     this.quizService.getUserQuizResult(this.chapitreId).subscribe({
       next: (res) => {
         if (res && res.success !== undefined) {
-          // ⚡ L'utilisateur a déjà passé le quiz
           this.result = res;
           this.submitted = true;
           if (res.success) this.alreadyPassed = true;
 
-          // Charger le quiz seulement pour afficher les questions si nécessaire
           if (!this.alreadyPassed) this.loadQuiz();
         } else {
-          // Aucun résultat → charger le quiz
           this.loadQuiz();
         }
       },
@@ -57,10 +53,9 @@ loadQuiz() {
     next: (data) => {
       this.quiz = data;
 
-      // Vérification si quiz contient des questions
       if (!this.quiz.questions || this.quiz.questions.length === 0) {
-        this.timeLeft = 0; // timer figé
-        return; // ne pas lancer de timer
+        this.timeLeft = 0; 
+        return;
       }
 
       this.timeLeft = this.quiz.timeLimit;

@@ -50,7 +50,6 @@
   margin: 8px 0;
 }
 
-/* --- Boutons stylés --- */
 .btn-edit {
   background: linear-gradient(135deg, #912943, #be323d);
   color: #fff;
@@ -66,7 +65,6 @@
   box-shadow: 0 4px 10px rgba(255, 83, 105, 0.3);
 }
 
-/* --- Formulaire édition --- */
 .edit-form {
   max-width: 500px;
 }
@@ -167,7 +165,6 @@
   transform: scale(1.05);
 }
 
-/* Animation d’apparition fluide */
 @keyframes fadeInUp {
   from {
     opacity: 0;

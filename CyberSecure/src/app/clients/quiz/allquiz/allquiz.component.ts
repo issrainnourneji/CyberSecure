@@ -20,12 +20,10 @@ export class AllquizComponent implements OnInit {
   selectedQuiz: any = null;
   history: any[] = [];
 
-  // Pagination
   currentPage: number = 1;
   pageSize: number = 4;
   totalPages: number = 0;
 
-  // Filtres
   selectedFormation: string = '';
   selectedChapitre: string = '';
   minScore: number | null = null;
@@ -35,10 +33,8 @@ scoreSortOrder: '' | 'asc' | 'desc' = '';
   ngOnInit(): void {
     this.quizService.getUserQuizzes().subscribe({
     next: (results: any[]) => {
-      // Récupérer tous les quiz
       const allQuizzes = results.map(r => r.quiz);
 
-      // Dédupliquer par id
       const uniqueQuizzesMap = new Map<number, any>();
       allQuizzes.forEach(q => {
         if (!uniqueQuizzesMap.has(q.id)) {
@@ -49,7 +45,6 @@ scoreSortOrder: '' | 'asc' | 'desc' = '';
       this.quizzes = Array.from(uniqueQuizzesMap.values());
       this.filteredQuizzes = [...this.quizzes];
 
-      // Récupérer formations et chapitres uniques pour les filtres
       this.formations = [...new Map(this.quizzes.map(q => [q.chapitre.formation.id, q.chapitre.formation])).values()];
       this.chapitres = [...new Map(this.quizzes.map(q => [q.chapitre.id, q.chapitre])).values()];
 
@@ -108,7 +103,6 @@ getQuizzesForCurrentPage(): any[] {
   openDetails(quiz: any): void {
     this.selectedQuiz = quiz;
 
-    // Charger l'historique du quiz pour l'utilisateur
    this.quizService.getUserQuizHistoryByQuiz(quiz.id).subscribe({
   next: (res) => {
     this.history = (res || []).map((r: any) => ({
@@ -126,7 +120,6 @@ getQuizzesForCurrentPage(): any[] {
   }
 });
 
-    // Ouvrir la modal
     const modalElement = document.getElementById('quizDetailsModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
@@ -155,21 +148,18 @@ downloadPdf(): void {
     let heightLeft = imgHeight;
     let position = 0;
 
-    const title = "Résultats des Quiz"; // Ton titre ici
+    const title = "Résultats des Quiz";
     const titleFontSize = 16;
     const titleMargin = 10;
 
-    // Ajouter le titre sur la première page
     pdf.setFontSize(titleFontSize);
     pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
 
-    // Ajouter l'image avec décalage pour le titre
     pdf.addImage(imgData, 'PNG', 0, titleMargin + 5, imgWidth, imgHeight);
     heightLeft -= pdfHeight;
 
     while (heightLeft > 0) {
       pdf.addPage();
-      // Ajouter le titre sur chaque nouvelle page
       pdf.setFontSize(titleFontSize);
       pdf.text(title, pdfWidth / 2, titleMargin, { align: 'center' });
 

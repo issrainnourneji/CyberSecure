@@ -18,11 +18,11 @@ export class RdvListComponent implements OnInit {
  appointments: RDVDto[] = [];
   errorMessage: string = '';
   selectedRDV: RDVDto | null = null;
-statusFilter: string = ''; // vide = aucun filtre par statut
+statusFilter: string = '';
 dateSort: string = 'asc';
   filteredAppointments: RDVDto[] = [];
-p: number = 1;              // page actuelle
-itemsPerPage: number = 6;    // RDVs par page
+p: number = 1;
+itemsPerPage: number = 6;
 totalPages: number = 1;
 
 calendarOptions: CalendarOptions = {
@@ -44,28 +44,24 @@ calendarOptions: CalendarOptions = {
   eventTextColor: 'white',
   eventBorderColor: 'transparent',
 
-  // Événement au clic
   eventClick: (info) => {
     const rdv = this.appointments.find(a => a.id.toString() === info.event.id);
     if (rdv) this.openModal(rdv);
   },
 
-  // Ajouter des classes selon le statut
   eventClassNames: (arg) => {
     const rdv = this.appointments.find(a => a.id.toString() === arg.event.id);
     return rdv ? [`fc-event-${rdv.status.toLowerCase()}`] : [];
   },
 
-  // Modernisation de l'affichage des jours
   dayCellClassNames: (arg) => {
     const today = new Date();
     if (arg.date.toDateString() === today.toDateString()) {
-      return ['fc-today-modern']; // jour actuel avec highlight
+      return ['fc-today-modern'];
     }
-    return ['fc-day-modern']; // style général pour tous les jours
+    return ['fc-day-modern'];
   },
 
-  // Format des titres
   views: {
     dayGridMonth: { titleFormat: { year: 'numeric', month: 'long' } },
     timeGridWeek: { titleFormat: { year: 'numeric', month: 'short', day: 'numeric' } }
@@ -85,12 +81,10 @@ calendarOptions: CalendarOptions = {
 applyFilters() {
   let temp = [...this.appointments];
 
-  // Filtrer par statut uniquement si un filtre est choisi
   if (this.statusFilter) {
     temp = temp.filter(r => r.status === this.statusFilter);
   }
 
-  // Trier par date
   temp.sort((a, b) => {
     const dateA = new Date(a.rdvdate).getTime();
     const dateB = new Date(b.rdvdate).getTime();
@@ -99,7 +93,6 @@ applyFilters() {
 
   this.filteredAppointments = temp;
 
-  // ⚡️ Réinitialiser la page à 1 et calculer totalPages
   this.p = 1;
   this.updateTotalPages();
 }
@@ -129,7 +122,7 @@ applyFilters() {
 
   this.appointments.forEach(rdv => {
     const rdvTime = new Date(rdv.rdvdate).getTime();
-    const reminderTime = rdvTime - 2 * 60 * 60 * 1000; // 2h avant
+    const reminderTime = rdvTime - 2 * 60 * 60 * 1000;
 
     if (reminderTime > now) {
       const delay = reminderTime - now;
@@ -147,11 +140,11 @@ applyFilters() {
   loadCalendarEvents() {
   this.calendarOptions.events = this.appointments.map(rdv => ({
     id: rdv.id.toString(),
-    title: ` ${rdv.status}`, // titre avec statut
+    title: ` ${rdv.status}`,
     start: rdv.rdvdate,
     color: rdv.status === 'PENDING' ? '#FFC107' :
            rdv.status === 'CONFIRMED' ? '#28A745' :
-           '#DC3545' // couleurs pour PENDING / CONFIRMED / CANCELLED
+           '#DC3545'
   }));
 }
 
@@ -165,15 +158,12 @@ confirmRDV(id: number): void {
   if (confirm('Voulez-vous confirmer ce rendez-vous ?')) {
     this.rdvService.confirmRDV(id).subscribe({
       next: () => {
-        // 🔥 Met à jour directement la liste complète des RDVs
         this.appointments = this.appointments.map(rdv =>
           rdv.id === id ? { ...rdv, status: 'CONFIRMED' } : rdv
         );
 
-        // 🔥 Met à jour le RDV affiché dans le modal
         this.selectedRDV = this.appointments.find(rdv => rdv.id === id) || null;
 
-        // 🔥 Réapplique les filtres pour que la liste filtrée se mette à jour
         this.applyFilters();
         this.loadCalendarEvents();
       },
@@ -194,7 +184,6 @@ get paginatedAppointments() {
 updateTotalPages() {
   this.totalPages = Math.ceil(this.filteredAppointments.length / this.itemsPerPage);
 }
-// Limiter les pages visibles dans la pagination (ex: max 3)
 getVisiblePages(): number[] {
   const visiblePages: number[] = [];
   let startPage = Math.max(this.p - 1, 1);

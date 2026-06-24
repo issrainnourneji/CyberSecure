@@ -7,7 +7,6 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* Bouton gradient rose #FF5369 */
 .btn-gradient {
   background: linear-gradient(45deg, #be323d, #d7424f);
   border: none;
@@ -20,7 +19,7 @@
   box-shadow: 0 5px 15px rgba(255, 83, 105, 0.4);
 }
 .alert-pink {
-  background-color: #ffd8df; /* rose clair */
-  color: #000; /* texte noir, tu peux changer selon le contraste */
-  border-color: #ffb6c1; /* bordure légèrement plus foncée si tu veux */
+  background-color: #ffd8df; 
+  color: #000;
+  border-color: #ffb6c1;
 }

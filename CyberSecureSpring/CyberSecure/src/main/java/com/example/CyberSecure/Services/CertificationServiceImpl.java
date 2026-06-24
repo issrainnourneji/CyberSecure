@@ -4,8 +4,6 @@ import com.example.CyberSecure.Entities.Certification;
 import com.example.CyberSecure.Entities.Formation;
 import com.example.CyberSecure.Entities.User;
 import com.example.CyberSecure.Repositories.CertificationRepository;
-import com.example.CyberSecure.Repositories.FormationRepository;
-import com.example.CyberSecure.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +41,6 @@ public class CertificationServiceImpl{
     }
 
     private String generateCertificateNumber(User user, Formation formation) {
-        // Exemple : CERT-UserId-FormationId-UUID
         return "CERT-" + user.getId() + "-" + formation.getId() + "-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 
@@ -68,12 +65,10 @@ public class CertificationServiceImpl{
         Certification cert = certificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Certification not found"));
 
-        // Mettre à jour les champs nécessaires
         if (updatedCert.getUserName() != null) cert.setUserName(updatedCert.getUserName());
         if (updatedCert.getUserAddress() != null) cert.setUserAddress(updatedCert.getUserAddress());
         if (updatedCert.getStatus() != null) cert.setStatus(updatedCert.getStatus());
 
-        // Optionnel : mettre à jour la formation ou l'utilisateur si nécessaire
         // cert.setFormation(updatedCert.getFormation());
         // cert.setUser(updatedCert.getUser());
 

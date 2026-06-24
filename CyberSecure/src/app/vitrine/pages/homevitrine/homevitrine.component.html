@@ -1,0 +1,309 @@
+<header class="header-style-1">
+  <div class="header-navbar">
+    <div class="container">
+
+<div class="text-center">
+  <div class="dropdown">
+    <button
+      class="btn btn-bordeaux dropdown-toggle"
+      type="button"
+      id="langDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
+      {{ currentLang.toUpperCase() }}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="langDropdown">
+      <li><a class="dropdown-item" (click)="changeLang('fr')">FR</a></li>
+      <li><a class="dropdown-item" (click)="changeLang('en')">EN</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+      <div class="d-flex align-items-center justify-content-between section-padding-top">
+
+        <div class="site-logo">
+          <a routerLink="/homepage">
+            <img src="../../../assets/images/logo (2).png" alt="" class="img-fluid" />
+          </a>
+        </div>
+
+        <div class="offcanvas-icon d-block d-lg-none">
+          <a (click)="toggleMenu()" class="nav-toggler">
+            <i class="fal fa-bars"></i>
+          </a>
+        </div>
+
+        <nav class="site-navbar ms-auto" [class.open]="isMenuOpen">
+
+          <ul class="primary-menu">
+            <li>
+              <a class="contact-link" routerLink="/solutions">{{ 'MENU.SOLUTIONS' | translate }}</a>
+              <ul class="submenu">
+                <li><a class="contact-link" routerLink="/prestations">Prestations</a></li>
+                <li><a class="contact-link" routerLink="/expertise">Expertises spécifiques</a></li>
+                <li><a class="contact-link" routerLink="/tarifs">Tarifs</a></li>
+                <li><a class="contact-link" routerLink="/diagnostic">Diagnostic RGPD offert</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="contact-link" routerLink="/about">{{ 'MENU.ENTREPRISE' | translate }}</a>
+              <ul class="submenu">
+                <li><a class="contact-link" routerLink="/qui-sommes-nous">Qui sommes-nous ?</a></li>
+                <li><a class="contact-link" routerLink="/nos-partenaires">Nos partenaires</a></li>
+                <li><a class="contact-link" routerLink="/ref&certif">Référencements</a></li>
+                <li><a class="contact-link" routerLink="/actualites">Actualités & presse</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="contact-link" routerLink="/blog">{{ 'MENU.BLOG' | translate }}</a>
+              <ul class="submenu">
+                <li><a class="contact-link" routerLink="/blog">Le blog</a></li>
+                <li><a class="contact-link" routerLink="/newsletters">Les newsletters</a></li>
+              </ul>
+            </li>
+
+            <li><a class="contact-link" routerLink="/offres">{{ 'MENU.OFFERS' | translate }}</a></li>
+
+            <li>
+              <a class="contact-link" routerLink="/temoignages">{{ 'MENU.Témoignages' | translate }}</a>
+              <ul class="submenu">
+                <li><a class="contact-link" routerLink="/temoignagesClients">Témoignages clients</a></li>
+                <li><a class="contact-link" routerLink="/temoignagesCollaborateurs">TémoignagesCollaborateurs</a></li>
+                <li><a class="contact-link" routerLink="/temoignagesPartenaires">Témoignages partenaires</a></li>
+              </ul>
+            </li>
+            <li><a class="contact-link" routerLink="/home">Elearn</a></li>
+            <li><a class="contact-link" routerLink="/contactpage">{{ 'MENU.CONTACT' | translate }}</a></li>
+          </ul>
+
+          <a (click)="closeMenu()" class="nav-close">
+            <i class="fal fa-times"></i>
+          </a>
+
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- SECTION HERO -->
+<section class="hero-section">
+
+  <!-- BOX CENTRÉE -->
+  <div class="content-box">
+
+    <h1 class="hero-title text-center">
+      GOUVERNER ET AMÉLIORER VOS <br>
+      PROCESSUS DE PROTECTION DES <br>
+      DONNÉES ET DE SÉCURITÉ
+    </h1>
+    <div class="d-flex align-items-start justify-content-center mt-4">
+  <div class="colored-line me-3"></div>
+
+  <p class="hero-subtext paragraph-text">
+    Vos consultants experts en cybersécurité et conformité RGPD.
+  </p>
+</div>
+
+    <div class="text-center mt-5">
+      <button routerLink="/solutions" class="btn btn-bordeaux px-4 py-2">Découvrir nos offres</button>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="sectionp section-padding" >
+    <div class="container container-grid">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <div class="heading text-center">
+                    <h2 class="popular-courses-title">NOS PRESTATIONS</h2>
+                  <h5 style="padding-bottom: 40px;text-align: left;">Vos prestataires en
+                    <span style="color:#7b0f18 ;">cybersécurité</span> et en
+                    <span style="color:#7b0f18 ;">conformité au RGPD</span>   basés en
+                    <span style="color:#7b0f18 ;">France</span>.</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title"><a href="#" class="text-decoration-none text-dark">AUDITS DE SÉCURITÉ</a></h5>
+                        <p class="card-text text-muted">Audits de sécurité & de conformité au RGPD</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title "><a href="#" class="text-decoration-none text-dark">ÉQUIPEMENTS DE SÉCURITÉ</a></h5>
+                        <p class="card-text text-muted">Benchmark, installation, durcissement de sécurité & automatisation</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux ">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title "><a href="#" class="text-decoration-none text-dark">SÉCURITÉ DU CODE LOGICIEL</a></h5>
+                        <p class="card-text text-muted">DevSecOps & pratiques SDL</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux ">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title"><a href="#" class="text-decoration-none text-dark">GOUVERNANCE CYBER GESTION DÉLÉGUÉE</a></h5>
+                        <p class="card-text text-muted">Cadrage stratégie, PSSI, ISO 27001, assistance à gestion de crise, RSSI externalisé à temps partagé</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux ">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title"><a href="#" class="text-decoration-none text-dark">RGPD & AI Act GESTION DÉLÉGUÉE</a></h5>
+                        <p class="card-text text-muted">Services de conformité au RGPD et à l'AI Act et DPO/AI Officer externalisé à temps partagé</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux ">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+                <div class="card shadow-sm h-100 border-0 flex-fill">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title"><a href="#" class="text-decoration-none text-dark">FORMATION</a></h5>
+                        <p class="card-text text-muted">En ligne & workshops</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-bordeaux ">En lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--  Course category End -->
+
+
+<section class=" section-padding-top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="section-heading text-center mb-50">
+                    <h2 class="font-lg popular-courses-title">ILS TÉMOIGNENT</h2>
+                    <h5 style="text-align: left;">Découvrez ce que <span style="color: #7b0f18; ">nos clients</span> disent de nous.</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-wrapper">
+
+    <div class="nav-arrow left-arrow" (click)="goPrev()">&#8249;</div>
+
+    <div class="testimonial-content-flex">
+
+        <div class="testimonial-photo">
+            <img [src]="testimonials[current].image" alt="">
+        </div>
+
+        <div class="testimonial-text-block">
+            <h3>
+                <span class="name">{{ testimonials[current].name }}</span>,
+                {{ testimonials[current].role }}
+            </h3>
+
+            <h5 class="testimonial-text">
+                "{{ testimonials[current].text }}"
+            </h5>
+
+            <button class="testimonial-btn">Lire le témoignage</button>
+        </div>
+    </div>
+
+    <div class="nav-arrow right-arrow" (click)="goNext()">&#8250;</div>
+
+    <div class="testimonial-dots">
+        <span
+            class="dot"
+            *ngFor="let t of testimonials; let i = index"
+            [class.active]="i === current"
+            (click)="goToSlide(i)">
+        </span>
+    </div>
+
+</div>
+
+
+    </div>
+</section>
+<section class="content-section">
+  <div class="content-box clone-box">
+
+    <h1 class="hero-title text-center">
+      DÉCOUVREZ NOTRE ÉQUIPE
+    </h1>
+
+<div class="d-flex align-items-start justify-content-center mt-4">
+  <div class="colored-line me-3"></div>
+
+  <p class="hero-subtext paragraph-text">
+    L'équipe de Muntu CyberSecure est composée d'experts en cybersécurité, en infrastructures réseaux
+    et en conformité réglementaire, mais surtout de passionnés ! Découvrez qui nous sommes !
+  </p>
+</div>
+
+    <div class="text-center mt-5">
+      <button routerLink="/qui-sommes-nous" class="btn btn-bordeaux px-4 py-2">Découvrir</button>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sectionpp">
+<div class="container container-grid">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="heading text-center">
+                    <h2 class="popular-courses-title ">RETROUVEZ-NOUS</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+ <div class="map-responsive mt-4">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2684.109468395117!2d-1.5082699!3d47.2761132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805efdbb6b251cd%3A0x4059115546b7195d!2sMuntu%20Informatique!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"
+      style="border:0; width:100%; height:100%; min-height:400px;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<app-footervitrine></app-footervitrine>

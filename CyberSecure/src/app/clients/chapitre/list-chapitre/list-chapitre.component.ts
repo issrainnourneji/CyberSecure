@@ -89,7 +89,7 @@ get paginatedChapitres(): any[] {
   return this.filteredChapitres.slice(startIndex, endIndex);
 }
 onSearchChange() {
-  this.p = 1; // revenir à la page 1 à chaque recherche
+  this.p = 1;
 }
 showLockedAlert() {
   window.alert("⚠️ Vous devez terminer le chapitre précédent avec succès avant de pouvoir accéder à celui-ci.");
@@ -133,12 +133,10 @@ loadChapitresAndResults() {
       next: data => {
         this.formation = data;
 
-        // Une fois les chapitres chargés, récupérer les résultats pour chacun
         this.formation.chapitres.forEach((chapitre: any) => {
           this.quizService.getUserQuizHistoryByChapitre(chapitre.id).subscribe({
             next: (res: any[]) => {
               if (res.length > 0) {
-                // Prendre le dernier résultat
                 const lastResult = res.sort((a, b) =>
                   new Date(b.datePassed).getTime() - new Date(a.datePassed).getTime()
                 )[0];
@@ -157,7 +155,7 @@ isChapterEnabled(chapitre: any): boolean {
   const chapitres = this.formation?.chapitres || [];
   const globalIndex = chapitres.findIndex((c:any) => c.id === chapitre.id);
 
-  if (globalIndex === 0) return true; // premier chapitre réel
+  if (globalIndex === 0) return true;
   const previousChapter = chapitres[globalIndex - 1];
   return this.passedChapitres.includes(previousChapter.id);
 }
@@ -165,7 +163,7 @@ isChapterEnabled(chapitre: any): boolean {
 
 areAllChapitresPassed(): boolean {
   if (!this.formation?.chapitres || this.formation.chapitres.length === 0) {
-    return false; // pas de chapitres → pas de certification
+    return false;
   }
 
   return this.formation.chapitres.every((chapitre: any) =>
@@ -173,12 +171,10 @@ areAllChapitresPassed(): boolean {
   );
 }
 shouldShowCertificationButton(): boolean {
-  // Vérifie si la formation est chargée et contient au moins un chapitre
   if (!this.formation?.chapitres || this.formation.chapitres.length === 0) {
     return false;
   }
 
-  // Vérifie si TOUS les chapitres ont un résultat de quiz avec success = true
   const allChaptersPassed = this.formation.chapitres.every((chapitre: any) =>
     this.quizResultsMap[chapitre.id]?.success === true
   );
@@ -199,7 +195,6 @@ obtenirCertification() {
     .subscribe(
       res => {
         console.log("Certification générée :", res);
-        // Redirection vers la page de visualisation du certificat
         this.router.navigate(['/mainUser/certification', res.id]);
       },
       err => {

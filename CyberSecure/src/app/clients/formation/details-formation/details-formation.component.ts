@@ -85,7 +85,7 @@ ngOnInit(): void {
   closeModal() {
     this.modalVisible = false;
     if (this.modalCallback) {
-      this.modalCallback(); // exécute la redirection ou autre action
+      this.modalCallback();
     }
   }
 loadNumberOfStudents() {
@@ -101,7 +101,6 @@ loadUsers(): void {
     next: (response) => {
       this.users = response;
 
-      // 🔹 Vérifier pour chaque user si il a une certif pour cette formation
       this.users.forEach(user => {
         this.certificationService.getCertificationsByUserAndFormation(user.id, this.formationId)
           .subscribe({

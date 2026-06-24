@@ -117,40 +117,33 @@ public class FormationServiceImpl {
 
     @Transactional
     public void deleteFormationWithAllDependencies(Long formationId) {
-        // Récupérer la formation
         Formation formation = formationRepository.findById(formationId)
                 .orElseThrow(() -> new RuntimeException("Formation introuvable"));
 
-        // Supprimer les certificats liés à cette formation
         List<Certification> certifs = certificationRepository.findByFormation(formation);
         if (!certifs.isEmpty()) {
             certificationRepository.deleteAll(certifs);
         }
 
-        // Supprimer les items du panier
         cartItemRepository.deleteByFormationId(formationId);
 
-        // Supprimer les résultats des quiz
         for (Chapitre chapitre : formation.getChapitres()) {
             Quiz quiz = chapitre.getQuiz();
             if (quiz != null) {
                 List<QuizResult> results = quizResultRepository.findByQuizId(quiz.getId());
                 for (QuizResult qr : results) {
-                    qr.getUserAnswers().clear(); // vider la Map
+                    qr.getUserAnswers().clear();
                     quizResultRepository.delete(qr);
                 }
-                // Supprimer le quiz lui-même, ce qui supprimera questions et réponses grâce au cascade
-                chapitre.setQuiz(null); // détacher temporairement pour éviter TransientObjectException
+                chapitre.setQuiz(null);
                 quizRepository.delete(quiz);
             }
         }
 
-        // Détacher les chapitres de la formation pour éviter les TransientObjectException
         for (Chapitre chapitre : formation.getChapitres()) {
             chapitre.setFormation(null);
         }
 
-        // Supprimer la formation (cascade supprimera chapitres et slides)
         formationRepository.delete(formation);
     }
     public List<String> getAllCategories() {

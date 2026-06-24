@@ -1,8 +1,8 @@
 .contact-link {
-  color: black; /* Blanc par défaut */
+  color: black;
   text-decoration: none;
-  cursor: pointer; /* Curseur main */
-  transition: color 0.3s ease; /* Animation fluide */
+  cursor: pointer;
+  transition: color 0.3s ease;
   font-weight: 500;
 }
 
@@ -13,13 +13,13 @@
 }
 .about-features {
   display: flex;
-  flex-direction: column; /* alignement vertical */
-  gap: 10px; /* espace entre les items */
+  flex-direction: column;
+  gap: 10px; 
 }
 
 .feature-item {
   display: flex;
-  align-items: center; /* icône et texte sur la même ligne */
+  align-items: center;
 }
 
 .feature-icon {

@@ -1,0 +1,150 @@
+.form-wrapper {
+    padding-left: 100px;
+    padding-right: 80px;
+}
+
+@media (max-width: 768px) {
+    .form-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    padding: 12px 5px;
+    font-size: 16px;
+    background: transparent;
+    box-shadow: none !important;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-bottom: 2px solid #000;
+}
+
+.contact-form ::placeholder {
+    color: #000;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.contact-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10'%3E%3Cpath fill='black' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 30px;
+}
+
+.form-row .col-lg-6,
+.form-row .col-lg-12 {
+    margin-bottom: 25px;
+}
+
+.contact-form .form-check-label {
+    font-size: 14px;
+    color: #333;
+    opacity: 0.8;
+}
+
+.contact-image {
+    background: url('../../../../assets/images/news/istockphoto-512491235-612x612.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    min-height: 700px;
+}
+
+.map-responsive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.map-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.btn-bordeaux {
+  background-color: #7b0f18;
+  color: white;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.btn-bordeaux:hover {
+  background-color: #be323d;
+}
+
+.text-p{
+  padding-top: 30px;
+  padding-bottom: 25px;
+    max-width: 500px;
+  margin-left: 0px; 
+  text-align: justify;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    border: none;
+    border-bottom: 2px solid #000;
+    border-radius: 0;
+    padding: 12px 5px;
+    font-size: 16px;
+    background: transparent;
+    box-shadow: none !important;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:hover,
+.contact-form select:hover,
+.contact-form textarea:hover,
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    border-bottom: 2px solid #7b0f18;
+    outline: none;
+}
+
+.contact-form ::placeholder {
+    color: #000;
+    opacity: 0.6;
+    font-weight: 300;
+}
+.contact-link {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+.contact-link:hover {
+  color: #be323d ;
+}
+.primary-menu .current > .contact-link {
+  color: #be323d ;
+  font-weight: 600;
+}

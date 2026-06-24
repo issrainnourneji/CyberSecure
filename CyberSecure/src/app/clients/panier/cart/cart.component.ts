@@ -41,7 +41,7 @@ getTotalHT(): number {
 }
 
 getTVA(): number {
-  return this.getTotalHT() * 0.05; // 5% TVA
+  return this.getTotalHT() * 0.05; 
 }
 
 getTotalTTC(): number {

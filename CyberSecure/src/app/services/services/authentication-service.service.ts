@@ -16,7 +16,6 @@ export class AuthenticationServiceService extends BaseService {
     super(config,http);
    }
 
-   /** Path part for operation `confirm()` */
   static readonly ConfirmPath = '/auth/activate-account';
   confirm$Response(params: Confirm$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return confirm(this.http, this.rootUrl, params, context);

@@ -11,7 +11,6 @@ export class UserCertifComponent implements OnInit {
 
   constructor(private certificationService: CertificationService) {}
 
-// user-certif.component.ts
 ngOnInit(): void {
   this.certificationService.getMyCertifications()
     .subscribe({

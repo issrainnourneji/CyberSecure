@@ -27,7 +27,6 @@ async downloadCertification() {
   const element = document.getElementById('certification-content');
   if (!element) return;
 
-  // Import dynamique de html2pdf
   const html2pdf = (await import('html2pdf.js')).default;
 
   const options = {
@@ -35,7 +34,7 @@ async downloadCertification() {
     filename: 'certification.pdf',
     image: { type: 'jpeg' as const, quality: 0.98 },
     html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' as const } // ✅ 'as const' pour fixer le type
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' as const } 
   };
 
   html2pdf().set(options).from(element).save();

@@ -38,7 +38,6 @@ itemsPerPage: number = 4;
     this.loadFormations();
   }
 
-  // Charger tous les slides
   loadSlides(): void {
     this.slideService.getAllSlides().subscribe({
       next: (data) => {
@@ -56,7 +55,7 @@ this.updatePagination();
   updatePagination(): void {
   this.totalPages = Math.ceil(this.filteredSlides.length / this.itemsPerPage);
   if (this.p > this.totalPages) {
-    this.p = this.totalPages || 1; // Sécurité si on supprime des éléments
+    this.p = this.totalPages || 1;
   }
 }
 
@@ -82,7 +81,7 @@ onFormationChange() {
     this.chapitreService.getChapitresByFormation(this.selectedFormationId).subscribe({
       next: data => {
         this.chapitres = data;
-        this.selectedChapitreId = null; // reset chapitre
+        this.selectedChapitreId = null;
         this.applyFilter();
       },
       error: err => console.error('Erreur chargement chapitres', err)
@@ -94,7 +93,6 @@ onFormationChange() {
   }
 }
 
-// Filtrage par chapitre
 onChapitreChange() {
   this.applyFilter();
 }
@@ -105,11 +103,10 @@ applyFilter() {
         && (!this.selectedChapitreId || slide.chapitre?.id === this.selectedChapitreId);
   });
   this.p = 1;
-  this.updatePagination(); // ✅ recalcul automatique
+  this.updatePagination();
 }
 
 
-  // --- AJOUTER SLIDE ---
   openAddSlideModal(): void {
     this.newSlide = {};
     this.newSelectedImage = null;
@@ -143,19 +140,17 @@ this.addSlideModal.show();
     formData.append('image', this.newSelectedImage);
   }
 
-  // Utiliser le chapitre sélectionné
   this.slideService.addSlide(this.selectedChapitreId, formData).subscribe({
     next: () => {
       this.loadSlides();
-      this.addSlideModal.hide(); // fermer le modal
+      this.addSlideModal.hide();
     },
     error: err => console.error('Erreur ajout slide', err)
   });
 }
 
-  // --- MODIFIER SLIDE ---
  editSlide(slide: any): void {
-  this.selectedSlide = { ...slide }; // clone pour ne pas modifier directement
+  this.selectedSlide = { ...slide };
   this.selectedImage = null;
 
   const modal = document.getElementById('editSlideModal');
@@ -169,20 +164,19 @@ onImageSelected(event: any): void {
   const file = event.target.files[0];
   if (file) {
     this.selectedImage = file;
-    this.removeImage = false; // nouvelle image → ne pas supprimer
+    this.removeImage = false;
   } else {
     this.selectedImage = null;
-    this.removeImage = true; // aucune image → suppression demandée
+    this.removeImage = true;
   }
 }
 
 
-// Appelé si l’utilisateur clique sur "Supprimer l'image"
 onRemoveImage(): void {
   this.selectedImage = null;
-  this.removeImage = true;           // marque l'image pour suppression
+  this.removeImage = true;
   if (this.selectedSlide) {
-    this.selectedSlide.imageUrl = ''; // côté client l'image disparaît
+    this.selectedSlide.imageUrl = '';
   }
 }
 
@@ -193,7 +187,6 @@ onSubmitEditSlide(): void {
 
   const formData = new FormData();
 
-  // Champs texte
   const fields = [
     'titre',
     'sousTitre',
@@ -206,14 +199,12 @@ onSubmitEditSlide(): void {
   ];
   fields.forEach(f => formData.append(f, this.selectedSlide[f] || ''));
 
-  // 🖼️ Gestion image
   if (this.selectedImage) {
-    formData.append('image', this.selectedImage); // nouvelle image
+    formData.append('image', this.selectedImage);
   } else if (this.removeImage) {
-    formData.append('removeImage', 'true'); // indique qu'on veut supprimer
+    formData.append('removeImage', 'true'); 
   }
 
-  // 🔄 Envoi
   this.http.put(`http://localhost:8080/slide/${this.selectedSlide.id}`, formData).subscribe({
     next: () => {
       this.loadSlides();
@@ -228,7 +219,6 @@ onSubmitEditSlide(): void {
 
 
 
-  // --- SUPPRIMER SLIDE ---
  deleteSlide(id: number): void {
   if (!confirm('Voulez-vous vraiment supprimer ce slide ?')) return;
 
@@ -245,7 +235,6 @@ getVisiblePages(): number[] {
   const total = this.totalPages;
 
   if (total <= 5) {
-    // Affiche tout si peu de pages
     for (let i = 1; i <= total; i++) pages.push(i);
   } else {
     let start = Math.max(1, this.p - 2);

@@ -20,7 +20,6 @@
     z-index: -1;
 }
 
-/* Feature text */
 .feature-text h2 {
     font-size: 1.5rem;
     margin-top: 60px;
@@ -28,7 +27,6 @@
     line-height: 1.3;
 }
 
-/* Bouton gradient */
 .btn-gradient {
     background: linear-gradient(135deg, #be323d, #430e2b);
     color: #fff;
@@ -46,7 +44,6 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Cards */
 .card {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -70,13 +67,11 @@
     flex-grow: 1;
 }
 
-/* Card title et texte */
 
-/* Ligne dégradée sous le titre */
 .card-title {
     position: relative;
     font-weight: 400;
-    margin-bottom: 35px; /* espace entre titre et texte */
+    margin-bottom: 35px;
 }
 
 .card-title::after {
@@ -91,11 +86,10 @@
 
 
 .card-text {
-    color: #6c757d; /* gris clair */
+    color: #6c757d;
     flex-grow: 1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .feature-text h2 {
         font-size: 1.5rem;
@@ -105,7 +99,6 @@
         font-size: 0.9rem;
     }
 }
-/* ✅ Responsive ajustements sans modifier le design visuel */
 @media (max-width: 992px) {
   .banner-style1 {
     padding: 250px 0 80px; /* réduire hauteur */
@@ -150,7 +143,7 @@
   }
 }
 .features-intro .feature-inner1 {
-  margin-top: 50px; /* espace normal au-dessus */
+  margin-top: 50px;
 }
 .map-responsive {
   position: relative;
@@ -179,7 +172,6 @@
   justify-content: center;
 }
 
-/* EXACTEMENT ton contact form */
 .newsletter-form.contact-form {
   background: linear-gradient(135deg, #fcf9f9, #faf9fa);
   padding: 22px !important;

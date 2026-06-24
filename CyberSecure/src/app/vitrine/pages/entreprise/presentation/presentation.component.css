@@ -1,0 +1,270 @@
+
+.btn-bordeaux {
+  background-color: #7b0f18;
+  color: white;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.btn-bordeaux:hover {
+  background-color: #be323d;
+}
+.contact-link {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #be323d ;
+}
+.primary-menu .current > .contact-link {
+  color: #be323d ;
+  font-weight: 600;
+}
+
+.hero-section {
+  background-image: url('../../../../../assets/images/news/istockphoto-901359622-612x612.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 75vh;
+  position: relative;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.title-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  top: 60%;
+  z-index: 2;
+}
+
+
+.title-background {
+  background: #7b0f18;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -20px;
+  right: -25px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.title-box {
+  background: #f2f2f2;
+  padding: 65px 50px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+  max-width: 750px;
+  min-width: 550px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.title-line {
+  width: 250px;
+  height: 2.5px;
+  background: #7b0f18;
+}
+.sectionp{
+  padding-top: 140px;
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+      background: #f5f5f5;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    flex-grow: 1;
+}
+
+
+.card-text {
+    color: #6c757d;
+    flex-grow: 1;
+
+}
+
+
+@media (max-width: 768px) {
+    .sectionp {
+        padding-top: 300px;
+    }
+
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+}
+.card-title {
+    position: relative;
+}
+.card-text::before {
+    content: "";
+    display: block;
+    width: 85%;
+    height: 2%;
+    margin: 8px auto 0;
+    border-radius: 2px;
+    background: #be323d;
+    margin-bottom: 30px;
+
+}
+@media (max-width: 768px) {
+    .card-title {
+        min-height: auto;
+    }
+}
+.section-space{
+padding-left: 200px;
+  padding-right: 200px;
+}
+.titlep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+
+}
+
+.titlep .red {
+  color: #7b0f18;
+}
+
+
+
+.cases {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+
+.cases-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  padding-top: 140px;
+}
+
+.case {
+  width: 420px;
+  text-align: center;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 30px;
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  margin-bottom: 25px;
+  margin-left: 20%;
+  margin-right: 20%;
+  color: #be323d;
+}
+
+
+.role-icon {
+  margin: 2px 0 10px;
+}
+
+.role-icon img {
+  width: 80px;
+  height: auto;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #222;
+  margin: 0;
+  text-align: justify;
+}
+
+.more-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+
+  color: #2b2b2b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.plus-icon {
+  width: 38px;
+  height: 38px;
+  border: 2px solid #be323d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+   cursor: pointer;
+}
+
+.more-info h6 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+.btn-center {
+  display: flex;
+  justify-content: center;
+margin-top: 30px;}

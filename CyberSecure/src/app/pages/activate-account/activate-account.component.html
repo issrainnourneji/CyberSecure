@@ -1,10 +1,8 @@
-<!-- Activation Section -->
 <section class="section-padding bg-gray">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-xl-6 col-lg-8">
 
-        <!-- Success Message -->
         <div *ngIf="submitted else codeForm" class="text-center p-4 bg-white rounded shadow-sm">
           <div *ngIf="isOkay; else activationError">
             <h2 class="mb-3 text-success">Activation Successful!</h2>
@@ -12,7 +10,6 @@
             <button class="btn btn-primary" (click)="redirectToLogin()">Go to Login</button>
           </div>
 
-          <!-- Error Message -->
           <ng-template #activationError>
             <div class="text-center">
               <h2 class="mb-3 text-danger">Activation Failed!</h2>
@@ -22,7 +19,6 @@
           </ng-template>
         </div>
 
-        <!-- Code Form -->
         <ng-template #codeForm>
           <div class="text-center p-4 bg-white rounded shadow-sm">
             <h2 class="mb-4">Type your activation code</h2>

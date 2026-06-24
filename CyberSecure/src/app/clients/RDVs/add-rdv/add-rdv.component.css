@@ -1,4 +1,3 @@
-/* Dégradés */
 .bg-gradient-blue {
   background: linear-gradient(90deg, #912943 0%, #681b37 100%);
 }
@@ -13,7 +12,6 @@
   transform: translateY(-2px);
 }
 
-/* Pagination arrondie */
 .pagination-rounded .page-link {
   border-radius: 50px;
   margin: 0 5px;
@@ -31,7 +29,6 @@
   border-color: #be323d;
 }
 
-/* FullCalendar custom */
 .fc .fc-toolbar-title {
   color: #193152;
   font-weight: 600;
@@ -64,7 +61,6 @@
   background: #f75b70;
 }
 
-/* Dégradés cohérents */
 .bg-gradient-pink {
   background: linear-gradient(90deg, #912943, #681b37);
 }
@@ -90,7 +86,6 @@
   background: linear-gradient(90deg, #be323d, #9c4f62);
 }
 
-/* Champs du formulaire */
 .modal-body .form-control,
 .modal-body .form-select {
   border: 1px solid #dee2e6;
@@ -102,7 +97,6 @@
   box-shadow: 0 0 0 0.25rem rgba(85, 17, 44, 0.25);
 }
 
-/* Titres et modals */
 .modal-content {
   overflow: hidden;
 }
